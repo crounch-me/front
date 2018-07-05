@@ -1,22 +1,21 @@
 <template>
-  <h2>Welcome to the crounch application</h2>
+  <h2>{{ msg }}</h2>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'hello',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      msg: 'Welcome to the Crounch application',
     };
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
+<style>
+h2 {
   font-weight: normal;
 }
-
 </style>
