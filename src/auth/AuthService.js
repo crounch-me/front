@@ -20,7 +20,7 @@ export default class AuthService {
     redirectUri: AUTH_CONFIG.callbackUrl,
     audience: `https://crounch.com`,
     responseType: 'token id_token',
-    scope: 'openid email first_name last_name',
+    scope: 'openid email',
   })
 
   login() {
@@ -42,9 +42,6 @@ export default class AuthService {
   setSession(authResult) {
     // Set the time that the access token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-
-    // eslint-disable-next-line no-console
-    console.log(authResult.idToken)
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
