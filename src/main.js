@@ -3,7 +3,17 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
+axios.interceptors.request.use(function (config) {
+  config.headers["Authorization"] = `Bearer ${localStorage.getItem('id_token')}`
+  return config;
+}, function (error) {
+  return error
+});
+
+Vue.use(VueAxios, axios)
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
