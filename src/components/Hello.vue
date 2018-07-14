@@ -1,20 +1,23 @@
 <template>
-  <h2>{{ msg }}</h2>
+  <div>
+    <h4 v-if="authenticated">
+      Hello there !
+    </h4>
+    <h4 v-if="!authenticated">
+      Hep ! I don't know who you are !!
+    </h4>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'hello',
-  data() {
-    return {
-      msg: 'Welcome to the Crounch application',
-    };
-  },
+  props: ['authenticated']
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
 h2 {
   font-weight: normal;
 }

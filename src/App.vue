@@ -1,18 +1,41 @@
 <template>
   <div id="app">
     <header>
-      <span>Crounch</span>
+      <span>Crounch 
+        <a v-if="!authenticated" @click="auth.login()">Log In</a>
+        <a v-if="authenticated" @click="auth.logout()">Log out</a>
+      </span>
     </header>
     <main>
-      <h1>Crounch application</h1>
-      <router-view></router-view>
+      <router-view
+        :auth="auth" 
+        :authenticated="authenticated"></router-view>
     </main>
   </div>
 </template>
 
 <script>
+import AuthService from './auth/AuthService'
+
+const auth = new AuthService()
+
+const { login, logout, authenticated, authNotifier } = auth
+
 export default {
   name: 'app',
+    data () {
+    authNotifier.on('authChange', authState => {
+      this.authenticated = authState.authenticated
+    })
+    return {
+      auth,
+      authenticated,
+    }
+  },
+  methods: {
+    login,
+    logout,
+  }
 };
 </script>
 
