@@ -14,3 +14,4 @@ yarn-error.log*
 *.sln
 
 package-lock.json
+auth0-variables.js
