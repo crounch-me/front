@@ -1,20 +1,40 @@
 <template>
-  <h2>{{ msg }}</h2>
+  <div>
+    <h4 v-if="authenticated">
+      Hello there !
+    </h4>
+    <h4 v-if="!authenticated">
+      Hep ! I don't know who you are !!
+    </h4>
+    <h3>{{msg}}</h3>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'hello',
+  name: "hello",
+  props: ["authenticated"],
   data() {
     return {
-      msg: 'Welcome to the Crounch application',
+      msg: ""
     };
   },
+  mounted() {
+    if (!this.authenticated) {
+      this.axios.get("http://localhost:3000/_health").then(response => {
+        this.msg = response.data.status;
+      });
+    } else {
+      this.axios.get("http://localhost:3000/_health/private").then(response => {
+        this.msg = response.data.status;
+      });
+    }
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
 h2 {
   font-weight: normal;
 }

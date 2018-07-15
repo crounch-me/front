@@ -13,7 +13,11 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs"
   },
   "dependencies": {
+    "auth0-js": "^9.6.1",
+    "axios": "^0.18.0",
+    "eventemitter3": "^3.1.0",
     "vue": "^2.5.2",
+    "vue-axios": "^2.1.2",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
