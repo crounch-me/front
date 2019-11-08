@@ -8,7 +8,8 @@ module.exports = function (config) {
       'src/**/*.vue',
       '!src/**/*.spec.ts',
       '!src/registerServiceWorker.ts',
-      '!src/main.ts'
+      '!src/main.ts',
+      '!src/store/index.ts'
     ],
     mutator: 'vue',
     testRunner: 'jest',
@@ -18,7 +19,7 @@ module.exports = function (config) {
     reporters: ['progress', 'clear-text', 'html'],
     coverageAnalysis: 'off',
     thresholds: {
-      break: 95,
+      break: 90,
       high: 99,
       low: 97
     }
