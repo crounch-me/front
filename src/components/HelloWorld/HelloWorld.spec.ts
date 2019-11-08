@@ -1,13 +1,19 @@
-import { shallowMount } from '@vue/test-utils';
-import HelloWorld from './HelloWorld.vue';
+import HelloWorld from '@/components/HelloWorld/HelloWorld.vue';
+import { shallowComponent } from '../../../utils/test';
 
 describe('HelloWorld', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message';
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg }
-    });
+  const msg = 'new message';
+  let wrapper: any;
+
+  beforeEach(() => {
+    wrapper = shallowComponent(HelloWorld, { msg });
+  });
+
+  it('Should init component with the right name', () => {
+    expect(wrapper.props(''));
+  });
+
+  it('Should render message passed in props', () => {
     expect(wrapper.text()).toMatch(msg);
   });
 });
-

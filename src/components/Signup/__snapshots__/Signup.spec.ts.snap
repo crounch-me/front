@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Signup Should render. 1`] = `
+<form>
+  <div class="error">Please enter a valid email.</div> <input type="email" placeholder="Email"> <input type="password" placeholder="Password"> <input type="submit" value="S'inscrire">
+</form>
+`;

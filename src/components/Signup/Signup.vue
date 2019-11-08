@@ -7,19 +7,16 @@
   </form>
 </template>
 
-<script>
-export default {
-  name: 'signup',
-  data() {
-    return {
-      email: '',
-      password: ''
-    }
-  },
-  computed: {
-    error() {
-      return this.email.trim().length < 3;
-    }
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+
+@Component
+export default class Signup extends Vue {
+  email: string = '';
+  password: string = '';
+
+  get error(): boolean {
+    return this.email.length < 3;
   }
-};
+}
 </script>

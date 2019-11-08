@@ -7,6 +7,7 @@
     "build": "vue-cli-service build",
     "test": "vue-cli-service test:unit --watch",
     "test:ci": "vue-cli-service test:unit",
+    "test:mutation": "stryker run",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -19,6 +20,11 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@stryker-mutator/core": "^2.2.1",
+    "@stryker-mutator/html-reporter": "^2.2.1",
+    "@stryker-mutator/jest-runner": "^2.2.1",
+    "@stryker-mutator/typescript": "^2.2.1",
+    "@stryker-mutator/vue-mutator": "^2.2.1",
     "@types/jest": "^24.0.11",
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-eslint": "^4.0.0",
