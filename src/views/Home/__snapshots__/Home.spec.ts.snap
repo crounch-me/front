@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Should render. 1`] = `
+<div class="home">
+  <helloworld-stub msg="Do you want to Crounch ?"></helloworld-stub>
+  <signup-stub></signup-stub>
+</div>
+`;

@@ -3,7 +3,8 @@ node_js:
   - "10"
 script:
   - npm i
-  - npm run test
+  - npm run test:ci
+  - npm run test:mutation
 before_deploy:
   - openssl aes-256-cbc -K $encrypted_349a92424679_key -iv $encrypted_349a92424679_iv
     -in deploy_rsa-front.enc -out /tmp/deploy_rsa-front -d

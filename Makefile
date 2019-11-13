@@ -22,8 +22,28 @@ bump-version:
 		git push origin master; \
 		git push --tags
 
+.PHONY: build
+build:
+	@echo "+ $@"
+	npm run build
+
 .PHONY: build-image
 build-image:
 	@echo "+ $@"
 	docker build -f containers/Dockerfile -t $(APP_NAME):$(VERSION) .
 	docker tag $(APP_NAME):$(VERSION) $(DOCKER_USER)/$(APP_NAME):$(VERSION)
+
+.PHONY: run
+run: run-dependencies run-app
+
+.PHONY: run-app
+run-app:
+	@echo "+ $@"
+	npm run serve
+
+.PHONY: run-dependencies
+run-dependencies:
+	@echo "+ $@"
+	@docker-compose -p $(APP_NAME) -f containers/docker-compose.dependencies.yml down || true;
+	@docker-compose -p $(APP_NAME) -f containers/docker-compose.dependencies.yml pull;
+	@docker-compose -p $(APP_NAME) -f containers/docker-compose.dependencies.yml up -d --build
