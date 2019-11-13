@@ -1,16 +1,13 @@
 import { Wrapper } from '@vue/test-utils';
 import { when } from 'jest-when';
-import axios from 'axios';
 
+import { signup } from '@/api/user';
 import Signup from '@/components/Signup/Signup.vue';
-import { shallowComponent } from '../../utils/test';
-import { validateEmail } from '../../utils/form-validation';
+import { validateEmail } from '@/utils/form-validation';
+import { shallowComponent } from '@/utils/test';
 
-jest.mock('axios', () => ({
-  post: jest.fn(),
-}));
-
-jest.mock('../../utils/form-validation')
+jest.mock('@/api/user');
+jest.mock('@/utils/form-validation');
 
 describe('Signup', () => {
   let wrapper: Wrapper<Signup>;
@@ -18,9 +15,8 @@ describe('Signup', () => {
   const password = 'password';
 
   beforeEach(() => {
-    (axios.post as jest.Mock).mockClear();
-    (axios.post as jest.Mock).mockReturnValue(Promise.resolve({}));
     wrapper = shallowComponent(Signup);
+    (signup as jest.Mock).mockResolvedValue({});
   });
 
   afterEach(() => {
@@ -80,7 +76,7 @@ describe('Signup', () => {
 
       wrapper.find('input[type=submit]').trigger('click');
 
-      expect(axios.post as jest.Mock).not.toHaveBeenCalled();
+      expect(signup as jest.Mock).not.toHaveBeenCalled();
     });
 
     it('Should not call api when password is in error and not email.', () => {
@@ -89,7 +85,7 @@ describe('Signup', () => {
 
       wrapper.find('input[type=submit]').trigger('click');
 
-      expect(axios.post as jest.Mock).not.toHaveBeenCalled();
+      expect(signup as jest.Mock).not.toHaveBeenCalled();
     });
 
     it('Should call api with right parameters when everything is valid.', () => {
@@ -98,7 +94,7 @@ describe('Signup', () => {
 
       wrapper.find('[type=submit]').trigger('click');
 
-      expect(axios.post as jest.Mock).toHaveBeenCalledWith('http://localhost:3000/users', { email, password });
+      expect(signup as jest.Mock).toHaveBeenCalledWith(email, password);
     });
 
     it('Should display success message when user has signed up.', done => {
