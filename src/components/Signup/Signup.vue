@@ -13,7 +13,8 @@
 import axios from 'axios';
 
 import { Component, Vue } from 'vue-property-decorator';
-import { validateEmail } from '../../utils/form-validation';
+import { validateEmail } from '@/utils/form-validation';
+import { signup } from '@/api/user';
 
 @Component
 export default class Signup extends Vue {
@@ -25,10 +26,7 @@ export default class Signup extends Vue {
     if (!this.isEmailValid || !this.isPasswordValid) {
       return;
     }
-    axios.post('http://localhost:3000/users', {
-      email: this.email,
-      password: this.password,
-    }).then(() => { this.signupSuccess = true });
+    signup(this.email, this.password).then(() => { this.signupSuccess = true });
   }
 
   get isEmailValid(): boolean {
