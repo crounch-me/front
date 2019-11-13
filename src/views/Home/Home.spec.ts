@@ -1,4 +1,4 @@
-import { shallowComponent } from '../../../utils/test';
+import { shallowComponent } from '../../utils/test';
 import Home from './Home.vue';
 
 describe('Home', () => {

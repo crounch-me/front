@@ -1,5 +1,5 @@
 import HelloWorld from '@/components/HelloWorld/HelloWorld.vue';
-import { shallowComponent } from '../../../utils/test';
+import { shallowComponent } from '../../utils/test';
 
 describe('HelloWorld', () => {
   const msg = 'new message';
