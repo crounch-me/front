@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/Sehsyha/crounch-front/compare/0.4.0...0.5.0) (2019-11-14)
+
+
+### Features
+
+* add user login ([#16](https://github.com/Sehsyha/crounch-front/issues/16)) ([ab1732b](https://github.com/Sehsyha/crounch-front/commit/ab1732b))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/Sehsyha/crounch-front/compare/0.3.0...0.4.0) (2019-11-13)
 
