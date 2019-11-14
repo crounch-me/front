@@ -4,5 +4,6 @@ exports[`Home Should render. 1`] = `
 <div class="home">
   <helloworld-stub msg="Do you want to Crounch ?"></helloworld-stub>
   <signup-stub></signup-stub>
+  <login-stub></login-stub>
 </div>
 `;
