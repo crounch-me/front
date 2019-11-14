@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test": "vue-cli-service test:unit --watch",
-    "test:ci": "vue-cli-service test:unit",
+    "test:ci": "vue-cli-service test:unit --coverage --coverageReporters=text-lcov | coveralls",
     "test:mutation": "stryker run",
     "lint": "vue-cli-service lint"
   },
@@ -39,6 +39,7 @@
     "@vue/eslint-config-prettier": "^5.0.0",
     "@vue/eslint-config-typescript": "^4.0.0",
     "@vue/test-utils": "1.0.0-beta.29",
+    "coveralls": "^3.0.7",
     "eslint": "^5.16.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^5.0.0",
