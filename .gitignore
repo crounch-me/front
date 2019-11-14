@@ -20,5 +20,7 @@ yarn-error.log*
 *.sln
 *.sw?
 
+# Test files
 .stryker-tmp
 reports
+coverage.lcov
