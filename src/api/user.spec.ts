@@ -1,25 +1,34 @@
-import axios from 'axios';
+import { api } from './api';
+import { signup, login } from './user';
 
-import { signup } from './user';
-
-jest.mock('axios', () => ({
-  post: jest.fn(),
+jest.mock('./api', () => ({
+  api: {
+    post: jest.fn(),
+  }
 }));
 
 describe('User API', () => {
+  const email = 'hello';
+  const password = 'world';
 
   beforeEach(() => {
-    (axios.post as jest.Mock).mockClear();
-    (axios.post as jest.Mock).mockReturnValue(Promise.resolve({}));
+    (api.post as jest.Mock).mockClear();
+    (api.post as jest.Mock).mockReturnValue(Promise.resolve({}));
   });
 
   describe('signup', () => {
-    it('Should call API with right parameters.', () => {
-      const email = 'hello';
-      const password = 'world';
+    it('Should call signup endpoint with right parameters.', () => {
       signup(email, password);
 
-      expect(axios.post).toHaveBeenCalledWith('http://localhost:3000/users', { email, password });
+      expect(api.post).toHaveBeenCalledWith('users', { email, password });
+    });
+  });
+
+  describe('login', () => {
+    it('Should call login endpoint with right parameters.', () => {
+      login(email, password);
+
+      expect(api.post).toHaveBeenCalledWith('users/login', { email, password });
     });
   });
 });

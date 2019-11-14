@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Signup Should render. 1`] = `
+exports[`Login Should render. 1`] = `
 <div>
-  <h2>Signup</h2>
+  <h2>Login</h2>
   <form>
     <div id="email-error" class="error">Please enter a valid email.</div>
     <div id="password-error" class="error">Please enter a password.</div>
-    <!----> <input type="text" placeholder="Email"> <input type="password" placeholder="Password"> <input type="submit" value="S'inscrire">
+    <!----> <input type="text" placeholder="Email"> <input type="password" placeholder="Password"> <input type="submit" value="Se connecter">
   </form>
 </div>
 `;

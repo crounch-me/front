@@ -9,19 +9,20 @@ module.exports = function (config) {
       '!src/**/*.spec.ts',
       '!src/registerServiceWorker.ts',
       '!src/main.ts',
-      '!src/store/index.ts'
+      '!src/store/index.ts',
+      '!src/utils/constants.ts',
     ],
     mutator: 'vue',
     testRunner: 'jest',
     jest: {
-      // config: require('path/to/your/custom/jestConfig.js')
+      config: require('./jest.config'),
     },
     reporters: ['progress', 'clear-text', 'html'],
     coverageAnalysis: 'off',
     thresholds: {
-      break: 90,
+      break: 95,
       high: 99,
-      low: 97
-    }
+      low: 97,
+    },
   });
 };
