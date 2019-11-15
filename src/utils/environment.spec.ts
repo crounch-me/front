@@ -1,5 +1,4 @@
-import { getAPIURL } from './environment';
-
+import { getAPIURL, getVersion } from './environment';
 
 describe('Environment', () => {
   describe('getAPIURL', () => {
@@ -9,12 +8,19 @@ describe('Environment', () => {
 
     it('Should return remote URL when in production env.', () => {
       process.env.NODE_ENV = 'production';
-      expect(getAPIURL()).toEqual('http://crounch.me:3000/');
+      expect(getAPIURL()).toBe('http://crounch.me:3000/');
     });
 
     it('Should return local URL when not in production env.', () => {
       process.env.NODE_ENV = 'develop';
-      expect(getAPIURL()).toEqual('http://localhost:3000/');
+      expect(getAPIURL()).toBe('http://localhost:3000/');
+    });
+  });
+
+  describe('getVersion', () => {
+    it('Should return the version in the package json file.', () => {
+      expect(getVersion()).not.toBe(undefined);
+      expect(getVersion().match(/^[0-9]\.[0-9]\.[0-9]$/)).toBeTruthy();
     });
   });
 });
