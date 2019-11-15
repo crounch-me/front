@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/Sehsyha/crounch-front/compare/0.5.1...0.6.0) (2019-11-15)
+
+
+### Features
+
+* display version number ([#20](https://github.com/Sehsyha/crounch-front/issues/20)) ([9d7e85a](https://github.com/Sehsyha/crounch-front/commit/9d7e85a)), closes [#18](https://github.com/Sehsyha/crounch-front/issues/18)
+
+
+
 <a name="0.5.1"></a>
 ## [0.5.1](https://github.com/Sehsyha/crounch-front/compare/0.5.0...0.5.1) (2019-11-14)
 
