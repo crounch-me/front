@@ -13,11 +13,9 @@ before_deploy:
   - ssh-add /tmp/deploy_rsa-front
   - git remote set-url origin https://Sehsyha:$GH_TOKEN@github.com/Sehsyha/crounch-front.git
   - make bump-version
-  - make build-image
   - export VERSION_NUMBER=$(jq -r ".version" package.json)
   - make build-image
-  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-  - docker push $DOCKER_USER/crounch-front:$VERSION_NUMBER
+  - make publish-image
 deploy:
   provider: script
   script: ssh -oStrictHostKeyChecking=no -p $DEPLOY_PORT $DEPLOY_USER@$DEPLOY_HOST $DEPLOY_PATH/front.sh $VERSION_NUMBER

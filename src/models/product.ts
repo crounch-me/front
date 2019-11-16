@@ -1,8 +1,4 @@
 export interface ProductResponse {
-  data: Products;
-}
-
-export interface Products {
   products: ProductApi[];
 }
 
