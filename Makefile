@@ -32,6 +32,13 @@ build-image:
 	@echo "+ $@"
 	docker build -f containers/Dockerfile -t $(APP_NAME):$(VERSION) .
 	docker tag $(APP_NAME):$(VERSION) $(DOCKER_USER)/$(APP_NAME):$(VERSION)
+	docker tag $(APP_NAME):$(VERSION) $(DOCKER_USER)/$(APP_NAME):latest
+
+.PHONY: publish-image
+	@echo "+ $@"
+	docker login -u $(DOCKER_USER) -p $(DOCKER_PASSWORD)
+	docker push $(DOCKER_USER)/crounch-front:$(VERSION)
+	docker push $(DOCKER_USER)/crounch-front:latest
 
 .PHONY: run
 run: run-dependencies run-app
