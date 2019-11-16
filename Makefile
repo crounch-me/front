@@ -35,6 +35,7 @@ build-image:
 	docker tag $(APP_NAME):$(VERSION) $(DOCKER_USER)/$(APP_NAME):latest
 
 .PHONY: publish-image
+publish-image:
 	@echo "+ $@"
 	docker login -u $(DOCKER_USER) -p $(DOCKER_PASSWORD)
 	docker push $(DOCKER_USER)/crounch-front:$(VERSION)
