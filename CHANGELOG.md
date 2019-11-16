@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/Sehsyha/crounch-front/compare/0.6.0...0.7.0) (2019-11-16)
+
+
+### Features
+
+* add product search with openfoodfacts data ([#22](https://github.com/Sehsyha/crounch-front/issues/22)) ([c2b96d1](https://github.com/Sehsyha/crounch-front/commit/c2b96d1)), closes [#21](https://github.com/Sehsyha/crounch-front/issues/21)
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/Sehsyha/crounch-front/compare/0.5.1...0.6.0) (2019-11-15)
 
