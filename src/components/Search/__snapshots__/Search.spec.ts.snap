@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search Should display the products when the request succeed. 1`] = `
+<div>
+  <form><input type="text" placeholder="Nom du produit"></form>
+  <div id="products">
+    <div class=".products">
+      product name
+      82793
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Search Should render. 1`] = `
+<div>
+  <form><input type="text" placeholder="Nom du produit"></form>
+  <!---->
+</div>
+`;
