@@ -5,22 +5,27 @@ import { login } from '@/api/user';
 import Login from '@/components/Login/Login.vue';
 import { validateEmail } from '@/utils/form-validation';
 import { shallowComponent } from '@/utils/test';
-import { TOKEN_STORAGE_KEY } from '@/utils/constants';
+import { Module } from 'vuex';
+import { AuthState } from '@/store/auth';
+import { RootState } from '@/store';
+import { createAuthModuleMock } from '@/store/auth/mockModule';
+import { AuthKeys } from '@/store/auth/keys';
 
 jest.mock('@/api/user');
 jest.mock('@/utils/form-validation');
 
 describe('Login', () => {
   let wrapper: Wrapper<Login>;
-  let setItemMock: jest.SpyInstance;
+  let auth: Module<AuthState, RootState>;
   const email = 'a';
   const password = 'password';
   const token = 'auth-token';
 
   beforeEach(() => {
-    wrapper = shallowComponent(Login);
+    auth = createAuthModuleMock();
+
+    wrapper = shallowComponent(Login, {}, { auth });
     (login as jest.Mock).mockResolvedValue({ accessToken: token });
-    setItemMock = jest.spyOn(Storage.prototype, 'setItem');
   });
 
   afterEach(() => {
@@ -48,13 +53,17 @@ describe('Login', () => {
   describe('Form validation', () => {
     describe('Email', () => {
       it('Should render an error when email is not valid.', () => {
-        when(validateEmail as jest.Mock).calledWith(email).mockReturnValue(false);
+        when(validateEmail as jest.Mock)
+          .calledWith(email)
+          .mockReturnValue(false);
         wrapper.setData({ email });
         expect(wrapper.find('#email-error').exists()).toBeTruthy();
       });
 
       it('Should not render an error when email is valid.', () => {
-        when(validateEmail as jest.Mock).calledWith(email).mockReturnValue(true);
+        when(validateEmail as jest.Mock)
+          .calledWith(email)
+          .mockReturnValue(true);
         wrapper.setData({ email });
         expect(wrapper.find('#email-error').exists()).toBeFalsy();
       });
@@ -75,57 +84,41 @@ describe('Login', () => {
 
   describe('Form submission', () => {
     it('Should not call api when email is in error and not password.', () => {
-      when(validateEmail as jest.Mock).calledWith(email).mockReturnValue(false);
+      when(validateEmail as jest.Mock)
+        .calledWith(email)
+        .mockReturnValue(false);
       wrapper.setData({ password: 'password', email });
 
       wrapper.find('input[type=submit]').trigger('click');
 
-      expect(login as jest.Mock).not.toHaveBeenCalled();
+      expect(auth.actions![AuthKeys.LOGIN] as jest.Mock).not.toHaveBeenCalled();
     });
 
     it('Should not call api when password is in error and not email.', () => {
-      when(validateEmail as jest.Mock).calledWith(email).mockReturnValue(true);
+      when(validateEmail as jest.Mock)
+        .calledWith(email)
+        .mockReturnValue(true);
       wrapper.setData({ password: '', email });
 
       wrapper.find('input[type=submit]').trigger('click');
 
-      expect(login as jest.Mock).not.toHaveBeenCalled();
+      expect(auth.actions![AuthKeys.LOGIN] as jest.Mock).not.toHaveBeenCalled();
     });
 
     it('Should call api with right parameters when everything is valid.', () => {
-      when(validateEmail as jest.Mock).calledWith(email).mockReturnValue(true);
+      when(validateEmail as jest.Mock)
+        .calledWith(email)
+        .mockReturnValue(true);
 
       wrapper.setData({ password, email });
 
       wrapper.find('[type=submit]').trigger('click');
 
-      expect(login as jest.Mock).toHaveBeenCalledWith(email, password);
-    });
-
-    it('Should display success message when user has signed up.', done => {
-      when(validateEmail as jest.Mock).calledWith(email).mockReturnValue(true);
-
-      wrapper.setData({ password, email });
-
-      wrapper.find('[type=submit]').trigger('click');
-
-      setTimeout(() => {
-        expect(wrapper.find('.success').exists()).toBeTruthy();
-        done();
-      });
-    });
-
-    it('Should store token when request succeed.', done => {
-      when(validateEmail as jest.Mock).calledWith(email).mockReturnValue(true);
-
-      wrapper.setData({ password, email });
-
-      wrapper.find('[type=submit]').trigger('click');
-
-      setTimeout(() => {
-        expect(setItemMock).toBeCalledWith(TOKEN_STORAGE_KEY, token);
-        done();
-      });
+      expect(auth.actions![AuthKeys.LOGIN] as jest.Mock).toHaveBeenCalledWith(
+        expect.anything(),
+        { email, password },
+        undefined
+      );
     });
   });
 });

@@ -18,9 +18,13 @@ import { Component, Vue } from 'vue-property-decorator';
 import { login } from '@/api/user';
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
 import { validateEmail } from '@/utils/form-validation';
+import { AuthKeys } from '../../store/auth/keys';
+import { Action } from 'vuex-class';
+import { authNamespace } from '../../store/auth';
 
 @Component
 export default class Login extends Vue {
+  @Action(AuthKeys.LOGIN, authNamespace) doLogin: any;
   email: string = '';
   password: string = '';
   loginSuccess: boolean = false;
@@ -29,9 +33,9 @@ export default class Login extends Vue {
     if (!this.isEmailValid || !this.isPasswordValid) {
       return;
     }
-    login(this.email, this.password).then(response => {
-      this.loginSuccess = true;
-      localStorage.setItem(TOKEN_STORAGE_KEY, response.accessToken);
+    const { email, password } = this;
+    this.doLogin({ email, password }).then(() => {
+      // this.$router.push('/');
     });
   }
 

@@ -1,6 +1,6 @@
 // This config was generated using a preset.
 // Please see the handbook for more information: https://github.com/stryker-mutator/stryker-handbook/blob/master/stryker/guides/vuejs.md#vuejs
-module.exports = function (config) {
+module.exports = function(config) {
   config.set({
     mutate: [
       'src/**/*.js',
@@ -11,6 +11,9 @@ module.exports = function (config) {
       '!src/main.ts',
       '!src/store/index.ts',
       '!src/utils/constants.ts',
+      '!src/store/**/mockModule.ts',
+      '!src/store/**/keys.ts',
+      '!src/utils/test.ts',
     ],
     mutator: 'vue',
     testRunner: 'jest',

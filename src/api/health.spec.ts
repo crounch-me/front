@@ -4,7 +4,7 @@ import { health } from './health';
 jest.mock('./api', () => ({
   api: {
     get: jest.fn(),
-  }
+  },
 }));
 
 describe('Health API', () => {
