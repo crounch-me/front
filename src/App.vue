@@ -18,7 +18,8 @@ import { authNamespace } from './store/auth';
 
 @Component
 export default class App extends Vue {
-  @Action(AuthKeys.LOGOUT) logout: any;
+  @Action(AuthKeys.LOGOUT, authNamespace) logout: any;
+
   created() {
     addUnauthorizedInterceptor(this.logout);
   }

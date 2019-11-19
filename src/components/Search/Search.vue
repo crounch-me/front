@@ -1,7 +1,7 @@
 <template>
   <div>
     <form>
-      <input type="text" v-model="name" @keyup="search" placeholder="Nom du produit" />
+      <input type="text" v-model="name" @keyup="search" placeholder="Nom du produit">
     </form>
     <div id="products" v-if="this.products.length">
       <div class=".products" v-for="product in this.products" :key="product.code">

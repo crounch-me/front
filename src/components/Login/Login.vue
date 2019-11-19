@@ -5,9 +5,9 @@
       <div v-if="!isEmailValid" class="error" id="email-error">Please enter a valid email.</div>
       <div v-if="!isPasswordValid" class="error" id="password-error">Please enter a password.</div>
       <div v-if="loginSuccess" class="success">You've logged in successfully !!</div>
-      <input type="text" placeholder="Email" v-model="email" />
-      <input type="password" placeholder="Password" v-model="password" />
-      <input type="submit" value="Se connecter" />
+      <input type="text" placeholder="Email" v-model="email">
+      <input type="password" placeholder="Password" v-model="password">
+      <input type="submit" value="Se connecter">
     </form>
   </div>
 </template>
