@@ -116,8 +116,7 @@ describe('Login', () => {
 
       expect(auth.actions![AuthKeys.LOGIN] as jest.Mock).toHaveBeenCalledWith(
         expect.anything(),
-        { email, password },
-        undefined
+        { email, password }
       );
     });
   });

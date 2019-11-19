@@ -5,19 +5,17 @@
       <div v-if="!isEmailValid" class="error" id="email-error">Please enter a valid email.</div>
       <div v-if="!isPasswordValid" class="error" id="password-error">Please enter a password.</div>
       <div v-if="signupSuccess" class="success">You've signed up successfully !!</div>
-      <input type="text" placeholder="Email" v-model="email" />
-      <input type="password" placeholder="Password" v-model="password" />
-      <input type="submit" value="S'inscrire" />
+      <input type="text" placeholder="Email" v-model="email">
+      <input type="password" placeholder="Password" v-model="password">
+      <input type="submit" value="S'inscrire">
     </form>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { State, Action, Getter } from 'vuex-class';
-import { mapGetters } from 'vuex';
+import { Action } from 'vuex-class';
 
-import { signup } from '@/api/user';
 import { validateEmail } from '@/utils/form-validation';
 import { AuthKeys } from '@/store/auth/keys';
 import { authNamespace } from '@/store/auth';
