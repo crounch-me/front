@@ -4,7 +4,7 @@ import { signup, login } from './user';
 jest.mock('./api', () => ({
   api: {
     post: jest.fn(),
-  }
+  },
 }));
 
 describe('User API', () => {

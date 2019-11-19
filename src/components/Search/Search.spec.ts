@@ -27,12 +27,16 @@ describe('Search', () => {
       name: 'product name',
       barCode: '82793',
       categories: ['Hello', 'World'],
-    }
+    },
   ];
 
   beforeEach(() => {
-    when(search as jest.Mock).calledWith(name).mockResolvedValue(productsApi);
-    when(convertProductFromApi as jest.Mock).calledWith(productsApi).mockReturnValue(products);
+    when(search as jest.Mock)
+      .calledWith(name)
+      .mockResolvedValue(productsApi);
+    when(convertProductFromApi as jest.Mock)
+      .calledWith(productsApi)
+      .mockReturnValue(products);
     wrapper = shallowComponent(Search);
   });
 

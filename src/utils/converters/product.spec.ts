@@ -8,7 +8,7 @@ describe('Product converter', () => {
         product_name: 'product name',
         categories: 'Salad, Green',
         code: '1234',
-      }
+      },
     ];
 
     const expectedProducts: Product[] = [
@@ -16,8 +16,8 @@ describe('Product converter', () => {
         name: 'product name',
         categories: ['Salad', 'Green'],
         barCode: '1234',
-      }
-    ]
+      },
+    ];
     const products = convertProductFromApi(productsApi);
 
     expect(products).toEqual(expectedProducts);

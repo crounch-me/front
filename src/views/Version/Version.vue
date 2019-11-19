@@ -23,8 +23,7 @@ export default class Version extends Vue {
   frontVersion: string = getVersion();
 
   mounted() {
-    health()
-      .then(res => this.backVersion = res.version)
+    health().then(res => (this.backVersion = res.version));
   }
 }
 </script>

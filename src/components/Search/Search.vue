@@ -5,8 +5,8 @@
     </form>
     <div id="products" v-if="this.products.length">
       <div class=".products" v-for="product in this.products" :key="product.code">
-        {{product.name}}
-        {{product.barCode}}
+        {{ product.name }}
+        {{ product.barCode }}
       </div>
     </div>
   </div>
@@ -16,7 +16,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 
 import { search } from '@/api/openfoodfacts';
-import { ProductResponse, ProductApi, Product } from '@/models/product';
+import { Product } from '@/models/product';
 import { convertProductFromApi } from '@/utils/converters/product';
 
 @Component
@@ -25,10 +25,9 @@ export default class Search extends Vue {
   products: Product[] = [];
 
   search() {
-    search(this.name)
-      .then(products => {
-        this.products = convertProductFromApi(products);
-      });
+    search(this.name).then(products => {
+      this.products = convertProductFromApi(products);
+    });
   }
 }
 </script>

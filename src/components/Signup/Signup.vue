@@ -14,12 +14,18 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { State, Action, Getter } from 'vuex-class';
+import { mapGetters } from 'vuex';
 
 import { signup } from '@/api/user';
 import { validateEmail } from '@/utils/form-validation';
+import { AuthKeys } from '@/store/auth/keys';
+import { authNamespace } from '@/store/auth';
 
 @Component
 export default class Signup extends Vue {
+  @Action(AuthKeys.SIGNUP, authNamespace) doSignup: any;
+
   email: string = '';
   password: string = '';
   signupSuccess: boolean = false;
@@ -28,7 +34,9 @@ export default class Signup extends Vue {
     if (!this.isEmailValid || !this.isPasswordValid) {
       return;
     }
-    signup(this.email, this.password).then(response => {
+
+    const { email, password } = this;
+    this.doSignup({ email, password }).then(() => {
       this.signupSuccess = true;
     });
   }

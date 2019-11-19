@@ -20,7 +20,7 @@ describe('Environment', () => {
   describe('getVersion', () => {
     it('Should return the version in the package json file.', () => {
       expect(getVersion()).not.toBe(undefined);
-      expect(getVersion().match(/^[0-9]\.[0-9]\.[0-9]$/)).toBeTruthy();
+      expect(getVersion().match(/^[0-9]+\.[0-9]+\.[0-9]+$/)).toBeTruthy();
     });
   });
 });
