@@ -41,7 +41,7 @@
     "@vue/test-utils": "1.0.0-beta.29",
     "canvas": "^2.6.0",
     "coveralls": "^3.0.7",
-    "eslint": "^5.16.0",
+    "eslint": "^6.6.0",
     "eslint-plugin-vue": "^6.0.1",
     "fibers": "^4.0.2",
     "jest-when": "^2.7.0",
