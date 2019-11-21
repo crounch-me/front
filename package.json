@@ -5,10 +5,12 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint --no-fix",
     "test": "vue-cli-service test:unit --watch",
     "test:ci": "vue-cli-service test:unit --coverage --coverageReporters=text-lcov | coveralls",
-    "test:mutation": "stryker run || rm -rf .stryker-tmp",
-    "lint": "vue-cli-service lint --no-fix"
+    "test:e2e": "vue-cli-service test:e2e",
+    "test:e2e:ci": "cypress run --record --parallel",
+    "test:mutation": "stryker run || rm -rf .stryker-tmp"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -30,6 +32,7 @@
     "@typescript-eslint/eslint-plugin": "^2.8.0",
     "@typescript-eslint/parser": "^2.8.0",
     "@vue/cli-plugin-babel": "^4.0.0",
+    "@vue/cli-plugin-e2e-cypress": "^4.0.5",
     "@vue/cli-plugin-eslint": "^4.0.0",
     "@vue/cli-plugin-pwa": "^4.0.0",
     "@vue/cli-plugin-router": "^4.0.0",
