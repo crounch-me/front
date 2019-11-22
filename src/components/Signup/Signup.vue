@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div id="signup">
     <h2>Signup</h2>
     <form @submit.prevent="signup">
       <div v-if="!isEmailValid" class="error" id="email-error">Please enter a valid email.</div>
       <div v-if="!isPasswordValid" class="error" id="password-error">Please enter a password.</div>
       <div v-if="signupSuccess" class="success">You've signed up successfully !!</div>
-      <input type="text" placeholder="Email" v-model="email">
-      <input type="password" placeholder="Password" v-model="password">
-      <input type="submit" value="S'inscrire">
+      <input type="text" placeholder="Email" v-model="email" />
+      <input type="password" placeholder="Password" v-model="password" />
+      <input type="submit" value="S'inscrire" />
     </form>
   </div>
 </template>
