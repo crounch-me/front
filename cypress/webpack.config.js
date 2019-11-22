@@ -2,6 +2,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js']
   },
+  performance: { hints: false },
   module: {
     rules: [
       {
@@ -9,7 +10,7 @@ module.exports = {
         exclude: [/node_modules/],
         use: [
           {
-            loader: 'ts-loader',
+            loader: 'ts-loader'
           }
         ]
       }

@@ -1,4 +1,4 @@
-import { generateStringOfLength } from 'cypress/support/utils/generate';
+import { generateStringOfLength } from '../../support/utils/generate';
 
 describe('Login', () => {
   const email = `${generateStringOfLength(10)}@crounch.me`;
@@ -23,10 +23,10 @@ describe('Login', () => {
 
     cy
       .get('#login')
-      .find('input[type=submit]')
-      .trigger('click');
+      .find('form')
+      .submit();
 
     cy
-      .contains('Connected');
+      .contains('Connecté');
   });
 });

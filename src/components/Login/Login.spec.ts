@@ -2,7 +2,7 @@ import { Wrapper } from '@vue/test-utils';
 import { when } from 'jest-when';
 
 import { login } from '@/api/user';
-import Login from '@/components/Login/Login.vue';
+import Login from './Login.vue';
 import { validateEmail } from '@/utils/form-validation';
 import { shallowComponent } from '@/utils/test';
 import { Module } from 'vuex';
