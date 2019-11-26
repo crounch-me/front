@@ -24,4 +24,4 @@ yarn-error.log*
 .stryker-tmp
 reports
 coverage.lcov
-tests/e2e/videos
+cypress/videos

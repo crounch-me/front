@@ -13,7 +13,6 @@ module.exports = {
     'vue/html-end-tags': 'error',
     'vue/html-indent': 'error',
     'vue/html-quotes': 'error',
-    'vue/html-self-closing': 'error',
     'vue/multiline-html-element-content-newline': 'error',
     'vue/mustache-interpolation-spacing': 'error',
     'vue/no-multi-spaces': 'error',
@@ -23,6 +22,7 @@ module.exports = {
   },
   parserOptions: {
     parser: '@typescript-eslint/parser',
+    sourceType: 'module'
   },
   overrides: [
     {

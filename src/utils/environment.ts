@@ -1,5 +1,5 @@
 export function getAPIURL(): string {
-  return process.env.NODE_ENV === 'production' ? 'http://crounch.me:3000/' : 'http://localhost:3000/';
+  return process.env.VUE_APP_API_URL!;
 }
 
 export function getVersion(): string {

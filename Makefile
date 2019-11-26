@@ -63,7 +63,6 @@ run-image:
 	docker-compose -p $(APP_NAME) -f containers/docker-compose.acceptance.yml pull;
 	docker-compose -p $(APP_NAME) -f containers/docker-compose.acceptance.yml up -d --build
 
-
 .PHONY: acceptance-test
 acceptance-test:
 	@echo "+ $@"

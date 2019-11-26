@@ -38,7 +38,7 @@ services:
   crounch-front:
     build:
       context: ../
-      dockerfile: containers/Dockerfile
+      dockerfile: containers/Dockerfile-acceptance
     volumes:
       - ./nginx_acceptance.conf:/etc/nginx/conf.d/acceptance.conf
     ports:
