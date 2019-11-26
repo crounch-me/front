@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.7.22"></a>
+## [0.7.22](https://github.com/Sehsyha/crounch-front/compare/0.7.21...0.7.22) (2019-11-26)
+
+
+
 <a name="0.7.21"></a>
 ## [0.7.21](https://github.com/Sehsyha/crounch-front/compare/0.7.20...0.7.21) (2019-11-26)
 
