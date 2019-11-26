@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Signup Should render. 1`] = `
-<div>
+<div id="signup">
   <h2>Signup</h2>
   <form>
     <div id="email-error" class="error">Please enter a valid email.</div>

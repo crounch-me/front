@@ -7,13 +7,15 @@ describe('Environment', () => {
     });
 
     it('Should return remote URL when in production env.', () => {
-      process.env.NODE_ENV = 'production';
-      expect(getAPIURL()).toBe('http://crounch.me:3000/');
+      const prodUrl = 'http://prod.com';
+      process.env.VUE_APP_API_URL = prodUrl;
+      expect(getAPIURL()).toBe(prodUrl);
     });
 
-    it('Should return local URL when not in production env.', () => {
-      process.env.NODE_ENV = 'develop';
-      expect(getAPIURL()).toBe('http://localhost:3000/');
+    it('Should return another url URL when not in production env.', () => {
+      const devUrl = 'http://dev.fr';
+      process.env.VUE_APP_API_URL = devUrl;
+      expect(getAPIURL()).toBe(devUrl);
     });
   });
 

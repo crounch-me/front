@@ -52,6 +52,19 @@ run-app:
 .PHONY: run-dependencies
 run-dependencies:
 	@echo "+ $@"
-	@docker-compose -p $(APP_NAME) -f containers/docker-compose.dependencies.yml down || true;
-	@docker-compose -p $(APP_NAME) -f containers/docker-compose.dependencies.yml pull;
-	@docker-compose -p $(APP_NAME) -f containers/docker-compose.dependencies.yml up -d --build
+	docker-compose -p $(APP_NAME) -f containers/docker-compose.dependencies.yml down || true;
+	docker-compose -p $(APP_NAME) -f containers/docker-compose.dependencies.yml pull;
+	docker-compose -p $(APP_NAME) -f containers/docker-compose.dependencies.yml up -d --build
+
+.PHONY: run-image
+run-image:
+	@echo "+ $@"
+	docker-compose -p $(APP_NAME) -f containers/docker-compose.acceptance.yml down || true;
+	docker-compose -p $(APP_NAME) -f containers/docker-compose.acceptance.yml pull;
+	docker-compose -p $(APP_NAME) -f containers/docker-compose.acceptance.yml up -d --build
+
+.PHONY: acceptance-test
+acceptance-test:
+	@echo "+ $@"
+	make run-image
+	npm run test:e2e:ci

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="login">
     <h2>Login</h2>
     <form @submit.prevent="login">
       <div v-if="!isEmailValid" class="error" id="email-error">Please enter a valid email.</div>

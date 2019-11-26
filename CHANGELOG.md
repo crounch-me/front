@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.7.16"></a>
+## [0.7.16](https://github.com/Sehsyha/crounch-front/compare/0.7.15...0.7.16) (2019-11-21)
+
+
+
+<a name="0.7.15"></a>
+## [0.7.15](https://github.com/Sehsyha/crounch-front/compare/0.7.14...0.7.15) (2019-11-20)
+
+
+
+<a name="0.7.14"></a>
+## [0.7.14](https://github.com/Sehsyha/crounch-front/compare/0.7.13...0.7.14) (2019-11-19)
+
+
+### Bug Fixes
+
+* build passes even if unit tests failed ([#46](https://github.com/Sehsyha/crounch-front/issues/46)) ([4af4f86](https://github.com/Sehsyha/crounch-front/commit/4af4f86))
+
+
+
+<a name="0.7.13"></a>
+## [0.7.13](https://github.com/Sehsyha/crounch-front/compare/0.7.12...0.7.13) (2019-11-19)
+
+
+
 <a name="0.7.12"></a>
 ## [0.7.12](https://github.com/Sehsyha/crounch-front/compare/0.7.11...0.7.12) (2019-11-19)
 

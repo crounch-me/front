@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="signup">
     <h2>Signup</h2>
     <form @submit.prevent="signup">
       <div v-if="!isEmailValid" class="error" id="email-error">Please enter a valid email.</div>
@@ -14,10 +14,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { State, Action, Getter } from 'vuex-class';
-import { mapGetters } from 'vuex';
+import { Action } from 'vuex-class';
 
-import { signup } from '@/api/user';
 import { validateEmail } from '@/utils/form-validation';
 import { AuthKeys } from '@/store/auth/keys';
 import { authNamespace } from '@/store/auth';

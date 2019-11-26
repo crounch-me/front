@@ -1,0 +1,9 @@
+{
+  "pluginsFile": "cypress/plugins/index.js",
+  "supportFile": "cypress/support/index.ts",
+  "baseUrl": "http://localhost:8080",
+  "integrationFolder": "cypress/specs",
+  "projectId": "ei9c1k",
+  "video": false,
+  "chromeWebSecurity": false
+}

@@ -1,0 +1,20 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "node",
+      "webpack-env",
+      "jest"
+    ],
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.spec.ts",
+    "**/*.vue",
+  ],
+  "exclude": [
+    "../tests",
+    "../node_modules"
+  ]
+}
