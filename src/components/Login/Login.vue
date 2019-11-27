@@ -14,13 +14,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { Action } from 'vuex-class';
 
 import { login } from '@/api/user';
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
 import { validateEmail } from '@/utils/form-validation';
-import { AuthKeys } from '../../store/auth/keys';
-import { Action } from 'vuex-class';
-import { authNamespace } from '../../store/auth';
+import { AuthKeys } from '@/store/auth/keys';
+import { authNamespace } from '@/store/auth';
 
 @Component
 export default class Login extends Vue {
@@ -34,9 +34,7 @@ export default class Login extends Vue {
       return;
     }
     const { email, password } = this;
-    this.doLogin({ email, password }).then(() => {
-      // this.$router.push('/');
-    });
+    this.doLogin({ email, password });
   }
 
   get isEmailValid(): boolean {
