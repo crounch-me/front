@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex, { StoreOptions, ActionContext } from 'vuex';
 import { auth } from './auth';
+import { list } from './list';
 
 Vue.use(Vuex);
 
@@ -16,6 +17,7 @@ const store: StoreOptions<RootState> = {
   },
   modules: {
     auth,
+    list,
   },
   strict: true,
 };
