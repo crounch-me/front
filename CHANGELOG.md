@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/Sehsyha/crounch-front/compare/0.7.28...0.8.0) (2019-11-27)
+
+
+### Features
+
+* add not found page ([#63](https://github.com/Sehsyha/crounch-front/issues/63)) ([3d22c79](https://github.com/Sehsyha/crounch-front/commit/3d22c79)), closes [#49](https://github.com/Sehsyha/crounch-front/issues/49)
+
+
+
 <a name="0.7.28"></a>
 ## [0.7.28](https://github.com/Sehsyha/crounch-front/compare/0.7.27...0.7.28) (2019-11-27)
 
