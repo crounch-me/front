@@ -1,5 +1,13 @@
 import { api } from './api';
-import { SignupResponse, LoginResponse } from '@/models/user';
+
+export interface SignupResponse {
+  id: string;
+  email: string;
+}
+
+export interface LoginResponse {
+  accessToken: string;
+}
 
 export function signup(email: string, password: string): Promise<SignupResponse> {
   return api

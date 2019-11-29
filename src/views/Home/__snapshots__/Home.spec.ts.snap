@@ -8,7 +8,10 @@ exports[`Home Should render when user is authenticated. 1`] = `
     <a id="logout">Se déconnecter</a></h1>
   <signup-stub style="display: none;"></signup-stub>
   <login-stub style="display: none;"></login-stub>
-  <search-stub></search-stub>
+  <div>
+    <search-stub></search-stub>
+    <createlist-stub></createlist-stub>
+  </div>
 </div>
 `;
 
@@ -18,6 +21,9 @@ exports[`Home Should render. 1`] = `
   <!---->
   <signup-stub></signup-stub>
   <login-stub></login-stub>
-  <search-stub></search-stub>
+  <div style="display: none;">
+    <search-stub></search-stub>
+    <createlist-stub style="display: none;"></createlist-stub>
+  </div>
 </div>
 `;

@@ -3,7 +3,7 @@ import { actions } from './actions';
 import { AuthKeys } from './keys';
 import { callAction, initContext } from '@/utils/test';
 import { AuthState } from '.';
-import { LoginResponse } from '@/models/user';
+import { LoginResponse } from '@/api/user';
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
 import { when } from 'jest-when';
 import { api } from '@/api/api';
