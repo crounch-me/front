@@ -10,6 +10,7 @@ const actions = {
 };
 
 const getters = {
+  lists: jest.fn(),
 };
 
 export function createListModuleMock(): Module<ListState, RootState> {

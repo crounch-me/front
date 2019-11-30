@@ -10,6 +10,7 @@
     <div v-show="this.isAuthenticated">
       <Search />
       <CreateList v-show="this.isAuthenticated" />
+      <DisplayLists />
     </div>
   </div>
 </template>
@@ -23,8 +24,9 @@ import Signup from '@/components/Signup/Signup.vue';
 import Login from '@/components/Login/Login.vue';
 import Search from '@/components/Search/Search.vue';
 import CreateList from '@/components/CreateList/CreateList.vue';
-import { authNamespace } from '../../store/auth';
-import { AuthKeys } from '../../store/auth/keys';
+import DisplayLists from '@/components/DisplayLists/DisplayLists.vue';
+import { authNamespace } from '@/store/auth';
+import { AuthKeys } from '@/store/auth/keys';
 
 @Component({
   components: {
@@ -33,6 +35,7 @@ import { AuthKeys } from '../../store/auth/keys';
     Login,
     Search,
     CreateList,
+    DisplayLists,
   },
 })
 export default class Home extends Vue {
