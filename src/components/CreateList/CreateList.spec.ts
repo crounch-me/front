@@ -80,4 +80,15 @@ describe('CreateList', () => {
       done();
     });
   });
+
+  it('Should reset name when request succeed.', done => {
+    wrapper.setData({ name });
+
+    wrapper.find('[type=submit]').trigger('click');
+
+    setTimeout(() => {
+      expect(wrapper.vm.$data.name).toBe('');
+      done();
+    });
+  });
 });

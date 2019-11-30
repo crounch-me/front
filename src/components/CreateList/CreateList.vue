@@ -29,6 +29,7 @@ export default class CreateList extends Vue {
 
     this.doCreateList({ name: this.name }).then(() => {
       this.result = 'Créée';
+      this.name = '';
     });
   }
 

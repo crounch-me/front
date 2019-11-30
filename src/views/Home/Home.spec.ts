@@ -1,19 +1,26 @@
+import { Wrapper } from '@vue/test-utils';
+import { Module } from 'vuex';
+
 import { shallowComponent } from '../../utils/test';
 import Home from './Home.vue';
-import { Module } from 'vuex';
 import { AuthState } from '@/store/auth';
 import { RootState } from '@/store';
 import { createAuthModuleMock } from '@/store/auth/mockModule';
-import { Wrapper } from '@vue/test-utils';
 import { AuthKeys } from '@/store/auth/keys';
+import { ListKeys } from '@/store/list/keys';
+import { createListModuleMock } from '@/store/list/mockModule';
+import { ListState } from '@/store/list';
 
 describe('Home', () => {
   let wrapper: Wrapper<Home>;
   let auth: Module<AuthState, RootState>;
+  let list: Module<ListState, RootState>;
+
   beforeEach(() => {
     auth = createAuthModuleMock();
+    list = createListModuleMock();
 
-    wrapper = shallowComponent(Home, {}, { auth });
+    wrapper = shallowComponent(Home, {}, { auth, list });
   });
 
   it('Should render.', () => {
@@ -33,5 +40,11 @@ describe('Home', () => {
     wrapper.find('#logout').trigger('click');
 
     expect(auth.actions![AuthKeys.LOGOUT]).toHaveBeenCalled();
+  });
+
+  it('Should reset the lists in state.', () => {
+    wrapper.find('#logout').trigger('click');
+
+    expect(list.mutations![ListKeys.RESET]).toHaveBeenCalled();
   });
 });

@@ -3,7 +3,6 @@ import { generateStringOfLength } from '../../support/utils/generate';
 describe('Lists', () => {
   let email: string;
   let password: string;
-  const name = 'Nouvelle liste'
   beforeEach(() => {
     email = `${generateStringOfLength(10)}@crounch.me`;
     password = 'pass word';
@@ -12,7 +11,8 @@ describe('Lists', () => {
       .signupAndLogin(email, password);
   });
 
-  it('Should create a new list.', () => {
+  it('Should create a new list and display it.', () => {
+    const name = 'Nouvelle liste'
     cy.visit('/');
 
     cy
@@ -26,6 +26,15 @@ describe('Lists', () => {
       .submit();
 
     cy
-      .contains('Créée');
+      .contains(name);
+  });
+
+  it('Should get all users lists.', () => {
+    const name = 'Liste Maison';
+    cy.createList(name);
+
+    cy.visit('/');
+
+    cy.contains(name);
   });
 });
