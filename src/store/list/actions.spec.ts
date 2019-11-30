@@ -2,7 +2,7 @@ import { actions } from './actions';
 import { ListKeys } from './keys';
 import { callAction, initContext } from '@/utils/test';
 import { ListState } from '.';
-import { createList } from '@/api/list';
+import { createList, getOwnerLists } from '@/api/list';
 import { List } from '@/models/list';
 
 jest.mock('@/api/list');
@@ -14,6 +14,7 @@ describe('Actions', () => {
     id,
     name,
   };
+  const lists: List[] = [list];
 
   const context = initContext<ListState>({
     dispatch: jest.fn(),
@@ -43,6 +44,27 @@ describe('Actions', () => {
       setTimeout(() => {
         expect(context.commit as jest.Mock).toBeCalledWith(ListKeys.ADD, list);
         done();
+      });
+    });
+
+    describe('GETOWNERS', () => {
+      beforeEach(() => {
+        (getOwnerLists as jest.Mock).mockResolvedValue(lists);
+      });
+
+      it('Should call api.', () => {
+        callListAction(ListKeys.GETOWNERS);
+
+        expect(getOwnerLists as jest.Mock).toHaveBeenCalled();
+      });
+
+      it('Should call set mutation with the returned lists.', done => {
+        callListAction(ListKeys.GETOWNERS);
+
+        setTimeout(() => {
+          expect(context.commit as jest.Mock).toBeCalledWith(ListKeys.SET, lists);
+          done();
+        });
       });
     });
   });
