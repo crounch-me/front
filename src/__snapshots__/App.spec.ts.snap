@@ -3,9 +3,11 @@
 exports[`App Should render. 1`] = `
 <div id="app">
   <div id="nav">
-    <router-link-stub to="/" tag="a" event="click">Home</router-link-stub>| <router-link-stub to="/about" tag="a" event="click">About</router-link-stub>|
-    <router-link-stub to="/version" tag="a" event="click">Version</router-link-stub>
+    <router-link-stub to="/">Home|</router-link-stub>
+    <!---->
+    <router-link-stub to="/about">About|</router-link-stub>
+    <router-link-stub to="/version">Version</router-link-stub>
   </div>
-  <router-view-stub name="default"></router-view-stub>
+  <router-view-stub></router-view-stub>
 </div>
 `;

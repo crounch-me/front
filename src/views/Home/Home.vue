@@ -9,8 +9,6 @@
     <Login v-show="!this.isAuthenticated" />
     <div v-show="this.isAuthenticated">
       <Search />
-      <CreateList v-show="this.isAuthenticated" />
-      <DisplayLists />
     </div>
   </div>
 </template>
@@ -24,11 +22,10 @@ import Signup from '@/components/Signup/Signup.vue';
 import Login from '@/components/Login/Login.vue';
 import Search from '@/components/Search/Search.vue';
 import CreateList from '@/components/CreateList/CreateList.vue';
-import DisplayLists from '@/components/DisplayLists/DisplayLists.vue';
 import { authNamespace } from '@/store/auth';
 import { AuthKeys } from '@/store/auth/keys';
-import { ListKeys } from '../../store/list/keys';
-import { listNamespace } from '../../store/list';
+import { ListKeys } from '@/store/list/keys';
+import { listNamespace } from '@/store/list';
 
 @Component({
   components: {
@@ -36,14 +33,18 @@ import { listNamespace } from '../../store/list';
     Signup,
     Login,
     Search,
-    CreateList,
-    DisplayLists,
   },
 })
 export default class Home extends Vue {
   @Getter('isAuthenticated', authNamespace) isAuthenticated!: boolean;
   @Action(AuthKeys.LOGOUT, authNamespace) doLogout: any;
   @Mutation(ListKeys.RESET, listNamespace) doReset: any;
+
+  mounted() {
+    if (this.isAuthenticated) {
+      this.$router.push('lists');
+    }
+  }
 
   logout() {
     this.doReset();

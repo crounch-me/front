@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+
 import Home from '@/views/Home/Home.vue';
 import About from '@/views/About/About.vue';
 import Version from '@/views/Version/Version.vue';
 import NotFound from '@/views/NotFound/NotFound.vue';
+import Lists from '@/views/Lists/Lists.vue';
 
 Vue.use(VueRouter);
 
@@ -12,6 +14,11 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home,
+  },
+  {
+    path: '/lists',
+    name: 'lists',
+    component: Lists,
   },
   {
     path: '/about',
@@ -30,10 +37,8 @@ const routes = [
   }
 ];
 
-const router = new VueRouter({
+export default new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
 });
-
-export default router;

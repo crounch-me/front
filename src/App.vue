@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link>| <router-link to="/about">About</router-link>|
+      <router-link v-if="!isAuthenticated" to="/">Home|</router-link>
+      <router-link v-if="isAuthenticated" to="lists">Listes |</router-link>
+      <router-link to="/about">About|</router-link>
       <router-link to="/version">Version</router-link>
     </div>
     <router-view />
@@ -10,8 +12,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import 'vue-router';
+
 import Component from 'vue-class-component';
-import { Action } from 'vuex-class';
+import { Action, Getter } from 'vuex-class';
 import { addUnauthorizedInterceptor } from './api/interceptors';
 import { AuthKeys } from './store/auth/keys';
 import { authNamespace } from './store/auth';
@@ -19,6 +23,7 @@ import { authNamespace } from './store/auth';
 @Component
 export default class App extends Vue {
   @Action(AuthKeys.LOGOUT, authNamespace) logout: any;
+  @Getter('isAuthenticated', authNamespace) isAuthenticated!: boolean;
 
   created() {
     addUnauthorizedInterceptor(this.logout);
@@ -28,7 +33,7 @@ export default class App extends Vue {
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

@@ -32,7 +32,6 @@ export default class Signup extends Vue {
     if (!this.isEmailValid || !this.isPasswordValid) {
       return;
     }
-
     const { email, password } = this;
     this.doSignup({ email, password }).then(() => {
       this.signupSuccess = true;

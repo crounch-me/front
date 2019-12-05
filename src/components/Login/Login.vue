@@ -13,7 +13,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 
 import { login } from '@/api/user';
@@ -34,7 +35,10 @@ export default class Login extends Vue {
       return;
     }
     const { email, password } = this;
-    this.doLogin({ email, password });
+
+    this.doLogin({ email, password }).then(() => {
+      this.$router.push('lists');
+    });
   }
 
   get isEmailValid(): boolean {

@@ -2,6 +2,7 @@ import Home from '@/views/Home/Home.vue';
 import About from '@/views/About/About.vue';
 import Version from '@/views/Version/Version.vue';
 import NotFound from '@/views/NotFound/NotFound.vue';
+import Lists from '@/views/Lists/Lists.vue';
 import router from './index';
 
 describe('router', () => {
@@ -47,6 +48,21 @@ describe('router', () => {
       router.push({ name: 'version' });
 
       expect(router.getMatchedComponents()[0]).toEqual(Version);
+    });
+  });
+
+  describe('Lists', () => {
+    it('Should return About component on path "/lists"', () => {
+      router.push('/lists');
+
+      expect(router.getMatchedComponents()[0]).toEqual(Lists);
+    });
+
+    it('Should return About component on name "lists".', () => {
+      router.push('/');
+      router.push({ name: 'lists' });
+
+      expect(router.getMatchedComponents()[0]).toEqual(Lists);
     });
   });
 

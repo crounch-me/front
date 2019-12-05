@@ -51,6 +51,10 @@ describe('Home', () => {
     expect(auth.actions![AuthKeys.LOGOUT]).toHaveBeenCalled();
   });
 
+  it('Should redirect to lists page on creation when user is authenticated.', () => {
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith('lists');
+  });
+
   it('Should reset the lists in state.', () => {
     wrapper.find('#logout').trigger('click');
 
