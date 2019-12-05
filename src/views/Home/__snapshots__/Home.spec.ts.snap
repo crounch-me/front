@@ -10,8 +10,6 @@ exports[`Home Should render when user is authenticated. 1`] = `
   <login-stub style="display: none;"></login-stub>
   <div>
     <search-stub></search-stub>
-    <createlist-stub></createlist-stub>
-    <displaylists-stub></displaylists-stub>
   </div>
 </div>
 `;
@@ -24,8 +22,6 @@ exports[`Home Should render. 1`] = `
   <login-stub></login-stub>
   <div style="display: none;">
     <search-stub></search-stub>
-    <createlist-stub style="display: none;"></createlist-stub>
-    <displaylists-stub></displaylists-stub>
   </div>
 </div>
 `;

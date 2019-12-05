@@ -123,5 +123,20 @@ describe('Login', () => {
         { email, password }
       );
     });
+
+    it('Should redirect to lists page when request succeed.', done => {
+      when(validateEmail as jest.Mock)
+        .calledWith(email)
+        .mockReturnValue(true);
+
+      wrapper.setData({ password, email });
+
+      wrapper.find('[type=submit]').trigger('click');
+
+      setTimeout(() => {
+        expect(wrapper.vm.$router.push).toHaveBeenCalledWith('lists');
+        done();
+      });
+    });
   });
 });

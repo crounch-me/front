@@ -26,7 +26,9 @@ describe('Login', () => {
       .find('form')
       .submit();
 
+    cy.url().should('include', '/lists');
+
     cy
-      .contains('Connecté');
+      .contains('Listes');
   });
 });

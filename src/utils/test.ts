@@ -1,9 +1,10 @@
 import Vue from 'vue';
+import VueRouter from 'vue-router';
+
 import Vuex, { ActionContext, ActionTree, ModuleTree } from 'vuex';
 import { shallowMount, VueClass, createLocalVue, Slots } from '@vue/test-utils';
 
 import { RootState, ActionCall } from '@/store';
-import router from '@/router';
 
 export interface ShallowOptions {
   values?: object;
@@ -22,6 +23,8 @@ export function shallowComponent<V extends Vue>(component: VueClass<V>, { values
 
   localVue.use(Vuex);
 
+  const router = new VueRouter();
+
   const store = new Vuex.Store<RootState>({
     modules,
   });
@@ -35,6 +38,12 @@ export function shallowComponent<V extends Vue>(component: VueClass<V>, { values
     store,
     router,
     localVue,
+    stubs: ['router-link', 'router-view'],
+    mocks: {
+      $router: {
+        push: jest.fn()
+      }
+    }
   });
 }
 
