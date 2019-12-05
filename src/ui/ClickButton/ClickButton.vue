@@ -13,7 +13,7 @@ export default class ClickButton extends Vue {
 </script>
 
 <style scoped>
-.zouz {
+.red {
   background: red;
 }
 </style>

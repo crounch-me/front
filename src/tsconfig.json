@@ -5,7 +5,13 @@
       "node",
       "webpack-env",
       "jest"
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "*"
+      ]
+    },
   },
   "include": [
     "**/*.ts",

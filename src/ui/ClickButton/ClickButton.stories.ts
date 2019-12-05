@@ -1,3 +1,4 @@
+import { storiesOf } from '@storybook/vue';
 import ClickButton from './ClickButton.vue';
 
 export default {
@@ -6,5 +7,12 @@ export default {
   template: '<click-button></click-button>'
 };
 
-export const zouz = () => '<click-button value="zouz"/>'
-export const zouz2 = () => '<click-button class="zouz" value="zouz2"/>'
+storiesOf('ClickButton', module)
+  .add('normal', () => ({
+    components: { ClickButton },
+    template: '<click-button value="normal"/>'
+  }))
+  .add('red', () => ({
+    components: { ClickButton },
+    template: '<click-button class="red" value="red"/>'
+  }));
