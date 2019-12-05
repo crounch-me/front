@@ -27,6 +27,19 @@ describe('App', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('Should render when user is authenticated.', () => {
+    auth = createAuthModuleMock();
+    (auth.getters!['isAuthenticated'] as jest.Mock).mockReturnValue(true);
+
+    const modules = {
+      auth,
+    };
+
+    wrapper = shallowComponent(App, { modules });
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('Should add interceptor to api when created.', () => {
     expect(addUnauthorizedInterceptor as jest.Mock).toHaveBeenCalled();
   });
