@@ -8,10 +8,12 @@
     ]
   },
   "include": [
-    "**/*",
-    "../node_modules"
+    "**/*"
   ],
   "exclude": [
-    "../src"
+    "../src",
+    "../.storybook",
+    "**/*.tsx",
+    "**/*.jsx"
   ]
 }
