@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.11.0"></a>
+# [0.11.0](https://github.com/Sehsyha/crounch-front/compare/0.10.0...0.11.0) (2019-12-05)
+
+
+### Features
+
+* add storybook to design ui components ([#87](https://github.com/Sehsyha/crounch-front/issues/87)) ([dc94a89](https://github.com/Sehsyha/crounch-front/commit/dc94a89)), closes [#85](https://github.com/Sehsyha/crounch-front/issues/85)
+
+
+
 <a name="0.10.0"></a>
 # [0.10.0](https://github.com/Sehsyha/crounch-front/compare/0.9.1...0.10.0) (2019-11-30)
 
