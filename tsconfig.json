@@ -26,7 +26,11 @@
     ]
   },
   "exclude": [
+    "**/*.tsx",
+    "**/*.jsx",
     "node_modules",
-    "cypress"
+    ".storybook",
+    "cypress",
+    "src"
   ]
 }

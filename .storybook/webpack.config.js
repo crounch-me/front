@@ -1,7 +1,7 @@
 // const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = async ({ config }) => {
-  config.resolve.extensions.push('.ts', '.vue', '.css', '.less', '.scss', '.sass', '.html')
+  config.resolve.extensions.push('.ts', '.vue')
 
   config.module.rules.push({
     test: /\.ts$/,

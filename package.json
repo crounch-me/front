@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^4.1.1",
-    "@storybook/preset-typescript": "^1.1.0",
+    "@storybook/addon-viewport": "^5.2.8",
     "@storybook/vue": "^5.2.8",
     "@stryker-mutator/core": "^2.4.0",
     "@stryker-mutator/jest-runner": "^2.4.0",
@@ -33,6 +33,7 @@
     "@stryker-mutator/vue-mutator": "^2.4.0",
     "@types/jest": "^24.0.23",
     "@types/jest-when": "^2.7.0",
+    "@types/webpack": "^4.41.0",
     "@typescript-eslint/eslint-plugin": "^2.9.0",
     "@typescript-eslint/parser": "^2.9.0",
     "@vue/cli-plugin-babel": "^4.1.1",

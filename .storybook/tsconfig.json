@@ -4,5 +4,10 @@
     "**/*",
     "**/*.vue",
     "../src/**/*"
+  ],
+  "exclude": [
+    "../node_modules",
+    "../src",
+    "../cypress"
   ]
 }
