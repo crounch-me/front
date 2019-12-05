@@ -1,15 +1,14 @@
 <template>
-  <div>{{ value }}</div>
+  <button>
+    <slot></slot>
+  </button>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
+import { Vue, Component } from 'vue-property-decorator';
 
 @Component
-export default class ClickButton extends Vue {
-  @Prop(String)
-  value!: string;
-}
+export default class ClickButton extends Vue { }
 </script>
 
 <style scoped>

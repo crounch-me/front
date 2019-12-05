@@ -4,9 +4,12 @@ import { shallowComponent } from '../../utils/test';
 describe('HelloWorld', () => {
   const msg = 'new message';
   let wrapper: any;
+  const values = {
+    msg,
+  };
 
   beforeEach(() => {
-    wrapper = shallowComponent(HelloWorld, { msg });
+    wrapper = shallowComponent(HelloWorld, { values });
   });
 
   it('Should init component with the right name', () => {

@@ -1,16 +1,28 @@
 import Vue from 'vue';
-import Vuex, { ActionContext, ActionTree } from 'vuex';
-import { shallowMount, VueClass, createLocalVue } from '@vue/test-utils';
+import Vuex, { ActionContext, ActionTree, ModuleTree } from 'vuex';
+import { shallowMount, VueClass, createLocalVue, Slots } from '@vue/test-utils';
 
 import { RootState, ActionCall } from '@/store';
 import router from '@/router';
 
-export function shallowComponent<V extends Vue>(component: VueClass<V>, values: {} = {}, modules: {} = {}) {
+export interface ShallowOptions {
+  values?: object;
+  modules?: ModuleTree<RootState>;
+  slots?: Slots;
+}
+
+const emptyOptions: ShallowOptions = {
+  values: {},
+  modules: {},
+  slots: {}
+};
+
+export function shallowComponent<V extends Vue>(component: VueClass<V>, { values, modules, slots }: ShallowOptions = emptyOptions) {
   const localVue = createLocalVue();
 
   localVue.use(Vuex);
 
-  const store = new Vuex.Store({
+  const store = new Vuex.Store<RootState>({
     modules,
   });
 
@@ -19,6 +31,7 @@ export function shallowComponent<V extends Vue>(component: VueClass<V>, values: 
     propsData: {
       ...values,
     },
+    slots,
     store,
     router,
     localVue,

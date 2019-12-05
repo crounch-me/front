@@ -2,12 +2,12 @@ import { shallowComponent } from '@/utils/test';
 import ClickButton from './ClickButton.vue';
 
 describe('ClickButton', () => {
-  const defaultProps = {
-    value: 'Confirmer'
+  const slots = {
+    default: 'Hello',
   };
 
   it('Should render.', () => {
-    const wrapper = shallowComponent(ClickButton);
+    const wrapper = shallowComponent(ClickButton, { slots });
     expect(wrapper).toMatchSnapshot();
   });
 });
