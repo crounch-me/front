@@ -14,6 +14,7 @@ module.exports = function (config) {
       '!src/store/**/mockModule.ts',
       '!src/store/**/keys.ts',
       '!src/utils/test.ts',
+      '!src/**/*.stories.ts'
     ],
     mutator: 'vue',
     testRunner: 'jest',

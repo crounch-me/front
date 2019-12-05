@@ -1,0 +1,12 @@
+{
+  "extends": "../src/tsconfig.json",
+  "include": [
+    "**/*",
+    "../src/**/*",
+    "../src/**/*.vue",
+  ],
+  "exclude": [
+    "../node_modules",
+    "../cypress"
+  ]
+}

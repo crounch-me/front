@@ -6,14 +6,20 @@
       "webpack-env",
       "jest"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "*"
+      ]
+    },
   },
   "include": [
     "**/*.ts",
-    "**/*.tsx",
     "**/*.spec.ts",
     "**/*.vue",
   ],
   "exclude": [
-    "../node_modules"
+    "../node_modules",
+    "../.storybook"
   ]
 }

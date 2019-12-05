@@ -20,7 +20,12 @@ describe('Home', () => {
     auth = createAuthModuleMock();
     list = createListModuleMock();
 
-    wrapper = shallowComponent(Home, {}, { auth, list });
+    const modules = {
+      auth,
+      list,
+    };
+
+    wrapper = shallowComponent(Home, { modules });
   });
 
   it('Should render.', () => {
@@ -31,7 +36,11 @@ describe('Home', () => {
     auth = createAuthModuleMock();
     (auth.getters!['isAuthenticated'] as jest.Mock).mockReturnValue(true);
 
-    wrapper = shallowComponent(Home, {}, { auth });
+    const modules = {
+      auth,
+    };
+
+    wrapper = shallowComponent(Home, { modules });
 
     expect(wrapper).toMatchSnapshot();
   });

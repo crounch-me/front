@@ -22,7 +22,10 @@ describe('Signup', () => {
 
   beforeEach(() => {
     auth = createAuthModuleMock();
-    wrapper = shallowComponent(Signup, {}, { auth });
+    const modules = {
+      auth,
+    };
+    wrapper = shallowComponent(Signup, { modules });
     (signup as jest.Mock).mockResolvedValue({});
   });
 

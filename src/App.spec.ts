@@ -11,7 +11,11 @@ describe('App', () => {
   });
 
   it('Should add interceptor to api when created.', () => {
-    shallowComponent(App, {}, { auth: createAuthModuleMock() });
+    const modules = {
+      auth: createAuthModuleMock()
+    };
+
+    shallowComponent(App, { modules });
 
     expect(addUnauthorizedInterceptor as jest.Mock).toHaveBeenCalled();
   });

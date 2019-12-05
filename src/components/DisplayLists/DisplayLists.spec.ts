@@ -16,7 +16,9 @@ describe('DisplayLists', () => {
   beforeEach(() => {
     list = createListModuleMock();
 
-    wrapper = shallowComponent(DisplayLists, {}, { list });
+    const modules = { list };
+
+    wrapper = shallowComponent(DisplayLists, { modules });
   });
 
   it('Should render.', () => {
@@ -41,7 +43,9 @@ describe('DisplayLists', () => {
 
     (list.getters!.lists as jest.Mock).mockReturnValue(lists);
 
-    wrapper = shallowComponent(DisplayLists, {}, { list });
+    const modules = { list };
+
+    wrapper = shallowComponent(DisplayLists, { modules });
 
     expect(wrapper).toMatchSnapshot();
   });

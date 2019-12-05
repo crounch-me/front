@@ -17,7 +17,12 @@ describe('CreateList', () => {
 
   beforeEach(() => {
     list = createListModuleMock();
-    wrapper = shallowComponent(CreateList, {}, { list });
+
+    const modules = {
+      list,
+    };
+
+    wrapper = shallowComponent(CreateList, { modules });
   });
 
   afterEach(() => {

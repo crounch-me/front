@@ -24,7 +24,11 @@ describe('Login', () => {
   beforeEach(() => {
     auth = createAuthModuleMock();
 
-    wrapper = shallowComponent(Login, {}, { auth });
+    const modules = {
+      auth,
+    };
+
+    wrapper = shallowComponent(Login, { modules });
     (login as jest.Mock).mockResolvedValue({ accessToken: token });
   });
 
