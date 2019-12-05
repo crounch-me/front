@@ -1,5 +1,3 @@
-// const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-
 module.exports = async ({ config }) => {
   config.resolve.extensions.push('.ts', '.vue')
 

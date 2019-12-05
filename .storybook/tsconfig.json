@@ -2,12 +2,11 @@
   "extends": "../src/tsconfig.json",
   "include": [
     "**/*",
-    "**/*.vue",
-    "../src/**/*"
+    "../src/**/*",
+    "../src/**/*.vue",
   ],
   "exclude": [
     "../node_modules",
-    "../src",
     "../cypress"
   ]
 }

@@ -8,4 +8,4 @@ Vue.use(Vuex);
 
 Vue.component('click-button', ClickButton);
 
-configure(require.context('../src/ui/ClickButton', true, /\.stories\.ts$/), module);
+configure(require.context('../src', true, /\.stories\.ts$/), module);
