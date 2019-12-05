@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.12.0"></a>
+# [0.12.0](https://github.com/Sehsyha/crounch-front/compare/0.11.2...0.12.0) (2019-12-05)
+
+
+### Features
+
+* add redirection to lists page when login ([#89](https://github.com/Sehsyha/crounch-front/issues/89)) ([4757712](https://github.com/Sehsyha/crounch-front/commit/4757712)), closes [#78](https://github.com/Sehsyha/crounch-front/issues/78)
+
+
+
 <a name="0.11.2"></a>
 ## [0.11.2](https://github.com/Sehsyha/crounch-front/compare/0.11.1...0.11.2) (2019-12-05)
 
