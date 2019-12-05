@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint --no-fix",
+    "storybook": "start-storybook",
     "test": "vue-cli-service test:unit --watch",
     "test:ci": "vue-cli-service test:unit --coverage --coverageReporters=text-lcov | coveralls",
     "test:e2e": "VUE_APP_API_URL=http://localhost:3000 vue-cli-service test:e2e",
@@ -24,6 +25,8 @@
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^4.1.1",
+    "@storybook/preset-typescript": "^1.1.0",
+    "@storybook/vue": "^5.2.8",
     "@stryker-mutator/core": "^2.4.0",
     "@stryker-mutator/jest-runner": "^2.4.0",
     "@stryker-mutator/typescript": "^2.4.0",
@@ -43,6 +46,8 @@
     "@vue/cli-service": "^4.1.1",
     "@vue/eslint-config-typescript": "^5.0.1",
     "@vue/test-utils": "1.0.0-beta.29",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-preset-vue": "^2.0.2",
     "canvas": "^2.6.0",
     "coveralls": "^3.0.9",
     "eslint": "^6.7.1",
@@ -55,6 +60,7 @@
     "ts-loader": "^6.2.1",
     "typescript": "~3.7.2",
     "vue-template-compiler": "^2.6.10",
-    "vuex-class": "^0.3.2"
+    "vuex-class": "^0.3.2",
+    "webpack-merge": "^4.2.2"
   }
 }
