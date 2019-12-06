@@ -1,4 +1,4 @@
-import { generateStringOfLength } from '../../support/utils/generate';
+import { generateStringOfLength } from '../support/utils/generate';
 
 describe('Lists', () => {
   let email: string;
@@ -7,8 +7,7 @@ describe('Lists', () => {
     email = `${generateStringOfLength(10)}@crounch.me`;
     password = 'pass word';
 
-    cy
-      .signupAndLogin(email, password);
+    cy.signupAndLogin(email, password);
   });
 
   it('Should create a new list and display it.', () => {

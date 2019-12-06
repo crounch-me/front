@@ -9,11 +9,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator';
+import { Getter } from 'vuex-class';
 
 import CreateList from '@/components/CreateList/CreateList.vue';
 import DisplayLists from '@/components/DisplayLists/DisplayLists.vue';
-import { authNamespace } from '../../store/auth';
-import { Getter } from 'vuex-class';
+import { authNamespace } from '@/store/auth';
 
 @Component({
   components: {

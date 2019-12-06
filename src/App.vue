@@ -5,6 +5,7 @@
       <router-link v-if="isAuthenticated" to="lists">Listes |</router-link>
       <router-link to="/about">About|</router-link>
       <router-link to="/version">Version</router-link>
+      <Logout v-if="isAuthenticated" />
     </div>
     <router-view />
   </div>
@@ -19,8 +20,13 @@ import { Action, Getter } from 'vuex-class';
 import { addUnauthorizedInterceptor } from './api/interceptors';
 import { AuthKeys } from './store/auth/keys';
 import { authNamespace } from './store/auth';
+import Logout from './components/Logout/Logout.vue';
 
-@Component
+@Component({
+  components: {
+    Logout,
+  }
+})
 export default class App extends Vue {
   @Action(AuthKeys.LOGOUT, authNamespace) logout: any;
   @Getter('isAuthenticated', authNamespace) isAuthenticated!: boolean;

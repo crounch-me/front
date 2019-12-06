@@ -1,10 +1,7 @@
 <template>
   <div class="home">
     <HelloWorld msg="Do you want to Crounch ?" />
-    <h1 v-if="this.isAuthenticated">
-      Connecté
-      <a id="logout" @click.prevent="logout">Se déconnecter</a>
-    </h1>
+    <h1 v-if="this.isAuthenticated">Connecté</h1>
     <Signup v-show="!this.isAuthenticated" />
     <Login v-show="!this.isAuthenticated" />
     <div v-show="this.isAuthenticated">
@@ -37,18 +34,11 @@ import { listNamespace } from '@/store/list';
 })
 export default class Home extends Vue {
   @Getter('isAuthenticated', authNamespace) isAuthenticated!: boolean;
-  @Action(AuthKeys.LOGOUT, authNamespace) doLogout: any;
-  @Mutation(ListKeys.RESET, listNamespace) doReset: any;
 
   mounted() {
     if (this.isAuthenticated) {
       this.$router.push('lists');
     }
-  }
-
-  logout() {
-    this.doReset();
-    this.doLogout();
   }
 }
 </script>
