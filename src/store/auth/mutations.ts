@@ -1,12 +1,12 @@
 import { MutationTree } from 'vuex';
 import { AuthState } from '.';
-import { AuthKeys } from './keys';
+import { AuthMutations } from './keys';
 
 export const mutations: MutationTree<AuthState> = {
-  [AuthKeys.LOGIN](state, token: string) {
+  [AuthMutations.LOGIN](state, token: string) {
     state.token = token;
   },
-  [AuthKeys.LOGOUT](state) {
+  [AuthMutations.LOGOUT](state) {
     state.token = '';
   },
 };

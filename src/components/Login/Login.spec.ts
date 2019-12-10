@@ -9,7 +9,7 @@ import { Module } from 'vuex';
 import { AuthState } from '@/store/auth';
 import { RootState } from '@/store';
 import { createAuthModuleMock } from '@/store/auth/mockModule';
-import { AuthKeys } from '@/store/auth/keys';
+import { AuthActions } from '@/store/auth/keys';
 
 jest.mock('@/api/user');
 jest.mock('@/utils/form-validation');
@@ -95,7 +95,7 @@ describe('Login', () => {
 
       wrapper.find('input[type=submit]').trigger('click');
 
-      expect(auth.actions![AuthKeys.LOGIN] as jest.Mock).not.toHaveBeenCalled();
+      expect(auth.actions![AuthActions.LOGIN] as jest.Mock).not.toHaveBeenCalled();
     });
 
     it('Should not call api when password is in error and not email.', () => {
@@ -106,7 +106,7 @@ describe('Login', () => {
 
       wrapper.find('input[type=submit]').trigger('click');
 
-      expect(auth.actions![AuthKeys.LOGIN] as jest.Mock).not.toHaveBeenCalled();
+      expect(auth.actions![AuthActions.LOGIN] as jest.Mock).not.toHaveBeenCalled();
     });
 
     it('Should call api with right parameters when everything is valid.', () => {
@@ -118,7 +118,7 @@ describe('Login', () => {
 
       wrapper.find('[type=submit]').trigger('click');
 
-      expect(auth.actions![AuthKeys.LOGIN] as jest.Mock).toHaveBeenCalledWith(
+      expect(auth.actions![AuthActions.LOGIN] as jest.Mock).toHaveBeenCalledWith(
         expect.anything(),
         { email, password }
       );

@@ -18,7 +18,7 @@ import 'vue-router';
 import Component from 'vue-class-component';
 import { Action, Getter } from 'vuex-class';
 import { addUnauthorizedInterceptor } from './api/interceptors';
-import { AuthKeys } from './store/auth/keys';
+import { AuthActions, AuthGetters } from './store/auth/keys';
 import { authNamespace } from './store/auth';
 import Logout from './components/Logout/Logout.vue';
 
@@ -28,8 +28,8 @@ import Logout from './components/Logout/Logout.vue';
   }
 })
 export default class App extends Vue {
-  @Action(AuthKeys.LOGOUT, authNamespace) logout: any;
-  @Getter('isAuthenticated', authNamespace) isAuthenticated!: boolean;
+  @Action(AuthActions.LOGOUT, authNamespace) logout: any;
+  @Getter(AuthGetters.IS_AUTHENTICATED, authNamespace) isAuthenticated!: boolean;
 
   created() {
     addUnauthorizedInterceptor(this.logout);

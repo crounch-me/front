@@ -12,7 +12,7 @@ exports[`Home Should render when user is authenticated. 1`] = `
 </div>
 `;
 
-exports[`Home Should render. 1`] = `
+exports[`Home Should render when user is not authenticated. 1`] = `
 <div class="home">
   <helloworld-stub msg="Do you want to Crounch ?"></helloworld-stub>
   <!---->

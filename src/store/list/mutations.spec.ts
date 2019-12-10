@@ -1,5 +1,5 @@
 import { mutations } from './mutations';
-import { ListKeys } from './keys';
+import { ListMutations } from './keys';
 import { ListState } from '.';
 import { List } from '@/models/list';
 
@@ -13,7 +13,7 @@ describe('Mutations', () => {
     it('Should add the list in the state.', () => {
       const state: ListState = { lists: [] };
 
-      mutations[ListKeys.ADD](state, list);
+      mutations[ListMutations.ADD](state, list);
 
       expect(state.lists).toStrictEqual([list]);
     });
@@ -23,7 +23,7 @@ describe('Mutations', () => {
     it('Should set the list into the state.', () => {
       const state: ListState = { lists: [] };
 
-      mutations[ListKeys.SET](state, lists);
+      mutations[ListMutations.SET](state, lists);
 
       expect(state.lists).toStrictEqual(lists);
     });
@@ -33,7 +33,7 @@ describe('Mutations', () => {
     it('Should empty the list of lists.', () => {
       const state: ListState = { lists };
 
-      mutations[ListKeys.RESET](state);
+      mutations[ListMutations.RESET](state);
 
       expect(state.lists).toStrictEqual([]);
     });

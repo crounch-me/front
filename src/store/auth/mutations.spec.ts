@@ -1,5 +1,5 @@
 import { mutations } from './mutations';
-import { AuthKeys } from './keys';
+import { AuthMutations } from './keys';
 
 describe('Mutations', () => {
   const token = 'user token';
@@ -7,7 +7,7 @@ describe('Mutations', () => {
     it('Should set token to given token.', () => {
       const state = { token: '', status: '' };
 
-      mutations[AuthKeys.LOGIN](state, token);
+      mutations[AuthMutations.LOGIN](state, token);
 
       expect(state.token).toBe(token);
     });
@@ -17,7 +17,7 @@ describe('Mutations', () => {
     it('Should set token to empty string.', () => {
       const state = { token, status: '' };
 
-      mutations[AuthKeys.LOGOUT](state);
+      mutations[AuthMutations.LOGOUT](state);
 
       expect(state.token).toBe('');
     });

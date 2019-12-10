@@ -1,26 +1,15 @@
-import { AuthKeys } from './keys';
 import { Module } from 'vuex';
+
+import { AuthActions, AuthMutations, AuthGetters } from './keys';
 import { AuthState } from '.';
 import { RootState } from '..';
-
-const actions = {
-  [AuthKeys.SIGNUP]: jest.fn(),
-  [AuthKeys.LOGIN]: jest.fn(),
-  [AuthKeys.LOGOUT]: jest.fn(),
-};
-
-const getters = {
-  isAuthenticated: jest.fn(),
-};
+import { createStoreModuleMock } from '../test';
 
 export function createAuthModuleMock(): Module<AuthState, RootState> {
-  return {
-    namespaced: true,
-    actions,
-    getters,
-    state: {
-      token: '',
-      status: '',
-    },
+  const initialState: AuthState = {
+    token: '',
+    status: '',
   };
+
+  return createStoreModuleMock(initialState, AuthActions, AuthMutations, AuthGetters);
 }

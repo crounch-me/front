@@ -1,19 +1,19 @@
 import { ActionTree } from 'vuex';
 import { ListState } from '.';
 import { RootState } from '..';
-import { ListKeys } from './keys';
+import { ListActions, ListMutations } from './keys';
 import { createList, getOwnerLists } from '@/api/list';
 
 export const actions: ActionTree<ListState, RootState> = {
-  [ListKeys.CREATE]: ({ commit }, { name }): Promise<void> => {
+  [ListActions.CREATE]: ({ commit }, { name }): Promise<void> => {
     return createList(name).then(list => {
-      commit(ListKeys.ADD, list);
+      commit(ListMutations.ADD, list);
       return Promise.resolve();
     });
   },
-  [ListKeys.GETOWNERS]: ({ commit }): Promise<void> => {
+  [ListActions.GETOWNERS]: ({ commit }): Promise<void> => {
     return getOwnerLists().then(lists => {
-      commit(ListKeys.SET, lists);
+      commit(ListMutations.SET, lists);
       return Promise.resolve();
     });
   },
