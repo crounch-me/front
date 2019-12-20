@@ -4,7 +4,8 @@ import VueRouter from 'vue-router';
 import Vuex, { ActionContext, ActionTree, ModuleTree } from 'vuex';
 import { shallowMount, VueClass, createLocalVue, Slots } from '@vue/test-utils';
 
-import { RootState, ActionCall } from '@/store';
+import { RootState } from '@/store';
+import { ActionCall } from '@/store/test';
 
 export interface ShallowOptions {
   values?: object;

@@ -6,7 +6,7 @@ import { signup } from '@/api/user';
 import Signup from '@/components/Signup/Signup.vue';
 import { validateEmail } from '@/utils/form-validation';
 import { shallowComponent } from '@/utils/test';
-import { AuthKeys } from '@/store/auth/keys';
+import { AuthActions } from '@/store/auth/keys';
 import { createAuthModuleMock } from '@/store/auth/mockModule';
 import { AuthState } from '@/store/auth';
 import { RootState } from '@/store';
@@ -93,7 +93,7 @@ describe('Signup', () => {
 
       wrapper.find('input[type=submit]').trigger('click');
 
-      expect(auth.actions![AuthKeys.SIGNUP] as jest.Mock).not.toHaveBeenCalled();
+      expect(auth.actions![AuthActions.SIGNUP] as jest.Mock).not.toHaveBeenCalled();
     });
 
     it('Should not dispatch store signup when password is in error and not email.', () => {
@@ -105,7 +105,7 @@ describe('Signup', () => {
 
       wrapper.find('input[type=submit]').trigger('click');
 
-      expect(auth.actions![AuthKeys.SIGNUP] as jest.Mock).not.toHaveBeenCalled();
+      expect(auth.actions![AuthActions.SIGNUP] as jest.Mock).not.toHaveBeenCalled();
     });
 
     it('Should dispatch store signup action with right parameters when everything is valid.', () => {
@@ -117,7 +117,7 @@ describe('Signup', () => {
 
       wrapper.find('[type=submit]').trigger('click');
 
-      expect(auth.actions![AuthKeys.SIGNUP] as jest.Mock).toHaveBeenCalledWith(
+      expect(auth.actions![AuthActions.SIGNUP] as jest.Mock).toHaveBeenCalledWith(
         expect.anything(),
         { email, password }
       );

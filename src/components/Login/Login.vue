@@ -20,12 +20,12 @@ import { Action } from 'vuex-class';
 import { login } from '@/api/user';
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
 import { validateEmail } from '@/utils/form-validation';
-import { AuthKeys } from '@/store/auth/keys';
+import { AuthActions } from '@/store/auth/keys';
 import { authNamespace } from '@/store/auth';
 
 @Component
 export default class Login extends Vue {
-  @Action(AuthKeys.LOGIN, authNamespace) doLogin: any;
+  @Action(AuthActions.LOGIN, authNamespace) doLogin: any;
   email: string = '';
   password: string = '';
   loginSuccess: boolean = false;

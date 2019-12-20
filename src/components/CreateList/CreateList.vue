@@ -13,12 +13,12 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 
-import { ListKeys } from '@/store/list/keys';
+import { ListActions } from '@/store/list/keys';
 import { listNamespace } from '@/store/list';
 
 @Component
 export default class CreateList extends Vue {
-  @Action(ListKeys.CREATE, listNamespace) doCreateList: any;
+  @Action(ListActions.CREATE, listNamespace) doCreateList: any;
   name: string = '';
   result: string = '';
 

@@ -6,8 +6,8 @@ import { RootState } from '@/store';
 import { createAuthModuleMock } from '@/store/auth/mockModule';
 import { shallowComponent } from '@/utils/test';
 import Logout from './Logout.vue';
-import { AuthKeys } from '@/store/auth/keys';
-import { ListKeys } from '@/store/list/keys';
+import { AuthActions } from '@/store/auth/keys';
+import { ListMutations } from '@/store/list/keys';
 import { ListState } from '@/store/list';
 import { createListModuleMock } from '@/store/list/mockModule';
 
@@ -35,13 +35,13 @@ describe('Logout', () => {
   it('Should call logout when logout button is clicked.', () => {
     wrapper.find('button').trigger('click');
 
-    expect(auth.actions![AuthKeys.LOGOUT]).toHaveBeenCalled();
+    expect(auth.actions![AuthActions.LOGOUT]).toHaveBeenCalled();
   });
 
   it('Should call reset mutation when logout button is clicked.', () => {
     wrapper.find('button').trigger('click');
 
-    expect(list.mutations![ListKeys.RESET]).toHaveBeenCalled();
+    expect(list.mutations![ListMutations.RESET]).toHaveBeenCalled();
   });
 
   it('Should redirect to home page when button is clicked.', () => {
