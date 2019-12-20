@@ -1,3 +1,5 @@
+import { when } from 'jest-when';
+
 import { signup, login } from '@/api/user';
 import { actions } from './actions';
 import { AuthKeys } from './keys';
@@ -5,8 +7,6 @@ import { callAction, initContext } from '@/utils/test';
 import { AuthState } from '.';
 import { LoginResponse } from '@/api/user';
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
-import { when } from 'jest-when';
-import { api } from '@/api/api';
 
 jest.mock('@/api/user');
 
@@ -77,15 +77,6 @@ describe('Actions', () => {
       });
     });
 
-    it('Should add token to default headers of api.', done => {
-      callAuthAction(AuthKeys.LOGIN, { email, password });
-
-      setTimeout(() => {
-        expect(api.defaults.headers.common['Authorization']).toEqual(token);
-        done();
-      });
-    });
-
     it('Should remove token from storage when request failed.', done => {
       (login as jest.Mock).mockRejectedValue({});
       callAuthAction(AuthKeys.LOGIN, { email, password })
@@ -102,15 +93,6 @@ describe('Actions', () => {
       callAuthAction(AuthKeys.LOGOUT);
 
       expect(context.commit);
-    });
-
-    it('Should remove token from default headers.', done => {
-      callAuthAction(AuthKeys.LOGOUT, { email, password });
-
-      setTimeout(() => {
-        expect(api.defaults.headers.common['Authorization']).toBeUndefined();
-        done();
-      });
     });
 
     it('Should remove token from storage.', () => {

@@ -1,26 +1,29 @@
-import { api } from './api';
+import { doFetch } from './api';
 import { signup, login } from './user';
 
-jest.mock('./api', () => ({
-  api: {
-    post: jest.fn(),
-  },
-}));
+jest.mock('./api');
 
 describe('User API', () => {
   const email = 'hello';
   const password = 'world';
 
   beforeEach(() => {
-    (api.post as jest.Mock).mockClear();
-    (api.post as jest.Mock).mockReturnValue(Promise.resolve({}));
+    (doFetch as jest.Mock).mockClear();
+    (doFetch as jest.Mock).mockResolvedValue({});
   });
 
   describe('signup', () => {
     it('Should call signup endpoint with right parameters.', () => {
       signup(email, password);
 
-      expect(api.post).toHaveBeenCalledWith('users', { email, password });
+      expect(doFetch).toHaveBeenCalledWith({
+        url: 'users',
+        method: 'POST',
+        data: {
+          email,
+          password
+        }
+      });
     });
   });
 
@@ -28,7 +31,11 @@ describe('User API', () => {
     it('Should call login endpoint with right parameters.', () => {
       login(email, password);
 
-      expect(api.post).toHaveBeenCalledWith('users/login', { email, password });
+      expect(doFetch).toHaveBeenCalledWith({
+        url: 'users/login',
+        method: 'POST',
+        data: { email, password }
+      });
     });
   });
 });

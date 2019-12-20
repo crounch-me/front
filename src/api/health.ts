@@ -1,6 +1,9 @@
-import { api } from './api';
 import { Health } from '@/models/health';
+import { doFetch } from './api';
 
 export function health(): Promise<Health> {
-  return api.get<Health>('health').then(res => res.data);
+  return doFetch({
+    url: 'health',
+    method: 'GET',
+  });
 }

@@ -1,6 +1,6 @@
 import { generateStringOfLength } from '../support/utils/generate';
 
-describe('Lists', () => {
+describe('Logout', () => {
   const email = `${generateStringOfLength(10)}@crounch.me`;
   const password = 'pass word';
 
