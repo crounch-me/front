@@ -1,5 +1,6 @@
 import { getters } from './getters';
 import { ListState } from '.';
+import { ListGetters } from './keys';
 
 describe('Getters', () => {
   const emptyRootState = { dummy: '' };
@@ -15,7 +16,7 @@ describe('Getters', () => {
         ]
       };
 
-      const result = getters.lists(state, { getters }, emptyRootState, {});
+      const result = getters[ListGetters.LISTS](state, { getters }, emptyRootState, {});
 
       expect(result).toBeTruthy();
     });

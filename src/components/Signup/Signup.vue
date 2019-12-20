@@ -17,12 +17,12 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 
 import { validateEmail } from '@/utils/form-validation';
-import { AuthKeys } from '@/store/auth/keys';
+import { AuthActions } from '@/store/auth/keys';
 import { authNamespace } from '@/store/auth';
 
 @Component
 export default class Signup extends Vue {
-  @Action(AuthKeys.SIGNUP, authNamespace) doSignup: any;
+  @Action(AuthActions.SIGNUP, authNamespace) doSignup: any;
 
   email: string = '';
   password: string = '';

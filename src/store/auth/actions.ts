@@ -2,15 +2,15 @@ import { ActionTree } from 'vuex';
 import { AuthState } from '.';
 import { RootState } from '..';
 import { login, signup } from '@/api/user';
-import { AuthKeys } from './keys';
+import { AuthActions, AuthMutations } from './keys';
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
 
 export const actions: ActionTree<AuthState, RootState> = {
-  [AuthKeys.LOGIN]: ({ commit }, { email, password }): Promise<void> => {
+  [AuthActions.LOGIN]: ({ commit }, { email, password }): Promise<void> => {
     return login(email, password)
       .then(res => {
         const token = res.accessToken;
-        commit(AuthKeys.LOGIN, token);
+        commit(AuthMutations.LOGIN, token);
         localStorage.setItem(TOKEN_STORAGE_KEY, token);
         return Promise.resolve();
       })
@@ -19,17 +19,17 @@ export const actions: ActionTree<AuthState, RootState> = {
         return Promise.reject(err);
       });
   },
-  [AuthKeys.SIGNUP]: ({ dispatch }, { email, password }): Promise<void> => {
+  [AuthActions.SIGNUP]: ({ dispatch }, { email, password }): Promise<void> => {
     return signup(email, password)
       .then(() => {
-        dispatch(AuthKeys.LOGIN, { email, password });
+        dispatch(AuthActions.LOGIN, { email, password });
         return Promise.resolve();
       })
       .catch(Promise.reject);
   },
-  [AuthKeys.LOGOUT]: ({ commit }) => {
+  [AuthActions.LOGOUT]: ({ commit }) => {
     return new Promise(resolve => {
-      commit(AuthKeys.LOGOUT);
+      commit(AuthMutations.LOGOUT);
       localStorage.removeItem(TOKEN_STORAGE_KEY);
       resolve();
     });

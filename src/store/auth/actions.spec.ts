@@ -2,11 +2,11 @@ import { when } from 'jest-when';
 
 import { signup, login } from '@/api/user';
 import { actions } from './actions';
-import { AuthKeys } from './keys';
 import { callAction, initContext } from '@/utils/test';
 import { AuthState } from '.';
 import { LoginResponse } from '@/api/user';
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
+import { AuthActions, AuthMutations } from './keys';
 
 jest.mock('@/api/user');
 
@@ -38,16 +38,16 @@ describe('Actions', () => {
     });
 
     it('Should call api with right parameters.', () => {
-      callAuthAction(AuthKeys.SIGNUP, { email, password });
+      callAuthAction(AuthActions.SIGNUP, { email, password });
 
       expect(signup as jest.Mock).toHaveBeenCalledWith(email, password);
     });
 
     it('Should call dispatch login action when the request succeed.', done => {
-      callAuthAction(AuthKeys.SIGNUP, { email, password });
+      callAuthAction(AuthActions.SIGNUP, { email, password });
 
       setTimeout(() => {
-        expect(context.dispatch).toHaveBeenCalledWith(AuthKeys.LOGIN, { email, password });
+        expect(context.dispatch).toHaveBeenCalledWith(AuthActions.LOGIN, { email, password });
         done();
       });
     });
@@ -63,23 +63,23 @@ describe('Actions', () => {
     });
 
     it('Should call api with right parameters.', () => {
-      callAuthAction(AuthKeys.LOGIN, { email, password });
+      callAuthAction(AuthActions.LOGIN, { email, password });
 
       expect(login as jest.Mock).toHaveBeenCalledWith(email, password);
     });
 
     it('Should store token when request succeed.', done => {
-      callAuthAction(AuthKeys.LOGIN, { email, password });
+      callAuthAction(AuthActions.LOGIN, { email, password });
 
       setTimeout(() => {
         expect(setItemMock).toHaveBeenCalledWith(TOKEN_STORAGE_KEY, token);
         done();
       });
     });
-
+    
     it('Should remove token from storage when request failed.', done => {
       (login as jest.Mock).mockRejectedValue({});
-      callAuthAction(AuthKeys.LOGIN, { email, password })
+      callAuthAction(AuthActions.LOGIN, { email, password })
         .then(() => expect(true).toBeFalsy())
         .catch(() => {
           expect(removeItemMock).toHaveBeenCalledWith(TOKEN_STORAGE_KEY);
@@ -90,13 +90,13 @@ describe('Actions', () => {
 
   describe('LOGOUT', () => {
     it('Should commit logout mutation.', () => {
-      callAuthAction(AuthKeys.LOGOUT);
+      callAuthAction(AuthActions.LOGOUT);
 
-      expect(context.commit);
+      expect(context.commit).toHaveBeenCalledWith(AuthMutations.LOGOUT);
     });
 
     it('Should remove token from storage.', () => {
-      callAuthAction(AuthKeys.LOGOUT);
+      callAuthAction(AuthActions.LOGOUT);
 
       expect(removeItemMock).toHaveBeenCalledWith(TOKEN_STORAGE_KEY);
     });

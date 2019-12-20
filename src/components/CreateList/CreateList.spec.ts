@@ -3,7 +3,7 @@ import { Module } from 'vuex';
 
 import { shallowComponent } from '@/utils/test';
 import CreateList from './CreateList.vue';
-import { ListKeys } from '@/store/list/keys';
+import { ListActions } from '@/store/list/keys';
 import { createListModuleMock } from '@/store/list/mockModule';
 import { ListState } from '@/store/list';
 import { RootState } from '@/store';
@@ -58,7 +58,7 @@ describe('CreateList', () => {
   it('Should not dispatch create list store action when form is not valid.', () => {
     wrapper.find('[type=submit]').trigger('click');
 
-    expect(list.actions![ListKeys.CREATE] as jest.Mock).not.toHaveBeenCalled();
+    expect(list.actions![ListActions.CREATE] as jest.Mock).not.toHaveBeenCalled();
   });
 
   it('Should dispatch create list store action when form is valid and submitted.', done => {
@@ -67,7 +67,7 @@ describe('CreateList', () => {
     wrapper.find('[type=submit]').trigger('click');
 
     setTimeout(() => {
-      expect(list.actions![ListKeys.CREATE] as jest.Mock).toHaveBeenCalledWith(
+      expect(list.actions![ListActions.CREATE] as jest.Mock).toHaveBeenCalledWith(
         expect.anything(),
         { name },
       );

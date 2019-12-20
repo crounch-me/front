@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Vuex, { StoreOptions, ActionContext } from 'vuex';
+import Vuex, { StoreOptions } from 'vuex';
 import { auth } from './auth';
 import { list } from './list';
 
@@ -8,8 +8,6 @@ Vue.use(Vuex);
 export interface RootState {
   dummy: string;
 }
-
-export type ActionCall<S, R> = (injectee: ActionContext<S, R>, payload?: any) => any;
 
 const store: StoreOptions<RootState> = {
   state: {

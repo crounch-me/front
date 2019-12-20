@@ -14,12 +14,12 @@ import { Getter, Action } from 'vuex-class';
 
 import { ListState, listNamespace } from '../../store/list';
 import { List } from '../../models/list';
-import { ListKeys } from '../../store/list/keys';
+import { ListActions, ListGetters } from '../../store/list/keys';
 
 @Component
 export default class DisplayLists extends Vue {
-  @Action(ListKeys.GETOWNERS, listNamespace) getOwners: any;
-  @Getter('lists', listNamespace) lists!: List[];
+  @Action(ListActions.GETOWNERS, listNamespace) getOwners: any;
+  @Getter(ListGetters.LISTS, listNamespace) lists!: List[];
 
   created() {
     this.getOwners();

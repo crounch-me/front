@@ -5,6 +5,7 @@ import { RootState } from '@/store';
 import { Module } from 'vuex';
 import { Wrapper } from '@vue/test-utils';
 import { createAuthModuleMock } from '@/store/auth/mockModule';
+import { AuthGetters } from '@/store/auth/keys';
 
 describe('Lists', () => {
   let wrapper: Wrapper<Lists>;
@@ -26,7 +27,7 @@ describe('Lists', () => {
 
   it('Should render when user is authenticated.', () => {
     auth = createAuthModuleMock();
-    (auth.getters!['isAuthenticated'] as jest.Mock).mockReturnValue(true);
+    (auth.getters![AuthGetters.IS_AUTHENTICATED] as jest.Mock).mockReturnValue(true);
 
     const modules = {
       auth,

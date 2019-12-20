@@ -20,8 +20,8 @@ import Login from '@/components/Login/Login.vue';
 import Search from '@/components/Search/Search.vue';
 import CreateList from '@/components/CreateList/CreateList.vue';
 import { authNamespace } from '@/store/auth';
-import { AuthKeys } from '@/store/auth/keys';
-import { ListKeys } from '@/store/list/keys';
+import { AuthActions, AuthGetters } from '@/store/auth/keys';
+import { ListMutations } from '@/store/list/keys';
 import { listNamespace } from '@/store/list';
 
 @Component({
@@ -33,7 +33,7 @@ import { listNamespace } from '@/store/list';
   },
 })
 export default class Home extends Vue {
-  @Getter('isAuthenticated', authNamespace) isAuthenticated!: boolean;
+  @Getter(AuthGetters.IS_AUTHENTICATED, authNamespace) isAuthenticated!: boolean;
 
   mounted() {
     if (this.isAuthenticated) {

@@ -1,5 +1,6 @@
 import { AuthState } from '.';
 import { getters } from './getters';
+import { AuthGetters } from './keys';
 
 describe('Getters', () => {
   const token = 'user token';
@@ -12,7 +13,7 @@ describe('Getters', () => {
         status: '',
       };
 
-      const result = getters.isAuthenticated(state, { getters }, emptyRootState, {});
+      const result = getters[AuthGetters.IS_AUTHENTICATED](state, { getters }, emptyRootState, {});
 
       expect(result).toBeTruthy();
     });
@@ -23,7 +24,7 @@ describe('Getters', () => {
         status: '',
       };
 
-      const result = getters.isAuthenticated(state, { getters }, emptyRootState, {});
+      const result = getters[AuthGetters.IS_AUTHENTICATED](state, { getters }, emptyRootState, {});
 
       expect(result).toBeFalsy();
     });

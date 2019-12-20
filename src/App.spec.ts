@@ -5,6 +5,7 @@ import { Module } from 'vuex';
 import { AuthState } from './store/auth';
 import { RootState } from './store';
 import { Wrapper } from '@vue/test-utils';
+import { AuthGetters } from './store/auth/keys';
 
 describe('App', () => {
   let wrapper: Wrapper<App>;
@@ -26,7 +27,7 @@ describe('App', () => {
 
   it('Should render when user is authenticated.', () => {
     auth = createAuthModuleMock();
-    (auth.getters!['isAuthenticated'] as jest.Mock).mockReturnValue(true);
+    (auth.getters![AuthGetters.IS_AUTHENTICATED] as jest.Mock).mockReturnValue(true);
 
     const modules = {
       auth,

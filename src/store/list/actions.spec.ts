@@ -1,5 +1,5 @@
 import { actions } from './actions';
-import { ListKeys } from './keys';
+import { ListActions, ListMutations } from './keys';
 import { callAction, initContext } from '@/utils/test';
 import { ListState } from '.';
 import { createList, getOwnerLists } from '@/api/list';
@@ -33,16 +33,16 @@ describe('Actions', () => {
     });
 
     it('Should call api with right parameters.', () => {
-      callListAction(ListKeys.CREATE, { name });
+      callListAction(ListActions.CREATE, { name });
 
       expect(createList as jest.Mock).toHaveBeenCalledWith(name);
     });
 
     it('Should call add mutation with the new list.', done => {
-      callListAction(ListKeys.CREATE, { name });
+      callListAction(ListActions.CREATE, { name });
 
       setTimeout(() => {
-        expect(context.commit as jest.Mock).toBeCalledWith(ListKeys.ADD, list);
+        expect(context.commit as jest.Mock).toBeCalledWith(ListMutations.ADD, list);
         done();
       });
     });
@@ -53,16 +53,16 @@ describe('Actions', () => {
       });
 
       it('Should call api.', () => {
-        callListAction(ListKeys.GETOWNERS);
+        callListAction(ListActions.GETOWNERS);
 
         expect(getOwnerLists as jest.Mock).toHaveBeenCalled();
       });
 
       it('Should call set mutation with the returned lists.', done => {
-        callListAction(ListKeys.GETOWNERS);
+        callListAction(ListActions.GETOWNERS);
 
         setTimeout(() => {
-          expect(context.commit as jest.Mock).toBeCalledWith(ListKeys.SET, lists);
+          expect(context.commit as jest.Mock).toBeCalledWith(ListMutations.SET, lists);
           done();
         });
       });
