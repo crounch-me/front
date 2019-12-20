@@ -1,13 +1,9 @@
-import { api } from './api';
+import { doFetch, FetchOptions } from './api';
 import { createList, getOwnerLists } from './list';
 import { List } from '@/models/list';
+import { when } from 'jest-when';
 
-jest.mock('./api', () => ({
-  api: {
-    post: jest.fn(),
-    get: jest.fn(),
-  },
-}));
+jest.mock('./api');
 
 describe('List API', () => {
   const name = 'shopping';
@@ -16,18 +12,29 @@ describe('List API', () => {
     name,
   };
   const lists: List[] = [list];
+  const expectedCreateOptions: FetchOptions = {
+    url: 'lists',
+    method: 'POST',
+    data: {
+      name
+    }
+  };
+
+  const expectedGetOptions: FetchOptions = {
+    url: 'lists',
+    method: 'GET'
+  };
 
   beforeEach(() => {
-    (api.post as jest.Mock).mockClear();
-    (api.post as jest.Mock).mockResolvedValue({ data: list });
-    (api.get as jest.Mock).mockClear();
-    (api.get as jest.Mock).mockResolvedValue({ data: lists });
+    (doFetch as jest.Mock).mockClear();
+    when(doFetch as jest.Mock).calledWith(expectedCreateOptions).mockResolvedValue(list);
+    when(doFetch as jest.Mock).calledWith(expectedGetOptions).mockResolvedValue([list]);
   });
 
   describe('createList', () => {
     it('Should call create list endpoint with right parameters.', done => {
       createList(name).then(() => {
-        expect(api.post).toHaveBeenCalledWith('lists', { name });
+        expect(doFetch).toHaveBeenCalledWith(expectedCreateOptions);
         done();
       });
     });
@@ -43,7 +50,7 @@ describe('List API', () => {
   describe('getOwnerLists', () => {
     it('Should call get lists endpoint with right parameters.', done => {
       getOwnerLists().then(() => {
-        expect(api.get).toHaveBeenCalledWith('lists');
+        expect(doFetch).toHaveBeenCalledWith(expectedGetOptions);
         done();
       });
     });

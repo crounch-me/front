@@ -1,4 +1,4 @@
-import { api } from './api';
+import { doFetch } from './api';
 
 export interface SignupResponse {
   id: string;
@@ -10,19 +10,23 @@ export interface LoginResponse {
 }
 
 export function signup(email: string, password: string): Promise<SignupResponse> {
-  return api
-    .post<SignupResponse>('users', {
+  return doFetch({
+    url: 'users',
+    method: 'POST',
+    data: {
       email,
       password,
-    })
-    .then(res => res.data);
+    },
+  });
 }
 
 export function login(email: string, password: string): Promise<LoginResponse> {
-  return api
-    .post<LoginResponse>('users/login', {
+  return doFetch({
+    url: 'users/login',
+    method: 'POST',
+    data: {
       email,
       password,
-    })
-    .then(res => res.data);
+    },
+  })
 }

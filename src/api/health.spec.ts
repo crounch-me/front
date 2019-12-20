@@ -1,21 +1,20 @@
-import { api } from './api';
+import { doFetch } from './api';
 import { health } from './health';
 
-jest.mock('./api', () => ({
-  api: {
-    get: jest.fn(),
-  },
-}));
+jest.mock('./api');
 
 describe('Health API', () => {
   beforeEach(() => {
-    (api.get as jest.Mock).mockClear();
-    (api.get as jest.Mock).mockReturnValue(Promise.resolve({}));
+    (doFetch as jest.Mock).mockClear();
+    (doFetch as jest.Mock).mockReturnValue(Promise.resolve({}));
   });
 
   it('Should call signup endpoint with right parameters.', () => {
     health();
 
-    expect(api.get).toHaveBeenCalledWith('health');
+    expect(doFetch).toHaveBeenCalledWith({
+      url: 'health',
+      method: 'GET',
+    });
   });
 });

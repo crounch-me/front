@@ -4,7 +4,6 @@ import { RootState } from '..';
 import { login, signup } from '@/api/user';
 import { AuthActions, AuthMutations } from './keys';
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
-import { api } from '@/api/api';
 
 export const actions: ActionTree<AuthState, RootState> = {
   [AuthActions.LOGIN]: ({ commit }, { email, password }): Promise<void> => {
@@ -13,7 +12,6 @@ export const actions: ActionTree<AuthState, RootState> = {
         const token = res.accessToken;
         commit(AuthMutations.LOGIN, token);
         localStorage.setItem(TOKEN_STORAGE_KEY, token);
-        api.defaults.headers.common['Authorization'] = token;
         return Promise.resolve();
       })
       .catch(err => {
@@ -33,7 +31,6 @@ export const actions: ActionTree<AuthState, RootState> = {
     return new Promise(resolve => {
       commit(AuthMutations.LOGOUT);
       localStorage.removeItem(TOKEN_STORAGE_KEY);
-      delete api.defaults.headers.common['Authorization'];
       resolve();
     });
   },
