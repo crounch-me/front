@@ -14,7 +14,7 @@
     "test:mutation": "stryker run || rm -rf .stryker-tmp"
   },
   "dependencies": {
-    "core-js": "^3.6.0",
+    "core-js": "^3.6.1",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.11",
     "vue-router": "^3.1.3",
