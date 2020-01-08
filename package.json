@@ -1,6 +1,6 @@
 {
   "name": "crounch-front",
-  "version": "0.13.12",
+  "version": "0.13.13",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
