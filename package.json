@@ -28,7 +28,7 @@
     "@stryker-mutator/jest-runner": "^2.4.0",
     "@stryker-mutator/typescript": "^2.4.0",
     "@stryker-mutator/vue-mutator": "^2.4.0",
-    "@types/jest": "^24.0.23",
+    "@types/jest": "^25.1.1",
     "@types/jest-when": "^2.7.0",
     "@types/webpack": "^4.41.0",
     "@typescript-eslint/eslint-plugin": "^2.9.0",
