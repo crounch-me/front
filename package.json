@@ -30,7 +30,7 @@
     "@stryker-mutator/vue-mutator": "^2.4.0",
     "@types/jest": "^24.0.23",
     "@types/jest-when": "^2.7.0",
-    "@types/webpack": "^4.41.0",
+    "@types/webpack": "^4.41.4",
     "@typescript-eslint/eslint-plugin": "^2.9.0",
     "@typescript-eslint/parser": "^2.15.0",
     "@vue/cli-plugin-babel": "^4.1.1",
