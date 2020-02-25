@@ -1,8 +1,8 @@
 import Home from '@/views/Home/Home.vue';
-import About from '@/views/About/About.vue';
 import Version from '@/views/Version/Version.vue';
 import NotFound from '@/views/NotFound/NotFound.vue';
 import Lists from '@/views/Lists/Lists.vue';
+import List from '@/views/List/List.vue';
 import router from './index';
 
 describe('router', () => {
@@ -14,25 +14,10 @@ describe('router', () => {
     });
 
     it('Should return Home component on name "home".', () => {
-      router.push({ name: 'about' });
+      router.push({ name: 'lists' });
       router.push({ name: 'home' });
 
       expect(router.getMatchedComponents()[0]).toEqual(Home);
-    });
-  });
-
-  describe('About', () => {
-    it('Should return About component on path "/about"', () => {
-      router.push('/about');
-
-      expect(router.getMatchedComponents()[0]).toEqual(About);
-    });
-
-    it('Should return About component on name "about".', () => {
-      router.push('/');
-      router.push({ name: 'about' });
-
-      expect(router.getMatchedComponents()[0]).toEqual(About);
     });
   });
 
@@ -52,17 +37,32 @@ describe('router', () => {
   });
 
   describe('Lists', () => {
-    it('Should return About component on path "/lists"', () => {
+    it('Should return Lists component on path "/lists"', () => {
       router.push('/lists');
 
       expect(router.getMatchedComponents()[0]).toEqual(Lists);
     });
 
-    it('Should return About component on name "lists".', () => {
+    it('Should return Lists component on name "lists".', () => {
       router.push('/');
       router.push({ name: 'lists' });
 
       expect(router.getMatchedComponents()[0]).toEqual(Lists);
+    });
+  });
+
+  describe('List', () => {
+    it('Should return List component on path "/lists/:id"', () => {
+      router.push('/lists/1');
+
+      expect(router.getMatchedComponents()[0]).toEqual(List);
+    });
+
+    it('Should return List component on name "lists".', () => {
+      router.push('/');
+      router.push({ name: 'list', params: { id: '1' } });
+
+      expect(router.getMatchedComponents()[0]).toEqual(List);
     });
   });
 

@@ -1,4 +1,4 @@
-import { generateStringOfLength } from '../support/utils/generate';
+import { generateStringOfLength, waitForElement } from '../support/utils/generate';
 
 describe('Lists', () => {
   let email: string;
@@ -32,8 +32,24 @@ describe('Lists', () => {
     const name = 'Liste Maison';
     cy.createList(name);
 
-    cy.visit('/');
+    cy.visit('/lists');
 
     cy.contains(name);
   });
+
+  it('Should see of the the users lists.', () => {
+    const name = 'List Maison';
+
+    cy.createList(name);
+
+    cy.visit('/lists')
+
+    waitForElement(cy, '.list')
+
+    cy.get('.list').click()
+
+    waitForElement(cy, '#list')
+
+    cy.contains(name)
+  })
 });

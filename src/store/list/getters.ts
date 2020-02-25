@@ -4,5 +4,6 @@ import { RootState } from '..';
 import { ListGetters } from './keys';
 
 export const getters: GetterTree<ListState, RootState> = {
-  [ListGetters.LISTS]: state => state.lists,
+  [ListGetters.GETALL]: state => state.lists,
+  [ListGetters.GET]: state => (id: string) => state.lists.find(list => list.id === id),
 };

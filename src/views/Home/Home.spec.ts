@@ -43,7 +43,7 @@ describe('Home', () => {
   });
 
   it('Should redirect to lists page on component creation when user is authenticated.', () => {
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith('lists');
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith('/lists');
   });
 
   it('Should not redirect to lists page on component creation when user is not authenticated.', () => {

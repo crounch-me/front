@@ -24,17 +24,4 @@ describe('Lists', () => {
   it('Should render.', () => {
     expect(wrapper).toMatchSnapshot();
   });
-
-  it('Should render when user is authenticated.', () => {
-    auth = createAuthModuleMock();
-    (auth.getters![AuthGetters.IS_AUTHENTICATED] as jest.Mock).mockReturnValue(true);
-
-    const modules = {
-      auth,
-    };
-
-    wrapper = shallowComponent(Lists, { modules });
-
-    expect(wrapper).toMatchSnapshot();
-  });
 });

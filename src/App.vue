@@ -2,8 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link v-if="!isAuthenticated" to="/">Home|</router-link>
-      <router-link v-if="isAuthenticated" to="lists">Listes |</router-link>
-      <router-link to="/about">About|</router-link>
+      <router-link v-if="isAuthenticated" to="/lists">Listes |</router-link>
       <router-link to="/version">Version</router-link>
       <Logout v-if="isAuthenticated" />
     </div>

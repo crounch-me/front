@@ -11,5 +11,6 @@ export enum ListMutations {
 };
 
 export enum ListGetters {
-  LISTS = 'LISTS',
+  GETALL = 'GETALL',
+  GET = 'GET',
 };

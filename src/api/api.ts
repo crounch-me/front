@@ -9,7 +9,7 @@ export interface FetchOptions {
 
 export function doFetch<T>(options: FetchOptions): Promise<T> {
   return fetch(getUrl(options.url), getFetchOptions(options))
-    .then(res => res.json())
+    .then(res => res.json());
 }
 
 function getFetchOptions({ data, method }: FetchOptions): object {

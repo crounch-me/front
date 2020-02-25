@@ -4,8 +4,7 @@ exports[`App Should render when user is authenticated. 1`] = `
 <div id="app">
   <div id="nav">
     <!---->
-    <router-link-stub to="lists">Listes |</router-link-stub>
-    <router-link-stub to="/about">About|</router-link-stub>
+    <router-link-stub to="/lists">Listes |</router-link-stub>
     <router-link-stub to="/version">Version</router-link-stub>
     <logout-stub></logout-stub>
   </div>
@@ -18,7 +17,6 @@ exports[`App Should render. 1`] = `
   <div id="nav">
     <router-link-stub to="/">Home|</router-link-stub>
     <!---->
-    <router-link-stub to="/about">About|</router-link-stub>
     <router-link-stub to="/version">Version</router-link-stub>
     <!---->
   </div>

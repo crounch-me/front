@@ -13,7 +13,6 @@ module.exports = {
     'vue/html-end-tags': 'error',
     'vue/html-indent': 'error',
     'vue/html-quotes': 'error',
-    'vue/multiline-html-element-content-newline': 'error',
     'vue/mustache-interpolation-spacing': 'error',
     'vue/no-multi-spaces': 'error',
     'vue/no-spaces-around-equal-signs-in-attribute': 'error',

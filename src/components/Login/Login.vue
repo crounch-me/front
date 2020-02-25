@@ -37,7 +37,7 @@ export default class Login extends Vue {
     const { email, password } = this;
 
     this.doLogin({ email, password }).then(() => {
-      this.$router.push('lists');
+      this.$router.push('/lists');
     });
   }
 

@@ -13,8 +13,20 @@ describe('DisplayLists', () => {
   let wrapper: Wrapper<DisplayLists>;
   let list: Module<ListState, RootState>;
 
+  const lists: List[] = [
+    {
+      id: 'list id 1',
+      name: 'list name 1',
+    },
+    {
+      id: 'list id 2',
+      name: 'list name 2',
+    },
+  ];
+
   beforeEach(() => {
     list = createListModuleMock();
+    (list.getters![ListGetters.GETALL] as jest.Mock).mockReturnValue(lists);
 
     const modules = { list };
 
@@ -29,24 +41,11 @@ describe('DisplayLists', () => {
     expect(list.actions![ListActions.GETOWNERS]).toHaveBeenCalled();
   });
 
-  it('Should display the returned lists.', () => {
-    const lists: List[] = [
-      {
-        id: 'list id 1',
-        name: 'list name 1',
-      },
-      {
-        id: 'list id 2',
-        name: 'list name 2',
-      },
-    ];
+  it('Should go to the list page when I click on a list', () => {
+    wrapper = shallowComponent(DisplayLists, { modules: { list } });
 
-    (list.getters![ListGetters.LISTS] as jest.Mock).mockReturnValue(lists);
+    wrapper.find('.list').trigger('click');
 
-    const modules = { list };
-
-    wrapper = shallowComponent(DisplayLists, { modules });
-
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith(`/lists/${lists[0].id}`);
   });
 });

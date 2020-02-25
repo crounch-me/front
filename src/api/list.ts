@@ -13,5 +13,5 @@ export function getOwnerLists(): Promise<Array<List>> {
   return doFetch({
     url: 'lists',
     method: 'GET',
-  })
+  });
 }
