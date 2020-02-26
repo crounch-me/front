@@ -4,9 +4,6 @@
     <h1 v-if="this.isAuthenticated">Connecté</h1>
     <Signup v-show="!this.isAuthenticated" />
     <Login v-show="!this.isAuthenticated" />
-    <div v-show="this.isAuthenticated">
-      <Search />
-    </div>
   </div>
 </template>
 
@@ -17,7 +14,6 @@ import { Getter, Action, Mutation } from 'vuex-class';
 import HelloWorld from '@/components/HelloWorld/HelloWorld.vue';
 import Signup from '@/components/Signup/Signup.vue';
 import Login from '@/components/Login/Login.vue';
-import Search from '@/components/Search/Search.vue';
 import CreateList from '@/components/CreateList/CreateList.vue';
 import { authNamespace } from '@/store/auth';
 import { AuthActions, AuthGetters } from '@/store/auth/keys';
@@ -29,7 +25,6 @@ import { listNamespace } from '@/store/list';
     HelloWorld,
     Signup,
     Login,
-    Search,
   },
 })
 export default class Home extends Vue {
