@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.14.0"></a>
+# [0.14.0](https://github.com/Sehsyha/crounch-front/compare/0.13.13...0.14.0) (2020-02-26)
+
+
+### Features
+
+* **lists:** display users lists ([#156](https://github.com/Sehsyha/crounch-front/issues/156)) ([f2c0dc1](https://github.com/Sehsyha/crounch-front/commit/f2c0dc1)), closes [#155](https://github.com/Sehsyha/crounch-front/issues/155)
+
+
+
 <a name="0.13.13"></a>
 ## [0.13.13](https://github.com/Sehsyha/crounch-front/compare/0.13.12...0.13.13) (2020-01-08)
 
