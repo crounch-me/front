@@ -6,9 +6,6 @@ exports[`Home Should render when user is authenticated. 1`] = `
   <h1>Connecté</h1>
   <signup-stub style="display: none;"></signup-stub>
   <login-stub style="display: none;"></login-stub>
-  <div>
-    <search-stub></search-stub>
-  </div>
 </div>
 `;
 
@@ -18,8 +15,5 @@ exports[`Home Should render when user is not authenticated. 1`] = `
   <!---->
   <signup-stub></signup-stub>
   <login-stub></login-stub>
-  <div style="display: none;">
-    <search-stub></search-stub>
-  </div>
 </div>
 `;
