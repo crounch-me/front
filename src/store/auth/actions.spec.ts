@@ -68,6 +68,15 @@ describe('Actions', () => {
       expect(login as jest.Mock).toHaveBeenCalledWith(email, password);
     });
 
+    it('Should call commit login when the request succeed.', done => {
+      callAuthAction(AuthActions.LOGIN, { email, password });
+
+      setTimeout(() => {
+        expect(context.commit).toHaveBeenCalledWith(AuthActions.LOGIN, token);
+        done();
+      });
+    });
+
     it('Should store token when request succeed.', done => {
       callAuthAction(AuthActions.LOGIN, { email, password });
 
@@ -76,7 +85,7 @@ describe('Actions', () => {
         done();
       });
     });
-    
+
     it('Should remove token from storage when request failed.', done => {
       (login as jest.Mock).mockRejectedValue({});
       callAuthAction(AuthActions.LOGIN, { email, password })

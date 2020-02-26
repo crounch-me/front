@@ -11,6 +11,7 @@ module.exports = function (config) {
       '!src/main.ts',
       '!src/store/index.ts',
       '!src/utils/constants.ts',
+      '!src/router/index.ts',
       '!src/store/**/mockModule.ts',
       '!src/store/**/keys.ts',
       '!src/utils/test.ts',

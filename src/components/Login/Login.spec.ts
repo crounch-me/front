@@ -134,7 +134,7 @@ describe('Login', () => {
       wrapper.find('[type=submit]').trigger('click');
 
       setTimeout(() => {
-        expect(wrapper.vm.$router.push).toHaveBeenCalledWith('lists');
+        expect(wrapper.vm.$router.push).toHaveBeenCalledWith('/lists');
         done();
       });
     });

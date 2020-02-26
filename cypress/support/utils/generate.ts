@@ -7,3 +7,7 @@ export function generateStringOfLength(length: number) {
   }
   return result;
 }
+
+export function waitForElement(cy: Cypress.cy, selector: string) {
+  cy.get(selector, { timeout: 1000 }).should('be.visible');
+}

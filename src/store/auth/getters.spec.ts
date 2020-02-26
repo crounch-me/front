@@ -13,7 +13,7 @@ describe('Getters', () => {
         status: '',
       };
 
-      const result = getters[AuthGetters.IS_AUTHENTICATED](state, { getters }, emptyRootState, {});
+      const result = getters[AuthGetters.IS_AUTHENTICATED](state, undefined, emptyRootState, {});
 
       expect(result).toBeTruthy();
     });
@@ -24,7 +24,7 @@ describe('Getters', () => {
         status: '',
       };
 
-      const result = getters[AuthGetters.IS_AUTHENTICATED](state, { getters }, emptyRootState, {});
+      const result = getters[AuthGetters.IS_AUTHENTICATED](state, undefined, emptyRootState, {});
 
       expect(result).toBeFalsy();
     });

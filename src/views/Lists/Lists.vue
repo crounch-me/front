@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Listes</h1>
-    <CreateList v-show="this.isAuthenticated" />
+    <CreateList />
     <DisplayLists />
   </div>
 </template>
@@ -13,8 +13,6 @@ import { Getter } from 'vuex-class';
 
 import CreateList from '@/components/CreateList/CreateList.vue';
 import DisplayLists from '@/components/DisplayLists/DisplayLists.vue';
-import { authNamespace } from '@/store/auth';
-import { AuthGetters } from '@/store/auth/keys';
 
 @Component({
   components: {
@@ -22,7 +20,5 @@ import { AuthGetters } from '@/store/auth/keys';
     DisplayLists,
   }
 })
-export default class Lists extends Vue {
-  @Getter(AuthGetters.IS_AUTHENTICATED, authNamespace) isAuthenticated!: boolean;
-}
+export default class Lists extends Vue { }
 </script>

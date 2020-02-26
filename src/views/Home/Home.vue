@@ -37,7 +37,7 @@ export default class Home extends Vue {
 
   mounted() {
     if (this.isAuthenticated) {
-      this.$router.push('lists');
+      this.$router.push('/lists');
     }
   }
 }

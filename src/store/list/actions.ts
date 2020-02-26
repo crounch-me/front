@@ -1,8 +1,9 @@
 import { ActionTree } from 'vuex';
+import { createList, getOwnerLists } from '@/api/list';
+
 import { ListState } from '.';
 import { RootState } from '..';
 import { ListActions, ListMutations } from './keys';
-import { createList, getOwnerLists } from '@/api/list';
 
 export const actions: ActionTree<ListState, RootState> = {
   [ListActions.CREATE]: ({ commit }, { name }): Promise<void> => {
