@@ -3,7 +3,7 @@
 exports[`DisplayLists Should render. 1`] = `
 <div>
   <h3>Lists</h3>
-  <div class="list">list name 1</div>
-  <div class="list">list name 2</div>
+  <div id="list id 1" class="list">list name 1</div>
+  <div id="list id 2" class="list">list name 2</div>
 </div>
 `;

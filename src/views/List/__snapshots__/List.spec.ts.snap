@@ -2,7 +2,7 @@
 
 exports[`List Should display list when the list is defined after fetch. 1`] = `
 <div>
-  <div></div>
+  <div id="list"></div>
 </div>
 `;
 
@@ -14,6 +14,6 @@ exports[`List Should display not found message when list does not exist after fe
 
 exports[`List Should render. 1`] = `
 <div>
-  <div>list name</div>
+  <div id="list">list name</div>
 </div>
 `;
