@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.13.13"></a>
+## [0.13.13](https://github.com/Sehsyha/crounch-front/compare/0.13.12...0.13.13) (2020-01-08)
+
+
+
+<a name="0.13.12"></a>
+## [0.13.12](https://github.com/Sehsyha/crounch-front/compare/0.13.11...0.13.12) (2020-01-07)
+
+
+
+<a name="0.13.11"></a>
+## [0.13.11](https://github.com/Sehsyha/crounch-front/compare/0.13.10...0.13.11) (2020-01-07)
+
+
+
+<a name="0.13.10"></a>
+## [0.13.10](https://github.com/Sehsyha/crounch-front/compare/0.13.9...0.13.10) (2020-01-07)
+
+
+
+<a name="0.13.9"></a>
+## [0.13.9](https://github.com/Sehsyha/crounch-front/compare/0.13.8...0.13.9) (2020-01-07)
+
+
+
+<a name="0.13.8"></a>
+## [0.13.8](https://github.com/Sehsyha/crounch-front/compare/0.13.7...0.13.8) (2020-01-07)
+
+
+
+<a name="0.13.7"></a>
+## [0.13.7](https://github.com/Sehsyha/crounch-front/compare/0.13.6...0.13.7) (2019-12-25)
+
+
+
 <a name="0.13.6"></a>
 ## [0.13.6](https://github.com/Sehsyha/crounch-front/compare/0.13.5...0.13.6) (2019-12-20)
 
