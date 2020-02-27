@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateProduct Should render. 1`] = `
+<div id="create-list">
+  <div id="name-error">Le nom doit être renseigné</div>
+  <!---->
+  <form><input type="text" placeholder="Nom"> <input type="submit" value="Créer"></form>
+</div>
+`;

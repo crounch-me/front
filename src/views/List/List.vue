@@ -2,6 +2,7 @@
   <div>
     <div v-if="this.list" id="list">{{ list.name }}</div>
     <div v-else>La liste n'a pas été trouvée</div>
+    <CreateProduct />
   </div>
 </template>
 
@@ -12,8 +13,13 @@ import { Getter, Action } from 'vuex-class';
 import { ListGetters, ListActions } from '@/store/list/keys';
 import { listNamespace } from '@/store/list';
 import { List } from '@/models/list';
+import CreateProduct from '@/components/CreateProduct/CreateProduct.vue'
 
-@Component
+@Component({
+  components: {
+    CreateProduct
+  }
+})
 export default class ListPage extends Vue {
   @Prop(String) readonly id!: string;
   @Getter(ListGetters.GET, listNamespace) getList!: (id: string) => List;
