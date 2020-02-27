@@ -3,17 +3,20 @@
 exports[`List Should display list when the list is defined after fetch. 1`] = `
 <div>
   <div id="list"></div>
+  <createproduct-stub></createproduct-stub>
 </div>
 `;
 
 exports[`List Should display not found message when list does not exist after fetch. 1`] = `
 <div>
   <div>La liste n'a pas été trouvée</div>
+  <createproduct-stub></createproduct-stub>
 </div>
 `;
 
 exports[`List Should render. 1`] = `
 <div>
   <div id="list">list name</div>
+  <createproduct-stub></createproduct-stub>
 </div>
 `;
