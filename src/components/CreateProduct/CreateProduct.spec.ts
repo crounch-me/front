@@ -13,7 +13,7 @@ jest.mock('@/store/product');
 describe('CreateProduct', () => {
   let wrapper: Wrapper<CreateProduct>;
   let product: Module<ProductState, RootState>;
-  const name = 'shopping list';
+  const name = 'cassoulet';
 
   beforeEach(() => {
     product = createProductModuleMock();

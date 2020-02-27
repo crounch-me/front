@@ -1,8 +1,8 @@
 <template>
-  <div id="create-list">
+  <div id="create-product">
     <div v-if="!isNameValid" id="name-error">Le nom doit être renseigné</div>
     <div v-if="result !== ''" class="result">{{ result }}</div>
-    <form @submit.prevent="createList">
+    <form @submit.prevent="createProduct">
       <input type="text" placeholder="Nom" v-model="name" />
       <input type="submit" value="Créer" />
     </form>
@@ -22,7 +22,7 @@ export default class CreateProduct extends Vue {
   name: string = '';
   result: string = '';
 
-  createList() {
+  createProduct() {
     if (!this.isNameValid) {
       return;
     }

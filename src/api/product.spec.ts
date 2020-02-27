@@ -6,9 +6,9 @@ import { Product } from '@/models/product';
 jest.mock('./api');
 
 describe('Product API', () => {
-  const name = 'shopping';
+  const name = 'cassoulet';
   const product: Product = {
-    id: 'list id',
+    id: 'product id',
     name,
   };
   const expectedCreateOptions: FetchOptions = {
