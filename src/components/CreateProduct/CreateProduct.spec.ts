@@ -81,7 +81,7 @@ describe('CreateProduct', () => {
     wrapper.find('[type=submit]').trigger('click');
 
     setTimeout(() => {
-      expect(wrapper.find('.result').text()).toEqual('Créée')
+      expect(wrapper.find('.result').text()).toEqual('Créé')
       done();
     });
   });
