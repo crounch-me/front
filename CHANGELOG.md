@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.15.0"></a>
+# [0.15.0](https://github.com/Sehsyha/crounch-front/compare/0.14.1...0.15.0) (2020-02-27)
+
+
+### Features
+
+* create product ([#160](https://github.com/Sehsyha/crounch-front/issues/160)) ([f4a18f9](https://github.com/Sehsyha/crounch-front/commit/f4a18f9)), closes [#34](https://github.com/Sehsyha/crounch-front/issues/34)
+
+
+
 <a name="0.14.1"></a>
 ## [0.14.1](https://github.com/Sehsyha/crounch-front/compare/0.14.0...0.14.1) (2020-02-26)
 
