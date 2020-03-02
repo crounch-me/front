@@ -1,8 +1,9 @@
 import { Wrapper } from '@vue/test-utils';
 import { when } from 'jest-when';
 import { Module } from 'vuex';
+import Vue from 'vue';
+import flushPromises from 'flush-promises'
 
-import { signup } from '@/api/user';
 import Signup from '@/components/Signup/Signup.vue';
 import { validateEmail } from '@/utils/form-validation';
 import { shallowComponent } from '@/utils/test';
@@ -10,8 +11,8 @@ import { AuthActions } from '@/store/auth/keys';
 import { createAuthModuleMock } from '@/store/auth/mockModule';
 import { AuthState } from '@/store/auth';
 import { RootState } from '@/store';
+import { FetchError } from '@/utils/error';
 
-jest.mock('@/api/user');
 jest.mock('@/utils/form-validation');
 
 describe('Signup', () => {
@@ -22,11 +23,12 @@ describe('Signup', () => {
 
   beforeEach(() => {
     auth = createAuthModuleMock();
+
     const modules = {
       auth,
     };
+
     wrapper = shallowComponent(Signup, { modules });
-    (signup as jest.Mock).mockResolvedValue({});
   });
 
   afterEach(() => {
@@ -45,10 +47,6 @@ describe('Signup', () => {
     it('Should initialize password to empty string.', () => {
       expect(wrapper.vm.$data.password).toBe('');
     });
-
-    it('Should initialize signupSuccess to false.', () => {
-      expect(wrapper.vm.$data.signupSuccess).toBe(false);
-    });
   });
 
   describe('Form validation', () => {
@@ -58,15 +56,21 @@ describe('Signup', () => {
           .calledWith(email)
           .mockReturnValue(false);
         wrapper.setData({ email });
+
         expect(wrapper.find('#email-error').exists()).toBeTruthy();
       });
 
-      it('Should not render an error when email is valid.', () => {
+      it('Should not render an error when email is valid.', done => {
         when(validateEmail as jest.Mock)
           .calledWith(email)
           .mockReturnValue(true);
+
         wrapper.setData({ email });
-        expect(wrapper.find('#email-error').exists()).toBeFalsy();
+
+        Vue.nextTick().then(() => {
+          expect(wrapper.find('#email-error').exists()).toBeFalsy();
+          done();
+        });
       });
     });
 
@@ -75,15 +79,74 @@ describe('Signup', () => {
         expect(wrapper.find('#password-error').exists()).toBeTruthy();
       });
 
-      it('Should not render an error when password input is filled.', () => {
-        wrapper.setData({ password: 'az' });
+      it('Should not render an error when password input is filled with correct value.', done => {
+        wrapper.setData({ password: 'azaa' });
 
-        expect(wrapper.find('#password-error').exists()).toBeFalsy();
+        Vue.nextTick(() => {
+          expect(wrapper.find('#password-error').exists()).toBeFalsy();
+          done();
+        });
       });
     });
   });
 
   describe('Form submission', () => {
+    it('Should display error message when server returns Conflict.', done => {
+      const error: Partial<FetchError> = {
+        status: 409,
+      };
+      auth.actions = {
+        [AuthActions.SIGNUP]: jest.fn().mockRejectedValue(error)
+      }
+
+      const modules = {
+        auth,
+      };
+
+      wrapper = shallowComponent(Signup, { modules });
+
+      when(validateEmail as jest.Mock)
+        .calledWith(email)
+        .mockReturnValue(true);
+
+      wrapper.setData({ password, email });
+
+      wrapper.find('[type=submit]').trigger('click');
+
+      flushPromises().then(() => {
+        expect(wrapper.find('#signup-error').text()).toBe('Cet email est invalide ou déjà pris.');
+        done();
+      });
+    });
+
+    it('Should display error message when server returns Internal Server Error.', done => {
+      const error: Partial<FetchError> = {
+        status: 500,
+      };
+      auth.actions = {
+        [AuthActions.SIGNUP]: jest.fn().mockRejectedValue(error)
+      }
+
+      const modules = {
+        auth,
+      };
+
+      wrapper = shallowComponent(Signup, { modules });
+
+      when(validateEmail as jest.Mock)
+        .calledWith(email)
+        .mockReturnValue(true);
+
+      wrapper.setData({ password, email });
+
+      wrapper.find('[type=submit]').trigger('click');
+
+      flushPromises().then(() => {
+        expect(wrapper.find('#signup-error').text()).toBe('Une erreur inconnue est survenue.');
+        done();
+      })
+    });
+
     it('Should not dispatch store signup when email is in error and not password.', () => {
       when(validateEmail as jest.Mock)
         .calledWith(email)
@@ -121,21 +184,6 @@ describe('Signup', () => {
         expect.anything(),
         { email, password }
       );
-    });
-
-    it('Should display success message when user has signed up.', done => {
-      when(validateEmail as jest.Mock)
-        .calledWith(email)
-        .mockReturnValue(true);
-
-      wrapper.setData({ password, email });
-
-      wrapper.find('[type=submit]').trigger('click');
-
-      setTimeout(() => {
-        expect(wrapper.find('.success').exists()).toBeTruthy();
-        done();
-      });
     });
   });
 });

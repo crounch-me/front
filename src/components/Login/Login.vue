@@ -1,6 +1,6 @@
 <template>
   <div id="login">
-    <h2>Login</h2>
+    <h2>Connexion</h2>
     <form @submit.prevent="login">
       <div v-if="!isEmailValid" class="error" id="email-error">Please enter a valid email.</div>
       <div v-if="!isPasswordValid" class="error" id="password-error">Please enter a password.</div>
@@ -37,7 +37,7 @@ export default class Login extends Vue {
     const { email, password } = this;
 
     this.doLogin({ email, password }).then(() => {
-      this.$router.push('/lists');
+      this.$router.replace('/lists');
     });
   }
 

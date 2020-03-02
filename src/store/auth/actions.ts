@@ -12,22 +12,21 @@ export const actions: ActionTree<AuthState, RootState> = {
         const token = res.accessToken;
         commit(AuthMutations.LOGIN, token);
         localStorage.setItem(TOKEN_STORAGE_KEY, token);
-        return Promise.resolve();
+        return
       })
       .catch(err => {
         localStorage.removeItem(TOKEN_STORAGE_KEY);
-        return Promise.reject(err);
+        throw err;
       });
   },
   [AuthActions.SIGNUP]: ({ dispatch }, { email, password }): Promise<void> => {
     return signup(email, password)
       .then(() => {
         dispatch(AuthActions.LOGIN, { email, password });
-        return Promise.resolve();
-      })
-      .catch(Promise.reject);
+        return;
+      });
   },
-  [AuthActions.LOGOUT]: ({ commit }) => {
+  [AuthActions.LOGOUT]: ({ commit }): Promise<void> => {
     return new Promise(resolve => {
       commit(AuthMutations.LOGOUT);
       localStorage.removeItem(TOKEN_STORAGE_KEY);

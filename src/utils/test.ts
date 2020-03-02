@@ -42,7 +42,8 @@ export function shallowComponent<V extends Vue>(component: VueClass<V>, { values
     stubs: ['router-link', 'router-view'],
     mocks: {
       $router: {
-        push: jest.fn()
+        push: jest.fn(),
+        replace: jest.fn()
       }
     }
   });

@@ -2,7 +2,7 @@
 
 exports[`Login Should render. 1`] = `
 <div id="login">
-  <h2>Login</h2>
+  <h2>Connexion</h2>
   <form>
     <div id="email-error" class="error">Please enter a valid email.</div>
     <div id="password-error" class="error">Please enter a password.</div>

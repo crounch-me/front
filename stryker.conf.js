@@ -3,7 +3,6 @@
 module.exports = function (config) {
   config.set({
     mutate: [
-      'src/**/*.js',
       'src/**/*.ts',
       'src/**/*.vue',
       '!src/**/*.spec.ts',
