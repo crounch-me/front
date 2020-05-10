@@ -6,6 +6,7 @@ on:
 
 jobs:
   deploy:
+    if: contains(toJson(github.event.commits), '[skip ci]') == false
     runs-on: ubuntu-latest
 
     steps:
@@ -26,11 +27,12 @@ jobs:
     
 #    - name: Mutation tests
 #      run: npm run test:mutation
-#    - name: Bump version
-#      run: make bump-version
+
+    - name: Bump version
+      run: make bump-version
     
     - name: Build image
       run: make build-image
     
-#    - name: Publish image
-#      run: make publish-image
+    - name: Publish image
+      run: make publish-image
