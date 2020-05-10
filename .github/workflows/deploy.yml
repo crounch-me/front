@@ -20,7 +20,16 @@ jobs:
       uses: actions/setup-node@v1.4.2
     
     - name: Install dependencies
-      run: npm i
+      run: npm ci
+
+    - name: Lint
+      run: npm run lint
+    
+    - name: Unit tests
+      run: npm run test:ci
+    
+#    - name: Mutation tests
+#      run: npm run test:mutation
 
     - name: Run a one-line script
       run: echo Hello, world!
