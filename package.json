@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint --no-fix",
     "storybook": "start-storybook",
     "test": "vue-cli-service test:unit --watch",
-    "test:ci": "vue-cli-service test:unit --coverage --coverageReporters=text-lcov",
+    "test:ci": "vue-cli-service test:unit",
     "test:e2e": "VUE_APP_API_URL=http://localhost:3000 vue-cli-service test:e2e",
     "test:e2e:ci": "cypress run --record false",
     "test:mutation": "stryker run || rm -rf .stryker-tmp"
