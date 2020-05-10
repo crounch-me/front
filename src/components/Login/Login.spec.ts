@@ -1,7 +1,7 @@
+import Vue from 'vue';
 import { Wrapper } from '@vue/test-utils';
 import { when } from 'jest-when';
 
-import { login } from '@/api/user';
 import Login from './Login.vue';
 import { validateEmail } from '@/utils/form-validation';
 import { shallowComponent } from '@/utils/test';
@@ -11,7 +11,6 @@ import { RootState } from '@/store';
 import { createAuthModuleMock } from '@/store/auth/mockModule';
 import { AuthActions } from '@/store/auth/keys';
 
-jest.mock('@/api/user');
 jest.mock('@/utils/form-validation');
 
 describe('Login', () => {
@@ -19,7 +18,6 @@ describe('Login', () => {
   let auth: Module<AuthState, RootState>;
   const email = 'a';
   const password = 'password';
-  const token = 'auth-token';
 
   beforeEach(() => {
     auth = createAuthModuleMock();
@@ -29,7 +27,6 @@ describe('Login', () => {
     };
 
     wrapper = shallowComponent(Login, { modules });
-    (login as jest.Mock).mockResolvedValue({ accessToken: token });
   });
 
   afterEach(() => {
@@ -64,12 +61,17 @@ describe('Login', () => {
         expect(wrapper.find('#email-error').exists()).toBeTruthy();
       });
 
-      it('Should not render an error when email is valid.', () => {
+      it('Should not render an error when email is valid.', done => {
         when(validateEmail as jest.Mock)
           .calledWith(email)
           .mockReturnValue(true);
+
         wrapper.setData({ email });
-        expect(wrapper.find('#email-error').exists()).toBeFalsy();
+
+        Vue.nextTick().then(() => {
+          expect(wrapper.find('#email-error').exists()).toBeFalsy();
+          done();
+        });
       });
     });
 
@@ -78,16 +80,19 @@ describe('Login', () => {
         expect(wrapper.find('#password-error').exists()).toBeTruthy();
       });
 
-      it('Should not render an error when password input is filled.', () => {
-        wrapper.setData({ password: 'az' });
+      it('Should not render an error when password input is filled.', done => {
+        wrapper.setData({ password: 'azza' });
 
-        expect(wrapper.find('#password-error').exists()).toBeFalsy();
+        Vue.nextTick().then(() => {
+          expect(wrapper.find('#password-error').exists()).toBeFalsy();
+          done();
+        });
       });
     });
   });
 
   describe('Form submission', () => {
-    it('Should not call api when email is in error and not password.', () => {
+    it('Should not dispatch action when email is in error and not password.', () => {
       when(validateEmail as jest.Mock)
         .calledWith(email)
         .mockReturnValue(false);
@@ -98,7 +103,7 @@ describe('Login', () => {
       expect(auth.actions![AuthActions.LOGIN] as jest.Mock).not.toHaveBeenCalled();
     });
 
-    it('Should not call api when password is in error and not email.', () => {
+    it('Should not dispatch action when password is in error and not email.', () => {
       when(validateEmail as jest.Mock)
         .calledWith(email)
         .mockReturnValue(true);
@@ -109,7 +114,7 @@ describe('Login', () => {
       expect(auth.actions![AuthActions.LOGIN] as jest.Mock).not.toHaveBeenCalled();
     });
 
-    it('Should call api with right parameters when everything is valid.', () => {
+    it('Should dispatch action with right parameters when everything is valid.', () => {
       when(validateEmail as jest.Mock)
         .calledWith(email)
         .mockReturnValue(true);
@@ -134,7 +139,7 @@ describe('Login', () => {
       wrapper.find('[type=submit]').trigger('click');
 
       setTimeout(() => {
-        expect(wrapper.vm.$router.push).toHaveBeenCalledWith('/lists');
+        expect(wrapper.vm.$router.replace).toHaveBeenCalledWith('/lists');
         done();
       });
     });

@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import { Wrapper } from '@vue/test-utils';
 import { Module } from 'vuex';
 
@@ -48,10 +49,13 @@ describe('CreateProduct', () => {
       expect(wrapper.find('#name-error').exists()).toBeTruthy();
     });
 
-    it('Should not render an error when name is valid.', () => {
+    it('Should not render an error when name is valid.', done => {
       wrapper.setData({ name });
 
-      expect(wrapper.find('#name-error').exists()).toBeFalsy();
+      Vue.nextTick().then(() => {
+        expect(wrapper.find('#name-error').exists()).toBeFalsy();
+        done();
+      });
     });
   });
 

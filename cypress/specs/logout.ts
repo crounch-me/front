@@ -13,6 +13,6 @@ describe('Logout', () => {
       .get('#logout')
       .click();
 
-    cy.contains('h1', 'Do you want to Crounch ?')
+    cy.contains('h1', 'Voulez-vous crouncher avec moi ce soir ?')
   });
 });

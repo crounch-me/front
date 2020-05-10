@@ -3,7 +3,7 @@ import { generateStringOfLength } from '../../support/utils/generate';
 describe('Home', () => {
   it('Should display the home title.', () => {
     cy.visit('/')
-    cy.contains('h1', 'Do you want to Crounch ?')
+    cy.contains('h1', 'Voulez-vous crouncher avec moi ce soir ?')
   });
 
   it('Should redirect to lists page when user is authenticated.', () => {
