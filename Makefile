@@ -17,7 +17,7 @@ bump-version:
 		git add package.json; \
 		git config --global user.email "action@github.com"; \
 		git config --global user.name "Github Action"; \
-		git commit -m "build: bump to version $$NEW_VERSION [skip ci]"; \
+		git commit -m "build: bump to version $$NEW_VERSION [skip ci]\n\nskip-checks: true"; \
 		git tag $$NEW_VERSION
 
 .PHONY: build
