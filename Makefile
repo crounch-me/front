@@ -19,8 +19,6 @@ bump-version:
 		git config --global user.name "Github Actions"; \
 		git commit -m "build: bump to version $$NEW_VERSION [skip ci]"; \
 		git tag $$NEW_VERSION; \
-		git remote rm origin; \
-		git remote add origin https://sehsyha:$(GITHUB_TOKEN)@github.com/Sehsyha/crounch-front.git; \
 		git push origin master; \
 		git push --tags
 
