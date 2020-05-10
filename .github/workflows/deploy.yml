@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,27 +17,20 @@ jobs:
     
     - name: Install dependencies
       run: npm ci
-    
-    - name: Save build
-      uses: actions/upload-artifact@v1
-      with:
-        name: build-artifacts
-        path: .
+      
+    - name: Lint
+      run: npm run lint
 
-  quality:
-    needs: [build]
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Get build
-        uses: actions/download-artifact@v1
-        with:
-          name: build-artifacts
-      - name: Lint
-        run: npm run lint
-
-      - name: Unit tests
-        run: npm run test:ci
+    - name: Unit tests
+      run: npm run test:ci
     
 #    - name: Mutation tests
 #      run: npm run test:mutation
+#    - name: Bump version
+#      run: make bump-version
+    
+    - name: Build image
+      run: make build-image
+    
+#    - name: Publish image
+#      run: make publish-image
