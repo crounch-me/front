@@ -17,12 +17,22 @@ jobs:
     
     - name: Install dependencies
       run: npm ci
+    
+    - name: Save build
+      uses: actions/upload-artifact@v1
+      with:
+        name: build-artifacts
+        path: .
 
   quality:
     needs: [build]
     runs-on: ubuntu-latest
     
     steps:
+      - name: Get build
+        uses: actions/download-artifact@v1
+        with:
+          name: build-artifacts
       - name: Lint
         run: npm run lint
 
