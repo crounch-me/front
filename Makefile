@@ -15,10 +15,10 @@ bump-version:
 	NEW_VERSION=`jq -r ".version" package.json`; \
 		git add CHANGELOG.md; \
 		git add package.json; \
+		git config --global user.email "actions@github.com"; \
+		git config --global user.name "Github Actions"; \
 		git commit -m "build: bump to version $$NEW_VERSION [skip ci]"; \
 		git tag $$NEW_VERSION; \
-		git config user.email "actions@github.com"; \
-		git config user.name "Github Actions"; \
 		git remote rm origin; \
 		git remote add origin https://sehsyha:$(GITHUB_TOKEN)@github.com/Sehsyha/crounch-front.git; \
 		git push origin master; \
