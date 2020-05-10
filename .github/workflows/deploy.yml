@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   deploy:
@@ -10,29 +10,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout project
-      uses: actions/checkout@v2
-    
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v1.4.2
-    
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Lint
-      run: npm run lint
+      - name: Checkout project
+        uses: actions/checkout@v2
 
-    - name: Unit tests
-      run: npm run test:ci
-    
-#    - name: Mutation tests
-#      run: npm run test:mutation
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v1.4.2
 
-    - name: Bump version
-      run: make bump-version
-    
-    - name: Build image
-      run: make build-image
-    
-    - name: Publish image
-      run: make publish-image
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm run test:ci
+
+      #    - name: Mutation tests
+      #      run: npm run test:mutation
+
+      - name: Bump version
+        run: make bump-version
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tags: true
+
+      - name: Build image
+        run: make build-image
+
+      - name: Publish image
+        run: make publish-image

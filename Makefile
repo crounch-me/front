@@ -15,12 +15,10 @@ bump-version:
 	NEW_VERSION=`jq -r ".version" package.json`; \
 		git add CHANGELOG.md; \
 		git add package.json; \
-		git config --global user.email "actions@github.com"; \
-		git config --global user.name "Github Actions"; \
+		git config --global user.email "action@github.com"; \
+		git config --global user.name "Github Action"; \
 		git commit -m "build: bump to version $$NEW_VERSION [skip ci]"; \
-		git tag $$NEW_VERSION; \
-		git push origin master; \
-		git push --tags
+		git tag $$NEW_VERSION
 
 .PHONY: build
 build:
