@@ -35,8 +35,19 @@ jobs:
       #    - name: Mutation tests
       #      run: npm run test:mutation
 
+      - name: Init git config
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "Github Action"
+
+      - name: Install standard version
+        run: npm i -g standard-version@4.2.0
+
       - name: Bump version
-        run: make bump-version
+        run: standard-version
+
+      # - name: Bump version
+      #   run: make bump-version
 
       - name: Push changes
         uses: ad-m/github-push-action@master
