@@ -18,7 +18,7 @@ bump-version:
 		COMMIT_MESSAGE=`sed "s/NEW_VERSION/$$NEW_VERSION/" 'bumpVersionCommitMessage'`;\
 		git add CHANGELOG.md;\
 		git add package.json;\
-		git commit -m "$$COMMIT_MESSAGE";\
+		git commit -m $'$$COMMIT_MESSAGE';\
 		git tag $$NEW_VERSION
 
 .PHONY: build
