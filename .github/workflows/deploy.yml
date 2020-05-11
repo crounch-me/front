@@ -46,6 +46,3 @@ jobs:
 
       - name: Build image
         run: make build-image
-
-      - name: Publish image
-        run: make publish-image
