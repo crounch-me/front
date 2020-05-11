@@ -15,11 +15,12 @@ bump-version:
 	npm i -g standard-version@4.2.0
 	standard-version --skip.commit true --skip.tag true
 	NEW_VERSION=`jq -r ".version" package.json`;\
-		COMMIT_MESSAGE=`sed "s/NEW_VERSION/$$NEW_VERSION/" 'bumpVersionCommitMessage'`;\
+		COMMIT_MESSAGE=`sed "s/NEW_VERSION/$$NEW_VERSION/" 'bumpVersionCommitMessage' | sed 's/\\n/\
+/g'`;\
 		git add CHANGELOG.md;\
 		git add package.json;\
-		git commit -m $'$$COMMIT_MESSAGE';\
-		git tag $$NEW_VERSION
+		git commit -m "$$COMMIT_MESSAGE"
+#		git tag $$NEW_VERSION
 
 .PHONY: build
 build:
