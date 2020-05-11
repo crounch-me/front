@@ -26,11 +26,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint
-        run: npm run lint
+      # - name: Lint
+      #   run: npm run lint
 
-      - name: Unit tests
-        run: npm run test:ci
+      # - name: Unit tests
+      #   run: npm run test:ci
 
       #    - name: Mutation tests
       #      run: npm run test:mutation
@@ -44,16 +44,26 @@ jobs:
         run: npm i -g standard-version@4.2.0
 
       - name: Bump version
-        run: standard-version
+        run: standard-version --skip.commit true --skip.tag true
 
-      # - name: Bump version
-      #   run: make bump-version
+      - name: Get new version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+
+      - name: Add files
+        run: |
+          git add CHANGELOG.md
+          git add package.json
+
+      - name: Commit and tag
+        run: |
+          git commit -m "build: bump to version ${{ steps.package-version.outputs.current-version }} [skip ci]"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
           tags: true
-
-      - name: Build image
-        run: make build-image
+          force: true
+      # - name: Build image
+      #   run: make build-image
