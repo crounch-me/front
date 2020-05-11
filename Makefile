@@ -15,8 +15,7 @@ bump-version:
 	npm i -g standard-version@4.2.0
 	standard-version --skip.commit true --skip.tag true
 	NEW_VERSION=`jq -r ".version" package.json`;\
-		COMMIT_MESSAGE=`sed "s/NEW_VERSION/$$NEW_VERSION/" 'bumpVersionCommitMessage' | sed 's/\\n/\
-/g'`;\
+		COMMIT_MESSAGE=`sed "s/NEW_VERSION/$$NEW_VERSION/" 'bumpVersionCommitMessage'`;\
 		git add CHANGELOG.md;\
 		git add package.json;\
 		git commit -m "$$COMMIT_MESSAGE"
