@@ -8,18 +8,18 @@ DOCKER_USER := sehsyha
 .PHONY: bump-version
 bump-version:
 	@echo "+ $@"
-	git checkout master
-	git fetch --tags
-	npm i -g standard-version@4.2.0
-	standard-version --skip.commit true --skip.tag true
-	NEW_VERSION=`jq -r ".version" package.json`
-	git add CHANGELOG.md
-	git add package.json
 	git config --global user.email "action@github.com"
 	git config --global user.name "Github Action"
-	COMMIT_MESSAGE=$(shell sed 's/NEW_VERSION/$(NEW_VERSION)/' bumpVersionCommitMessage)
-	git commit -m "$$COMMIT_MESSAGE"
-# git tag $$NEW_VERSION
+	# git checkout master
+	# git fetch --tags
+	npm i -g standard-version@4.2.0
+	standard-version --skip.commit true --skip.tag true
+	NEW_VERSION=`jq -r ".version" package.json`;\
+		COMMIT_MESSAGE=$(shell sed 's/NEW_VERSION/$(NEW_VERSION)/' 'bumpVersionCommitMessage');\
+		git add CHANGELOG.md;\
+		git add package.json;\
+		git commit -m "$$COMMIT_MESSAGE"
+# 	git tag $$NEW_VERSION
 
 .PHONY: build
 build:
