@@ -10,12 +10,12 @@ bump-version:
 	@echo "+ $@"
 	git config --global user.email "action@github.com"
 	git config --global user.name "Github Action"
-	# git checkout master
-	# git fetch --tags
+	git checkout master
+	git fetch --tags
 	npm i -g standard-version@4.2.0
 	standard-version --skip.commit true --skip.tag true
 	NEW_VERSION=`jq -r ".version" package.json`;\
-		COMMIT_MESSAGE=$(shell sed 's/NEW_VERSION/$(NEW_VERSION)/' 'bumpVersionCommitMessage');\
+		COMMIT_MESSAGE=`sed "s/NEW_VERSION/$$NEW_VERSION/" 'bumpVersionCommitMessage'`;\
 		git add CHANGELOG.md;\
 		git add package.json;\
 		git commit -m "$$COMMIT_MESSAGE"
