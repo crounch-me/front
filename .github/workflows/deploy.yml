@@ -20,8 +20,10 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: node-
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            ${{ runner.os }}-
 
       - name: Install dependencies
         run: npm ci
@@ -61,6 +63,7 @@ jobs:
 
 
           skip-checks: true"
+          git log
 
       - name: Push changes
         uses: ad-m/github-push-action@master
