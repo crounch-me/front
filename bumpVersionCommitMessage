@@ -1,0 +1,4 @@
+build: bump to version NEW_VERSION [skip ci]
+
+
+skip-checks: true
