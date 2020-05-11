@@ -57,7 +57,10 @@ jobs:
 
       - name: Commit and tag
         run: |
-          git commit -m "build: bump to version ${{ steps.package-version.outputs.current-version }} [skip ci]"
+          git commit -m "build: bump to version ${{ steps.package-version.outputs.current-version }} [skip ci]
+
+
+          skip-checks: true"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
