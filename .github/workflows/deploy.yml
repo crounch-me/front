@@ -46,7 +46,9 @@ jobs:
           git config --global user.name "Github Action"
 
       - name: Bump version
-        run: standard-version
+        run: |
+          standard-version
+          git push --follow-tags origin master
       #         git tag ${{ steps.package-verions.outputs.current-version }}
       # - name: Push changes
       #   uses: ad-m/github-push-action@master
