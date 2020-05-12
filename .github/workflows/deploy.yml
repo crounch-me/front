@@ -37,13 +37,6 @@ jobs:
       #    - name: Mutation tests
       #      run: npm run test:mutation
 
-      - name: Init git config
-        run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "Github Action"
-          git remote rm origin
-          git remote add origin https://sehsyha:${{ secrets.ADMIN_GITHUB_TOKEN }}@github.com/crounch/front.git
-
       - name: Install standard version
         run: npm i -g standard-version@4.2.0
 
@@ -54,6 +47,13 @@ jobs:
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
 
+      - name: Configure git
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "Github Action"
+          git remote rm origin
+          git remote add origin https://sehsyha:${{ secrets.ADMIN_GITHUB_TOKEN }}@github.com/crounch/front.git
+
       - name: Add files
         run: |
           git add CHANGELOG.md
@@ -62,13 +62,13 @@ jobs:
       - name: Commit and tag
         run: |
           git commit -m "build: bump to version ${{ steps.package-version.outputs.current-version }} [skip ci]"
-          git tag ${{ steps.package-verions.outputs.current-version }}
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
-          tags: true
-          force: true
+          git push
+      #         git tag ${{ steps.package-verions.outputs.current-version }}
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+      #     tags: true
+      #     force: true
       # - name: Build image
       #   run: make build-image
