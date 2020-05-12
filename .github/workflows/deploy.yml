@@ -34,15 +34,19 @@ jobs:
       #    - name: Mutation tests
       #      run: npm run test:mutation
 
+      - name: Build image
+        run: |
+          docker build -f containers/Dockerfile -t crounch .
+
       - name: Docker login
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Tags
         run: |
-          docker tag back ${{ secrets.DOCKER_USER }}/back:${{ github.sha }}
-          docker tag back ${{ secrets.DOCKER_USER }}/back:latest
+          docker tag crounch ${{ secrets.DOCKER_USER }}/crounch-front:${{ github.sha }}
+          docker tag crounch ${{ secrets.DOCKER_USER }}/crounch-front:latest
 
       - name: Push
         run: |
-          docker push ${{ secrets.DOCKER_USER }}/back:${{ github.sha }}
-          docker push ${{ secrets.DOCKER_USER }}/back:latest
+          docker crounch ${{ secrets.DOCKER_USER }}/crounch-front:${{ github.sha }}
+          docker crounch ${{ secrets.DOCKER_USER }}/crounch-front:latest
