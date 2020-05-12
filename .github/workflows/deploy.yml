@@ -41,28 +41,7 @@ jobs:
         run: npm i -g standard-version@4.2.0
 
       - name: Bump version
-        run: standard-version --skip.commit true --skip.tag true
-
-      - name: Get new version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@master
-
-      - name: Configure git
-        run: |
-          git config --global user.email "valentin.stern@gmail.com"
-          git config --global user.name "Sehsyha"
-          git remote rm origin
-          git remote add origin https://sehsyha:${{ secrets.ADMIN_GITHUB_TOKEN }}@github.com/crounch-me/front.git
-
-      - name: Add files
-        run: |
-          git add CHANGELOG.md
-          git add package.json
-
-      - name: Commit and tag
-        run: |
-          git commit -m "build: bump to version ${{ steps.package-version.outputs.current-version }} [skip ci]"
-          git push -f --set-upstream origin master
+        run: standard-version
       #         git tag ${{ steps.package-verions.outputs.current-version }}
       # - name: Push changes
       #   uses: ad-m/github-push-action@master
