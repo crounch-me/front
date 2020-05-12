@@ -60,7 +60,7 @@ jobs:
       - name: Commit and tag
         run: |
           git commit -m "build: bump to version ${{ steps.package-version.outputs.current-version }} [skip ci]"
-          git push --force https://${{ secrets.RELEASE_TOKEN }}@github.com/${{ github.repository }}.git
+          git push --force https://${{ secrets.RELEASE_USERNAME }}:${{ secrets.RELEASE_TOKEN }}@github.com/${{ github.repository }}.git
       #         git tag ${{ steps.package-verions.outputs.current-version }}
       # - name: Push changes
       #   uses: ad-m/github-push-action@master
