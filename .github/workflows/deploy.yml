@@ -48,5 +48,5 @@ jobs:
 
       - name: Push
         run: |
-          docker crounch ${{ secrets.DOCKER_USER }}/crounch-front:${{ github.sha }}
-          docker crounch ${{ secrets.DOCKER_USER }}/crounch-front:latest
+          docker push crounch ${{ secrets.DOCKER_USER }}/crounch-front:${{ github.sha }}
+          docker push crounch ${{ secrets.DOCKER_USER }}/crounch-front:latest
