@@ -40,15 +40,27 @@ jobs:
       - name: Install standard version
         run: npm i -g standard-version@4.2.0
 
+      - name: Bump version
+        run: standard-version --skip.commit true --skip.tag true
+
+      - name: Get new version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+
       - name: Configure git
         run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "Github Action"
+          git config --global user.email "${{ secrets.RELEASE_USERNAME }}"
+          git config --global user.name "${{ secrets.RELEASE_USERNAME }}@users.noreply.github.com"
 
-      - name: Bump version
+      - name: Add files
         run: |
-          standard-version
-          git push --follow-tags origin master
+          git add CHANGELOG.md
+          git add package.json
+
+      - name: Commit and tag
+        run: |
+          git commit -m "build: bump to version ${{ steps.package-version.outputs.current-version }} [skip ci]"
+          git push --force https://${{ secrets.RELEASE_TOKEN }}@github.com/${{ github.repository }}.git
       #         git tag ${{ steps.package-verions.outputs.current-version }}
       # - name: Push changes
       #   uses: ad-m/github-push-action@master
