@@ -41,7 +41,8 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "Github Action"
-          git remote set-url origin https://${{ secrets.GITHUB_USERNAME }}:${{ secrets.ADMIN_GITHUB_TOKEN }}>@github.com/crounch-me/front.git
+          git remote rm origin
+          git remote add origin https://sehsyha:${{ secrets.ADMIN_GITHUB_TOKEN }}@github.com/crounch/front.git
 
       - name: Install standard version
         run: npm i -g standard-version@4.2.0
