@@ -49,8 +49,8 @@ jobs:
 
       - name: Configure git
         run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "Github Action"
+          git config --global user.email "valentin.stern@gmail.com"
+          git config --global user.name "Sehsyha"
           git remote rm origin
           git remote add origin https://sehsyha:${{ secrets.ADMIN_GITHUB_TOKEN }}@github.com/crounch-me/front.git
 
