@@ -62,7 +62,7 @@ jobs:
       - name: Commit and tag
         run: |
           git commit -m "build: bump to version ${{ steps.package-version.outputs.current-version }} [skip ci]"
-          git push
+          git push --set-upstream origin master
       #         git tag ${{ steps.package-verions.outputs.current-version }}
       # - name: Push changes
       #   uses: ad-m/github-push-action@master
