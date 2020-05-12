@@ -40,6 +40,11 @@ jobs:
       - name: Install standard version
         run: npm i -g standard-version@4.2.0
 
+      - name: Configure git
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "Github Action"
+
       - name: Bump version
         run: standard-version
       #         git tag ${{ steps.package-verions.outputs.current-version }}
