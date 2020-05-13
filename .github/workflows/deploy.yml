@@ -33,8 +33,6 @@ jobs:
 
       - name: Unit tests
         run: npm run test:ci
-      #    - name: Mutation tests
-      #      run: npm run test:mutation
 
       - name: Build image
         run: |
@@ -52,3 +50,11 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKER_USER }}/crounch-front:$(echo ${GITHUB_SHA} | cut -c1-7)
           docker push ${{ secrets.DOCKER_USER }}/crounch-front:latest
+
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: "./deploy.sh"
