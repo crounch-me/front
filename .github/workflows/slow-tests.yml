@@ -1,0 +1,25 @@
+name: Slow tests
+
+on:
+  schedule:
+    - cron: "0 0 * * 0"
+
+jobs:
+  mutation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v1.4.2
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Mutation tests
+        run: npm run test:mutation
+
+      - name: Acceptance tests
+        run: make acceptance-test

@@ -35,6 +35,3 @@ jobs:
 
       - name: Unit tests
         run: npm run test:ci
-
-      - name: Acceptance tests
-        run: make acceptance-test
