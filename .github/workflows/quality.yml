@@ -1,4 +1,4 @@
-name: Deploy
+name: Quality
 
 on:
   pull_request:
