@@ -8,8 +8,6 @@ jobs:
   deploy:
     if: contains(toJson(github.event.commits), '[skip ci]') == false
     runs-on: ubuntu-latest
-    env:
-      SHA8: ${GITHUB_SHA::8}
 
     steps:
       - name: Checkout project
@@ -45,10 +43,10 @@ jobs:
 
       - name: Tags
         run: |
-          docker tag crounch ${{ secrets.DOCKER_USER }}/crounch-front:$SHA8
+          docker tag crounch ${{ secrets.DOCKER_USER }}/crounch-front:$(echo ${GITHUB_SHA} | cut -c1-8)
           docker tag crounch ${{ secrets.DOCKER_USER }}/crounch-front:latest
 
       - name: Push
         run: |
-          docker push ${{ secrets.DOCKER_USER }}/crounch-front:$SHA8
+          docker push ${{ secrets.DOCKER_USER }}/crounch-front:$(echo ${GITHUB_SHA} | cut -c1-8)
           docker push ${{ secrets.DOCKER_USER }}/crounch-front:latest
