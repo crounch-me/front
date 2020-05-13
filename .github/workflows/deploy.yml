@@ -43,10 +43,10 @@ jobs:
 
       - name: Tags
         run: |
-          docker tag crounch ${{ secrets.DOCKER_USER }}/crounch-front:${{ github.sha }}
+          docker tag crounch ${{ secrets.DOCKER_USER }}/crounch-front:${{ github.sha::8} }}
           docker tag crounch ${{ secrets.DOCKER_USER }}/crounch-front:latest
 
       - name: Push
         run: |
-          docker push ${{ secrets.DOCKER_USER }}/crounch-front:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USER }}/crounch-front:${{ github.sha::8} }}
           docker push ${{ secrets.DOCKER_USER }}/crounch-front:latest
