@@ -2,6 +2,7 @@
 
 exports[`CreateProduct Should render. 1`] = `
 <div id="create-product">
+  <h2>Création de produit</h2>
   <div id="name-error">Le nom doit être renseigné</div>
   <!---->
   <form><input type="text" placeholder="Nom"> <input type="submit" value="Créer"></form>

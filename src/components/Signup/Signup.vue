@@ -35,6 +35,7 @@ export default class Signup extends Vue {
     }
     const { email, password } = this;
     this.doSignup({ email, password })
+      .then(() => this.$router.replace('/lists'))
       .catch((err: FetchError) => this.handleSignupError(err));
   }
 
