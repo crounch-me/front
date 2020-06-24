@@ -47,6 +47,6 @@ describe('Signup', () => {
       .submit();
 
     cy
-      .contains('Connecté');
+      .contains('Listes');
   });
 });

@@ -3,16 +3,14 @@
 exports[`Home Should render when user is authenticated. 1`] = `
 <div class="home">
   <helloworld-stub msg="Voulez-vous crouncher avec moi ce soir ?"></helloworld-stub>
-  <h1>Connecté</h1>
-  <signup-stub style="display: none;"></signup-stub>
-  <login-stub style="display: none;"></login-stub>
+  <signup-stub></signup-stub>
+  <login-stub></login-stub>
 </div>
 `;
 
 exports[`Home Should render when user is not authenticated. 1`] = `
 <div class="home">
   <helloworld-stub msg="Voulez-vous crouncher avec moi ce soir ?"></helloworld-stub>
-  <!---->
   <signup-stub></signup-stub>
   <login-stub></login-stub>
 </div>

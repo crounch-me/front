@@ -1,5 +1,6 @@
 <template>
   <div id="create-product">
+    <h2>Création de produit</h2>
     <div v-if="!isNameValid" id="name-error">Le nom doit être renseigné</div>
     <div v-if="result !== ''" class="result">{{ result }}</div>
     <form @submit.prevent="createProduct">

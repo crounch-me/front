@@ -1,13 +1,15 @@
 <template>
   <div>
-    <h3>Lists</h3>
-    <div
-      v-for="list in this.lists"
-      :key="list.id"
-      :id="list.id"
-      class="list"
-      @click="goToList(list.id)"
-    >{{ list.name }}</div>
+    <h2>Listes</h2>
+    <ul>
+      <li
+        v-for="list in this.lists"
+        :key="list.id"
+        :id="list.id"
+        class="list"
+        @click="goToList(list.id)"
+      >{{ list.name }}</li>
+    </ul>
   </div>
 </template>
 

@@ -1,9 +1,8 @@
 <template>
   <div class="home">
     <HelloWorld msg="Voulez-vous crouncher avec moi ce soir ?" />
-    <h1 v-if="this.isAuthenticated">Connecté</h1>
-    <Signup v-show="!this.isAuthenticated" />
-    <Login v-show="!this.isAuthenticated" />
+    <Signup />
+    <Login />
   </div>
 </template>
 
