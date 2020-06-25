@@ -1,5 +1,5 @@
 import { doFetch, FetchOptions } from './api';
-import { createList, getOwnerLists } from './list';
+import { createList, getOwnerLists, deleteList } from './list';
 import { List } from '@/models/list';
 import { when } from 'jest-when';
 
@@ -7,8 +7,9 @@ jest.mock('./api');
 
 describe('List API', () => {
   const name = 'shopping';
+  const listId = 'list id';
   const list: List = {
-    id: 'list id',
+    id: listId,
     name,
   };
   const lists: List[] = [list];
@@ -25,10 +26,16 @@ describe('List API', () => {
     method: 'GET'
   };
 
+  const expectedDeleteOptions: FetchOptions = {
+    url: `lists/${listId}`,
+    method: 'DELETE',
+  }
+
   beforeEach(() => {
     (doFetch as jest.Mock).mockClear();
     when(doFetch as jest.Mock).calledWith(expectedCreateOptions).mockResolvedValue(list);
     when(doFetch as jest.Mock).calledWith(expectedGetOptions).mockResolvedValue([list]);
+    when(doFetch as jest.Mock).calledWith(expectedDeleteOptions).mockResolvedValue({});
   });
 
   describe('createList', () => {
@@ -58,6 +65,15 @@ describe('List API', () => {
     it('Should return lists from the endpoint.', done => {
       getOwnerLists().then(res => {
         expect(res).toEqual(lists);
+        done();
+      });
+    });
+  });
+
+  describe('deleteList', () => {
+    it('Should call delete list endpoint with right parameters.', done => {
+      deleteList(listId).then(_ => {
+        expect(doFetch).toHaveBeenCalledWith(expectedDeleteOptions);
         done();
       });
     });

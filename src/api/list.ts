@@ -15,3 +15,10 @@ export function getOwnerLists(): Promise<Array<List>> {
     method: 'GET',
   });
 }
+
+export function deleteList(id: string): Promise<void> {
+  return doFetch({
+    url: `lists/${id}`,
+    method: 'DELETE',
+  });
+}

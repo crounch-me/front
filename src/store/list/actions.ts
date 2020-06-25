@@ -1,5 +1,5 @@
 import { ActionTree } from 'vuex';
-import { createList, getOwnerLists } from '@/api/list';
+import { createList, getOwnerLists, deleteList } from '@/api/list';
 
 import { ListState } from '.';
 import { RootState } from '..';
@@ -9,13 +9,19 @@ export const actions: ActionTree<ListState, RootState> = {
   [ListActions.CREATE]: ({ commit }, { name }): Promise<void> => {
     return createList(name).then(list => {
       commit(ListMutations.ADD, list);
-      return Promise.resolve();
+      return
     });
   },
   [ListActions.GETOWNERS]: ({ commit }): Promise<void> => {
     return getOwnerLists().then(lists => {
       commit(ListMutations.SET, lists);
-      return Promise.resolve();
+      return
     });
   },
+  [ListActions.DELETE]: ({ commit }, { id }): Promise<void> => {
+    return deleteList(id).then(() => {
+      commit(ListMutations.DELETE, id)
+      return
+    })
+  }
 };

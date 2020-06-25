@@ -10,6 +10,9 @@ export const mutations: MutationTree<ListState> = {
   [ListMutations.SET](state, lists: List[]) {
     state.lists = lists;
   },
+  [ListMutations.DELETE](state, id) {
+    state.lists = state.lists.filter(list => list.id !== id)
+  },
   [ListMutations.RESET](state) {
     state.lists = [];
   }

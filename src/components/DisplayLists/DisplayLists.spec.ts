@@ -12,14 +12,16 @@ import { List } from '@/models/list';
 describe('DisplayLists', () => {
   let wrapper: Wrapper<DisplayLists>;
   let list: Module<ListState, RootState>;
+  const ID_1 = 'list_id_1'
+  const ID_2 = 'list_id_2'
 
   const lists: List[] = [
     {
-      id: 'list id 1',
+      id: ID_1,
       name: 'list name 1',
     },
     {
-      id: 'list id 2',
+      id: ID_2,
       name: 'list name 2',
     },
   ];
@@ -44,8 +46,16 @@ describe('DisplayLists', () => {
   it('Should go to the list page when I click on a list', () => {
     wrapper = shallowComponent(DisplayLists, { modules: { list } });
 
-    wrapper.find('.list').trigger('click');
+    wrapper.find('.list:first-child span').trigger('click');
 
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith(`/lists/${lists[0].id}`);
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith(`/lists/${ID_1}`);
   });
+
+  it('Should delete the list when the delete button is clicked', () => {
+    wrapper = shallowComponent(DisplayLists, { modules: { list } });
+
+    wrapper.find('.list:first-child a').trigger('click')
+
+    expect(list.actions![ListActions.DELETE]).toHaveBeenCalledWith(expect.anything(), { id: ID_1 });
+  })
 });

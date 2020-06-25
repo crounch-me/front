@@ -67,7 +67,7 @@ describe('API', () => {
       });
     });
 
-    it('Should return response body when status code is between 200 and 299.', done => {
+    it('Should return response body when status code is between 200 and 299 but not 204.', done => {
       doFetch({
         url,
         method: 'GET'
@@ -76,6 +76,21 @@ describe('API', () => {
         done();
       });
     });
+
+    it('Should return nothing when status code is 204.', done => {
+      const noContentMock: Response = mock<Response>({
+        status: 204,
+      });
+      (global as any).fetch = jest.fn(() => Promise.resolve(noContentMock));
+
+      doFetch({
+        url,
+        method: 'DELETE'
+      }).then(body => {
+        expect(body).toBeUndefined()
+        done()
+      })
+    })
 
     it('Should throw FetchError when status code is below 200.', done => {
       const errorBody = {
