@@ -11,8 +11,11 @@ export interface FetchOptions {
 export function doFetch<T>(options: FetchOptions): Promise<T> {
   return fetch(getUrl(options.url), getFetchOptions(options))
     .then(res => {
-      if (res.status >= 200 && res.status <= 299) {
+      if (res.status >= 200 && res.status <= 299 && res.status !== 204) {
         return res.json()
+      }
+      if (res.status === 204) {
+        return
       }
       return res.json()
         .then(body => { throw new FetchError('Erreur lors de la requête', res.status, body) })

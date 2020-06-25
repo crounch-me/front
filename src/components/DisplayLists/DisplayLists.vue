@@ -2,13 +2,10 @@
   <div>
     <h2>Listes</h2>
     <ul>
-      <li
-        v-for="list in this.lists"
-        :key="list.id"
-        :id="list.id"
-        class="list"
-        @click="goToList(list.id)"
-      >{{ list.name }}</li>
+      <li v-for="list in this.lists" :key="list.id" :id="list.id" class="list">
+        <span @click="goToList(list.id)">{{ list.name }}</span>
+        <a @click="deleteList(list.id)">Supprimer</a>
+      </li>
     </ul>
   </div>
 </template>
@@ -24,6 +21,7 @@ import { ListActions, ListGetters } from '../../store/list/keys';
 @Component
 export default class DisplayLists extends Vue {
   @Action(ListActions.GETOWNERS, listNamespace) getOwners!: () => List;
+  @Action(ListActions.DELETE, listNamespace) delete!: any;
   @Getter(ListGetters.GETALL, listNamespace) lists!: List[];
 
   created() {
@@ -32,6 +30,10 @@ export default class DisplayLists extends Vue {
 
   goToList(id: string) {
     this.$router.push(`/lists/${id}`)
+  }
+
+  deleteList(id: string) {
+    this.delete({ id })
   }
 };
 </script>
