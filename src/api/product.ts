@@ -8,3 +8,11 @@ export function createProduct(name: string): Promise<Product> {
     data: { name }
   });
 }
+
+export function searchProduct(name: string): Promise<Array<Product>> {
+  return doFetch({
+    url: 'products/search',
+    method: 'POST',
+    data: { name }
+  })
+}

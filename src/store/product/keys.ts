@@ -1,6 +1,6 @@
 export enum ProductActions {
   CREATE = 'CREATE',
-  CREATED = 'CREATED',
+  CREATED = 'CREATED'
 };
 
 export enum ProductMutations {

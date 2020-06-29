@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login Search Should render found products list. 1`] = `
+<div>
+  <h3>Rechercher un produit</h3>
+  <!----> <input id="product-search" type="text" placeholder="Rechercher un produit">
+  <ul>
+    <li>abc</li>
+  </ul>
+</div>
+`;
+
+exports[`Login Should render. 1`] = `
+<div>
+  <h3>Rechercher un produit</h3>
+  <!----> <input id="product-search" type="text" placeholder="Rechercher un produit">
+  <ul></ul>
+</div>
+`;
