@@ -1,6 +1,6 @@
 import { generateStringOfLength, waitForElement } from '../support/utils/generate';
 
-describe('Lists', () => {
+describe('Products', () => {
   let email: string;
   let password: string;
   beforeEach(() => {
