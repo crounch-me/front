@@ -9,7 +9,7 @@ export const actions: ActionTree<ProductState, RootState> = {
   [ProductActions.CREATE]: ({ commit }, { name }): Promise<void> => {
     return createProduct(name).then(product => {
       commit(ProductMutations.ADD, product);
-      return Promise.resolve();
+      return
     });
   },
 };

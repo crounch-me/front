@@ -43,7 +43,6 @@ describe('Lists', () => {
     cy.createList(name);
 
     cy.visit('/lists')
-
     waitForElement(cy, '.list')
 
     cy.get('.list').click()
@@ -51,5 +50,18 @@ describe('Lists', () => {
     waitForElement(cy, '#list')
 
     cy.contains(name)
+  })
+
+  it('Should delete a list.', () => {
+    const name = 'List Maison'
+
+    cy.createList(name)
+
+    cy.visit('/lists')
+    waitForElement(cy, '.list')
+
+    cy.get('.list:first-child a').click()
+
+    cy.get('body').find('.list').should('have.length', 0)
   })
 });

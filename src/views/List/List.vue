@@ -3,6 +3,7 @@
     <div v-if="this.list" id="list">{{ list.name }}</div>
     <div v-else>La liste n'a pas été trouvée</div>
     <CreateProduct />
+    <SearchProduct />
   </div>
 </template>
 
@@ -14,10 +15,12 @@ import { ListGetters, ListActions } from '@/store/list/keys';
 import { listNamespace } from '@/store/list';
 import { List } from '@/models/list';
 import CreateProduct from '@/components/CreateProduct/CreateProduct.vue'
+import SearchProduct from '@/components/SearchProduct/SearchProduct.vue'
 
 @Component({
   components: {
-    CreateProduct
+    CreateProduct,
+    SearchProduct,
   }
 })
 export default class ListPage extends Vue {
