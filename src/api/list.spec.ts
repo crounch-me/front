@@ -12,6 +12,7 @@ describe('List API', () => {
   const list: List = {
     id: listID,
     name,
+    products: []
   };
   const lists: List[] = [list];
   const expectedCreateOptions: FetchOptions = {

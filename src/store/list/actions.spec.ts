@@ -13,6 +13,7 @@ describe('Actions', () => {
   const list: List = {
     id: ID,
     name: NAME,
+    products: []
   };
   const lists: List[] = [list];
 
