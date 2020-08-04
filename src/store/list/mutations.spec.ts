@@ -7,10 +7,9 @@ describe('Mutations', () => {
   const list: List = {
     id: 'list id',
     name: 'hello',
+    products: []
   };
   describe('ADD', () => {
-    const lists: List[] = [list];
-
     it('Should add the list in the state.', () => {
       const state: ListState = { lists: [] };
 
@@ -51,10 +50,12 @@ describe('Mutations', () => {
       {
         id: ID_1,
         name: 'hello',
+        products: []
       },
       {
         id: ID_2,
         name: 'hello',
+        products: []
       }
     ]
 

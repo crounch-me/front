@@ -2,83 +2,65 @@ import { Wrapper } from '@vue/test-utils';
 
 import { shallowComponent } from '@/utils/test';
 import ListPage from './List.vue';
-import { Module } from 'vuex';
-import { ListState } from '@/store/list';
-import { ListGetters, ListActions } from '@/store/list/keys';
-import { RootState } from '@/store';
-import { createListModuleMock } from '@/store/list/mockModule';
 import { List } from '@/models/list';
+import { readList, addProductToList } from '@/api/list';
+import SearchProduct from '@/components/SearchProduct/SearchProduct.vue'
+import { Events } from '@/utils/events';
+
+jest.mock('@/api/list')
 
 describe('List', () => {
   let wrapper: Wrapper<ListPage>;
-  let listModule: Module<ListState, RootState>;
+  const listID = 'list ID'
+  const productID = 'productID'
   const list: List = {
-    id: 'list id',
+    id: listID,
     name: 'list name',
+    products: [
+      {
+        id: 'product id',
+        name: 'product name',
+      }
+    ]
   };
 
   beforeEach(() => {
-    listModule = createListModuleMock();
-    (listModule.getters![ListGetters.GET] as jest.Mock).mockReturnValue(() => list);
+    (readList as jest.Mock).mockResolvedValue(list);
+    (addProductToList as jest.Mock).mockResolvedValue({})
+
     shallowListComponent();
   });
 
-  it('Should render.', () => {
+  it('Should render when list is found.', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('Should not fetch lists when list is defined.', () => {
-    shallowListComponent();
+  it('Should render when list is not found.', done => {
+    (readList as jest.Mock).mockRejectedValue({ error: 'list-not-found-error' })
 
-    expect(listModule.actions![ListActions.GETOWNERS]).not.toHaveBeenCalled();
-  });
-
-  it('Should fetch lists when list is undefined.', () => {
-    (listModule.getters![ListGetters.GET] as jest.Mock).mockReturnValue(() => undefined);
-
-    shallowListComponent();
-
-    expect(listModule.actions![ListActions.GETOWNERS]).toHaveBeenCalled();
-  });
-
-  it('Should display list when the list is defined after fetch.', done => {
-    let calledOneTime = false;
-    (listModule.getters![ListGetters.GET] as jest.Mock)
-      .mockImplementation(() => () => new Promise(resolve => {
-        if (!calledOneTime) {
-          calledOneTime = true;
-          return Promise.resolve(undefined);
-        }
-        return Promise.resolve(list);
-      }));
-
-    shallowListComponent();
-
-    setTimeout(() => {
-      expect(wrapper).toMatchSnapshot();
-      done();
-    });
-  });
-
-  it('Should display not found message when list does not exist after fetch.', done => {
-    (listModule.getters![ListGetters.GET] as jest.Mock).mockReturnValue(() => undefined)
-    shallowListComponent();
+    shallowListComponent()
 
     setTimeout(() => {
       expect(wrapper).toMatchSnapshot()
-      done();
-    });
-  });
+      done()
+    })
+  })
+
+  it('Should fetch list when component is mounted.', () => {
+    expect(readList).toHaveBeenCalledWith(listID);
+  })
+
+  it('Should add product to list when search product emits an addProductToList event.', () => {
+    wrapper.find(SearchProduct).vm.$emit(Events.ADD_PRODUCT, { id: productID })
+
+    expect(addProductToList).toHaveBeenCalledWith(productID, listID)
+  })
 
   function shallowListComponent() {
-    const modules = {
-      list: listModule,
-    };
-
     const values = {
       id: list.id,
     };
 
-    wrapper = shallowComponent(ListPage, { modules, values });
+    wrapper = shallowComponent(ListPage, { values });
   }
 });

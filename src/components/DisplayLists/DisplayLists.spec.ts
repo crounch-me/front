@@ -19,10 +19,12 @@ describe('DisplayLists', () => {
     {
       id: ID_1,
       name: 'list name 1',
+      products: []
     },
     {
       id: ID_2,
       name: 'list name 2',
+      products: []
     },
   ];
 
@@ -54,7 +56,7 @@ describe('DisplayLists', () => {
   it('Should delete the list when the delete button is clicked', () => {
     wrapper = shallowComponent(DisplayLists, { modules: { list } });
 
-    wrapper.find('.list:first-child a').trigger('click')
+    wrapper.find('.list:first-child button').trigger('click')
 
     expect(list.actions![ListActions.DELETE]).toHaveBeenCalledWith(expect.anything(), { id: ID_1 });
   })

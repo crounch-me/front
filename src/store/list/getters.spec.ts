@@ -7,10 +7,12 @@ describe('Getters', () => {
   const list1 = {
     id: 'list id 1',
     name: 'hello',
+    products: []
   };
   const list2 = {
     id: 'list id 2',
     name: 'hello 2',
+    products: []
   };
   const initialState: ListState = {
     lists: [list1, list2],

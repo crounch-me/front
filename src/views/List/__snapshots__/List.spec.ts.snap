@@ -1,25 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`List Should display list when the list is defined after fetch. 1`] = `
+exports[`List Should render when list is found. 1`] = `
 <div>
-  <div id="list"></div>
-  <createproduct-stub></createproduct-stub>
-  <searchproduct-stub></searchproduct-stub>
+  <div>
+    <h1 id="list">list name</h1>
+    <displayproducts-stub products="[object Object]"></displayproducts-stub>
+    <searchproduct-stub></searchproduct-stub>
+    <createproduct-stub></createproduct-stub>
+  </div>
+
 </div>
 `;
 
-exports[`List Should display not found message when list does not exist after fetch. 1`] = `
+exports[`List Should render when list is not found. 1`] = `
 <div>
-  <div>La liste n'a pas été trouvée</div>
-  <createproduct-stub></createproduct-stub>
-  <searchproduct-stub></searchproduct-stub>
-</div>
-`;
-
-exports[`List Should render. 1`] = `
-<div>
-  <div id="list">list name</div>
-  <createproduct-stub></createproduct-stub>
-  <searchproduct-stub></searchproduct-stub>
+  <h1>La liste n'a pas été trouvée</h1>
+  list-not-found-error
 </div>
 `;
