@@ -4,8 +4,8 @@ exports[`DisplayLists Should render. 1`] = `
 <div>
   <h2>Listes</h2>
   <ul>
-    <li id="list_id_1" class="list"><span>list name 1</span> <a>Supprimer</a></li>
-    <li id="list_id_2" class="list"><span>list name 2</span> <a>Supprimer</a></li>
+    <li id="list_id_1" class="list"><span>list name 1</span> <button>Supprimer</button></li>
+    <li id="list_id_2" class="list"><span>list name 2</span> <button>Supprimer</button></li>
   </ul>
 </div>
 `;

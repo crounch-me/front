@@ -4,7 +4,7 @@
     <ul>
       <li v-for="list in this.lists" :key="list.id" :id="list.id" class="list">
         <span @click="goToList(list.id)">{{ list.name }}</span>
-        <a @click="deleteList(list.id)">Supprimer</a>
+        <button @click="deleteList(list.id)">Supprimer</button>
       </li>
     </ul>
   </div>

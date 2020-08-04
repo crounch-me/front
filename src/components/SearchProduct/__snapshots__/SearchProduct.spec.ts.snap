@@ -5,7 +5,9 @@ exports[`SearchProduct Search Should render found products list. 1`] = `
   <h3>Rechercher un produit</h3>
   <!----> <input id="product-search" type="text" placeholder="Rechercher un produit">
   <ul>
-    <li class="product">abc</li>
+    <li class="product">
+      abc
+      <button>Ajouter à la liste</button></li>
   </ul>
 </div>
 `;

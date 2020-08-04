@@ -4,6 +4,7 @@ import { shallowComponent } from '@/utils/test';
 import SearchProduct from './SearchProduct.vue'
 import { searchProduct } from '@/api/product';
 import { Product } from '@/models/product';
+import { Events } from '@/utils/events';
 
 jest.mock('@/api/product')
 
@@ -76,6 +77,18 @@ describe('SearchProduct', () => {
 
       setTimeout(() => {
         expect(wrapper.vm.$data.products).toEqual([])
+        done()
+      })
+    })
+  })
+
+  describe('Add product to list event', () => {
+    it('Should emit event when a product is clicked.', done => {
+      wrapper.setData({ products: [PRODUCT] })
+
+      setTimeout(() => {
+        wrapper.find('.product button').trigger('click')
+        expect(wrapper.emitted()[Events.ADD_PRODUCT][0][0]).toEqual(PRODUCT)
         done()
       })
     })

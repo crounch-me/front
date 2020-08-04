@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DisplayProducts Should render a message when there is no products. 1`] = `
+<div>
+  <h3>Produits</h3>
+  <p>Aucun produits dans cette liste</p>
+</div>
+`;
+
+exports[`DisplayProducts Should render the products list when there is products. 1`] = `
+<div>
+  <h3>Produits</h3>
+  <ul>
+    <li>product name</li>
+  </ul>
+</div>
+`;

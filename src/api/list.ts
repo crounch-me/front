@@ -22,3 +22,17 @@ export function deleteList(id: string): Promise<void> {
     method: 'DELETE',
   });
 }
+
+export function addProductToList(productID: string, listID: string): Promise<void> {
+  return doFetch({
+    url: `lists/${listID}/products/${productID}`,
+    method: 'POST'
+  })
+}
+
+export function readList(listID: string): Promise<List> {
+  return doFetch({
+    url: `lists/${listID}`,
+    method: 'GET'
+  })
+}

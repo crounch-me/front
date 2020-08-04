@@ -1,5 +1,5 @@
 import { doFetch, FetchOptions } from './api';
-import { createList, getOwnerLists, deleteList } from './list';
+import { createList, getOwnerLists, deleteList, addProductToList, readList } from './list';
 import { List } from '@/models/list';
 import { when } from 'jest-when';
 
@@ -7,9 +7,10 @@ jest.mock('./api');
 
 describe('List API', () => {
   const name = 'shopping';
-  const listId = 'list id';
+  const listID = 'list id';
+  const productID = 'product ID'
   const list: List = {
-    id: listId,
+    id: listID,
     name,
   };
   const lists: List[] = [list];
@@ -27,8 +28,18 @@ describe('List API', () => {
   };
 
   const expectedDeleteOptions: FetchOptions = {
-    url: `lists/${listId}`,
+    url: `lists/${listID}`,
     method: 'DELETE',
+  }
+
+  const expectedAddProductToListOptions: FetchOptions = {
+    url: `lists/${listID}/products/${productID}`,
+    method: 'POST'
+  }
+
+  const expectedReadListOptions: FetchOptions = {
+    url: `lists/${listID}`,
+    method: 'GET'
   }
 
   beforeEach(() => {
@@ -36,6 +47,8 @@ describe('List API', () => {
     when(doFetch as jest.Mock).calledWith(expectedCreateOptions).mockResolvedValue(list);
     when(doFetch as jest.Mock).calledWith(expectedGetOptions).mockResolvedValue([list]);
     when(doFetch as jest.Mock).calledWith(expectedDeleteOptions).mockResolvedValue({});
+    when(doFetch as jest.Mock).calledWith(expectedAddProductToListOptions).mockResolvedValue({})
+    when(doFetch as jest.Mock).calledWith(expectedReadListOptions).mockResolvedValue(list)
   });
 
   describe('createList', () => {
@@ -72,10 +85,29 @@ describe('List API', () => {
 
   describe('deleteList', () => {
     it('Should call delete list endpoint with right parameters.', done => {
-      deleteList(listId).then(_ => {
+      deleteList(listID).then(() => {
         expect(doFetch).toHaveBeenCalledWith(expectedDeleteOptions);
         done();
       });
     });
   });
+
+  describe('addProductToList', () => {
+    it('Should call add product to list with the right parameters', done => {
+      addProductToList(productID, listID).then(() => {
+        expect(doFetch).toHaveBeenCalledWith(expectedAddProductToListOptions)
+        done()
+      })
+    })
+  })
+
+  describe('readList', () => {
+    it('Should call add product to list with the right parameters', done => {
+      readList(listID).then(resultList => {
+        expect(doFetch).toHaveBeenCalledWith(expectedReadListOptions)
+        expect(resultList).toBe(list)
+        done()
+      })
+    })
+  })
 });

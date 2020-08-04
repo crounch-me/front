@@ -1,4 +1,7 @@
+import { Product } from './product';
+
 export interface List {
-  id: string;
-  name: string;
+  id: string
+  name: string
+  products: Product[]
 }
