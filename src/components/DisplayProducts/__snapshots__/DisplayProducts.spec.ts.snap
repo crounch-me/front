@@ -11,7 +11,11 @@ exports[`DisplayProducts Should render the products list when there is products.
 <div>
   <h3>Produits</h3>
   <ul id="list-products">
-    <li>product name</li>
+    <li>
+      product name
+      <button class="delete">
+        Supprimer
+      </button></li>
   </ul>
 </div>
 `;
