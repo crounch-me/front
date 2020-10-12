@@ -74,6 +74,33 @@ describe('Lists', () => {
     cy.get('#list-products').find('li').its('length').should('be.eq', 1)
   })
 
+  it('Should delete a product in a list.', () => {
+    cy.createList(name);
+    cy.visit('/lists')
+    waitForElement(cy, '.list')
+
+    cy.get('.list').click()
+    waitForElement(cy, '#list')
+
+    cy
+      .get('#product-search')
+      .type('Sau');
+
+    cy
+      .get('.product')
+      .first()
+      .find('button')
+      .click()
+
+    cy
+      .get('#list-products')
+      .first()
+      .find('.delete')
+      .click()
+
+    cy.get('#list-products', { timeout: 0 }).should('not.exist');
+  })
+
   it('Should delete a list.', () => {
     cy.createList(name)
 

@@ -2,7 +2,10 @@
   <div>
     <div v-if="this.list">
       <h1 id="list">{{ list.name }}</h1>
-      <DisplayProducts :products="list.products" />
+      <DisplayProducts
+        @delete-product="deleteProduct"
+        :products="list.products"
+      />
       <SearchProduct @add-product="addProduct" />
       <CreateProduct />
     </div>
@@ -19,7 +22,7 @@ import { Getter, Action } from 'vuex-class';
 import CreateProduct from '@/components/CreateProduct/CreateProduct.vue'
 import SearchProduct from '@/components/SearchProduct/SearchProduct.vue'
 import DisplayProducts from '@/components/DisplayProducts/DisplayProducts.vue'
-import { readList, addProductToList } from '@/api/list';
+import { readList, addProductToList, deleteProductInList } from '@/api/list';
 import { Product } from '@/models/product';
 import { List } from '@/models/list';
 
@@ -46,6 +49,14 @@ export default class ListPage extends Vue {
       })
       .catch(err => {
         this.error = err.error
+      })
+  }
+
+  deleteProduct(productId: string) {
+    deleteProductInList(productId, this.list!.id)
+      .then(() => {
+        const productIndex = this.list!.products.findIndex(product => product.id === productId)
+        this.list!.products.splice(productIndex, 1)
       })
   }
 

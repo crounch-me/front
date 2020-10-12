@@ -1,5 +1,5 @@
 import { doFetch, FetchOptions } from './api';
-import { createList, getOwnerLists, deleteList, addProductToList, readList } from './list';
+import { createList, getOwnerLists, deleteList, addProductToList, readList, deleteProductInList } from './list';
 import { List } from '@/models/list';
 import { when } from 'jest-when';
 
@@ -28,8 +28,13 @@ describe('List API', () => {
     method: 'GET'
   };
 
-  const expectedDeleteOptions: FetchOptions = {
+  const expectedDeleteListOptions: FetchOptions = {
     url: `lists/${listID}`,
+    method: 'DELETE',
+  }
+
+  const expectedDeleteProductFromListOptions: FetchOptions = {
+    url: `lists/${listID}/products/${productID}`,
     method: 'DELETE',
   }
 
@@ -47,9 +52,10 @@ describe('List API', () => {
     (doFetch as jest.Mock).mockClear();
     when(doFetch as jest.Mock).calledWith(expectedCreateOptions).mockResolvedValue(list);
     when(doFetch as jest.Mock).calledWith(expectedGetOptions).mockResolvedValue([list]);
-    when(doFetch as jest.Mock).calledWith(expectedDeleteOptions).mockResolvedValue({});
+    when(doFetch as jest.Mock).calledWith(expectedDeleteListOptions).mockResolvedValue({});
     when(doFetch as jest.Mock).calledWith(expectedAddProductToListOptions).mockResolvedValue({})
     when(doFetch as jest.Mock).calledWith(expectedReadListOptions).mockResolvedValue(list)
+    when(doFetch as jest.Mock).calledWith(expectedDeleteProductFromListOptions).mockResolvedValue({})
   });
 
   describe('createList', () => {
@@ -87,7 +93,7 @@ describe('List API', () => {
   describe('deleteList', () => {
     it('Should call delete list endpoint with right parameters.', done => {
       deleteList(listID).then(() => {
-        expect(doFetch).toHaveBeenCalledWith(expectedDeleteOptions);
+        expect(doFetch).toHaveBeenCalledWith(expectedDeleteListOptions);
         done();
       });
     });
@@ -101,6 +107,15 @@ describe('List API', () => {
       })
     })
   })
+
+  describe('deleteProductInList', () => {
+    it('Should call delete product from list endpoint with right parameters.', done => {
+      deleteProductInList(productID, listID).then(() => {
+        expect(doFetch).toHaveBeenCalledWith(expectedDeleteProductFromListOptions);
+        done();
+      });
+    });
+  });
 
   describe('readList', () => {
     it('Should call add product to list with the right parameters', done => {
