@@ -9,18 +9,20 @@
       v-model="name"
       @keyup="search"
     />
-    <ul>
-      <li class="product" v-for="product in products" :key="product.id">
-        {{ product.name }}
-        <button @click="addProduct(product)">Ajouter à la liste</button>
-      </li>
+    <ul id="product-search-results">
+      <template v-for="product in products">
+        <li class="product" :key="product.id" v-if="!isProductInList(product.id)">
+          {{ product.name }}
+          <button @click="addProduct(product)">Ajouter à la liste</button>
+        </li>
+      </template>
     </ul>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { Component, Emit } from 'vue-property-decorator';
+import { Component, Emit, Prop } from 'vue-property-decorator';
 import { Action, Mutation } from 'vuex-class';
 
 import { AuthActions } from '@/store/auth/keys';
@@ -33,6 +35,9 @@ import { Events } from '@/utils/events';
 
 @Component
 export default class SearchProduct extends Vue {
+  @Prop()
+  public productsInList!: Product[]
+
   public name: string = ""
   public error: string = ""
   public products: Product[] = []
@@ -50,6 +55,10 @@ export default class SearchProduct extends Vue {
   @Emit(Events.ADD_PRODUCT)
   addProduct(product: Product) {
     return product
+  }
+
+  public isProductInList(id: string): boolean {
+    return !!this.productsInList.find(productInList => productInList.id === id)
   }
 }
 </script>

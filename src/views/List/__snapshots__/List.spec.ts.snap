@@ -5,7 +5,7 @@ exports[`List Should render when list is found. 1`] = `
   <div>
     <h1 id="list">list name</h1>
     <displayproducts-stub products="[object Object]"></displayproducts-stub>
-    <searchproduct-stub></searchproduct-stub>
+    <searchproduct-stub productsinlist="[object Object]"></searchproduct-stub>
     <createproduct-stub></createproduct-stub>
   </div>
 

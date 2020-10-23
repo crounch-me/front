@@ -18,7 +18,11 @@ describe('SearchProduct', () => {
   }
 
   beforeEach(() => {
-    wrapper = shallowComponent(SearchProduct);
+    const values = {
+      productsInList: []
+    }
+
+    wrapper = shallowComponent(SearchProduct, { values });
 
     (searchProduct as jest.Mock).mockResolvedValue([PRODUCT])
   });
