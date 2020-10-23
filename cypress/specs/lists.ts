@@ -74,6 +74,27 @@ describe('Lists', () => {
     cy.get('#list-products').find('li').its('length').should('be.eq', 1)
   })
 
+  it('Should hide product from search when it is added to the list', () => {
+    cy.createList(name);
+    cy.visit('/lists')
+    waitForElement(cy, '.list')
+
+    cy.get('.list').click()
+    waitForElement(cy, '#list')
+
+    cy
+      .get('#product-search')
+      .type('Len');
+
+    cy
+      .get('.product')
+      .first()
+      .find('button')
+      .click()
+
+    cy.get('.product', { timeout: 0 }).should('not.exist');
+  })
+
   it('Should delete a product in a list.', () => {
     cy.createList(name);
     cy.visit('/lists')

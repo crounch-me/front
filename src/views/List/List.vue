@@ -6,7 +6,7 @@
         @delete-product="deleteProduct"
         :products="list.products"
       />
-      <SearchProduct @add-product="addProduct" />
+      <SearchProduct @add-product="addProduct" :products-in-list="list.products" />
       <CreateProduct />
     </div>
     <h1 v-else>La liste n'a pas été trouvée</h1>
