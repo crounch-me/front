@@ -2,10 +2,9 @@
   <div>
     <div v-if="this.list">
       <h1 id="list">{{ list.name }}</h1>
-      <DisplayProducts
-        @delete-product="deleteProduct"
-        :products="list.products"
-      />
+      <template v-for="category in list.categories">
+        <DisplayCategory :category="category" :key="category.id" />
+      </template>
       <SearchProduct @add-product="addProduct" :products-in-list="list.products" />
       <CreateProduct />
     </div>
@@ -19,31 +18,31 @@ import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
 
-import CreateProduct from '@/components/CreateProduct/CreateProduct.vue'
-import SearchProduct from '@/components/SearchProduct/SearchProduct.vue'
-import DisplayProducts from '@/components/DisplayProducts/DisplayProducts.vue'
 import { readList, addProductToList, deleteProductInList } from '@/api/list';
+import SearchProduct from '@/components/SearchProduct/SearchProduct.vue'
+import DisplayCategory from '@/components/DisplayCategory/DisplayCategory.vue'
+import CreateProduct from '@/components/CreateProduct/CreateProduct.vue'
 import { Product } from '@/models/product';
-import { List } from '@/models/list';
+import { GetListResponse, List } from '@/models/list';
 
 @Component({
   components: {
     CreateProduct,
     SearchProduct,
-    DisplayProducts,
+    DisplayCategory,
   }
 })
 export default class ListPage extends Vue {
   @Prop(String) readonly id!: string;
 
-  private list: List | null = null
+  private list: GetListResponse | null = null
   private error = ''
 
   mounted() {
     readList(this.id)
       .then(list => {
-        if (!list.products) {
-          list.products = []
+        if (!list.categories) {
+          list.categories = []
         }
         this.list = list
       })

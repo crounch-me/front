@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3>Produits</h3>
     <ul v-if="products.length" id="list-products">
       <li v-for="product in products" :key="product.id">
         {{ product.name }}
@@ -17,12 +16,12 @@
 import { Events } from '@/utils/events';
 import Vue from 'vue'
 import { Component, Emit, Prop } from 'vue-property-decorator';
-import { Product } from '../../models/product';
+import { ProductInGetListResponse } from '../../models/product';
 
 @Component
 export default class DisplayProducts extends Vue {
   @Prop()
-  public products!: Product[]
+  public products!: ProductInGetListResponse[];
 
   @Emit(Events.DELETE_PRODUCT)
   private deleteProduct(id: string) {
