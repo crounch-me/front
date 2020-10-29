@@ -11,15 +11,11 @@
 </template>
 
 <script lang="ts">
+import { createProduct } from '@/api/product';
 import { Component, Vue } from 'vue-property-decorator';
-import { Action } from 'vuex-class';
-
-import { ProductActions } from '@/store/product/keys';
-import { productNamespace } from '@/store/product';
 
 @Component
 export default class CreateProduct extends Vue {
-  @Action(ProductActions.CREATE, productNamespace) doCreateProduct: any;
   name: string = '';
   result: string = '';
 
@@ -28,10 +24,10 @@ export default class CreateProduct extends Vue {
       return;
     }
 
-    this.doCreateProduct({ name: this.name }).then(() => {
+    createProduct(this.name).then(() => {
       this.result = 'Créé';
       this.name = '';
-    });
+    })
   }
 
   get isNameValid(): boolean {
