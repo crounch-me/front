@@ -17,7 +17,7 @@
 import { Events } from '@/utils/events';
 import Vue from 'vue'
 import { Component, Emit, Prop } from 'vue-property-decorator';
-import { Product } from '../../models/product';
+import { Product } from '@/models/product';
 
 @Component
 export default class DisplayProducts extends Vue {

@@ -27,8 +27,6 @@ import { Action, Mutation } from 'vuex-class';
 
 import { AuthActions } from '@/store/auth/keys';
 import { authNamespace } from '@/store/auth';
-import { ListMutations } from '@/store/list/keys';
-import { listNamespace } from '@/store/list';
 import { searchProduct } from '@/api/product';
 import { Product } from '@/models/product';
 import { Events } from '@/utils/events';

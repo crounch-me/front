@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Lists Should render. 1`] = `
-<div>
-  <h1>Listes</h1>
-  <createlist-stub></createlist-stub>
-  <displaylists-stub></displaylists-stub>
-</div>
-`;

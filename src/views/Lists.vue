@@ -11,8 +11,8 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator';
 import { Getter } from 'vuex-class';
 
-import CreateList from '@/components/CreateList/CreateList.vue';
-import DisplayLists from '@/components/DisplayLists/DisplayLists.vue';
+import CreateList from '@/components/CreateList.vue';
+import DisplayLists from '@/components/DisplayLists.vue';
 
 @Component({
   components: {

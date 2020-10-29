@@ -10,14 +10,13 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter, Action, Mutation } from 'vuex-class';
 
-import HelloWorld from '@/components/HelloWorld/HelloWorld.vue';
-import Signup from '@/components/Signup/Signup.vue';
-import Login from '@/components/Login/Login.vue';
-import CreateList from '@/components/CreateList/CreateList.vue';
+import HelloWorld from '@/components/HelloWorld.vue';
+import Signup from '@/components/Signup.vue';
+import Login from '@/components/Login.vue';
+import CreateList from '@/components/CreateList.vue';
 import { authNamespace } from '@/store/auth';
 import { AuthActions, AuthGetters } from '@/store/auth/keys';
-import { ListMutations } from '@/store/list/keys';
-import { listNamespace } from '@/store/list';
+import { ListModule } from '@/store/ListModule';
 
 @Component({
   components: {

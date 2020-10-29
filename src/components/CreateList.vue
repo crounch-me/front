@@ -12,26 +12,24 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Action } from 'vuex-class';
+import { getModule } from 'vuex-module-decorators';
 
-import { ListActions } from '@/store/list/keys';
-import { listNamespace } from '@/store/list';
+import { ListModule } from '@/store/ListModule';
 
 @Component
 export default class CreateList extends Vue {
-  @Action(ListActions.CREATE, listNamespace) doCreateList: any;
+  public listModule: ListModule = getModule(ListModule, this.$store)
   name: string = '';
   result: string = '';
 
-  createList() {
+  async createList() {
     if (!this.isNameValid) {
       return;
     }
 
-    this.doCreateList({ name: this.name }).then(() => {
-      this.result = 'Créée';
-      this.name = '';
-    });
+    await this.listModule.create(this.name)
+    this.result = 'Créée'
+    this.name = ''
   }
 
   get isNameValid(): boolean {

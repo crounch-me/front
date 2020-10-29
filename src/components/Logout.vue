@@ -9,16 +9,16 @@ import { Action, Mutation } from 'vuex-class';
 
 import { AuthActions } from '@/store/auth/keys';
 import { authNamespace } from '@/store/auth';
-import { ListMutations } from '../../store/list/keys';
-import { listNamespace } from '../../store/list';
+import { ListModule } from '@/store/ListModule';
+import { getModule } from 'vuex-module-decorators';
 
 @Component
 export default class Logout extends Vue {
+  public listModule: ListModule = getModule(ListModule, this.$store)
   @Action(AuthActions.LOGOUT, authNamespace) doLogout: any;
-  @Mutation(ListMutations.RESET, listNamespace) doReset: any;
 
   logout() {
-    this.doReset();
+    this.listModule.reset()
     this.doLogout();
     this.$router.push('/');
   }

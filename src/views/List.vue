@@ -19,9 +19,9 @@ import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
 
-import CreateProduct from '@/components/CreateProduct/CreateProduct.vue'
-import SearchProduct from '@/components/SearchProduct/SearchProduct.vue'
-import DisplayProducts from '@/components/DisplayProducts/DisplayProducts.vue'
+import CreateProduct from '@/components/CreateProduct.vue'
+import SearchProduct from '@/components/SearchProduct.vue'
+import DisplayProducts from '@/components/DisplayProducts.vue'
 import { readList, addProductToList, deleteProductInList } from '@/api/list';
 import { Product } from '@/models/product';
 import { List } from '@/models/list';

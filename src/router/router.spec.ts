@@ -1,8 +1,8 @@
-import Home from '@/views/Home/Home.vue';
-import Version from '@/views/Version/Version.vue';
-import NotFound from '@/views/NotFound/NotFound.vue';
-import Lists from '@/views/Lists/Lists.vue';
-import List from '@/views/List/List.vue';
+import Home from '@/views/Home.vue';
+import Version from '@/views/Version.vue';
+import NotFound from '@/views/NotFound.vue';
+import Lists from '@/views/Lists.vue';
+import List from '@/views/List.vue';
 import router from './index';
 
 describe('router', () => {

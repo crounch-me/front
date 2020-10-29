@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`NotFound Should render a not found page. 1`] = `
-<div>
-  <h1>Page non trouvée 😲</h1>
-</div>
-`;

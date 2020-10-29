@@ -16,9 +16,9 @@ import 'vue-router';
 
 import Component from 'vue-class-component';
 import { Action, Getter } from 'vuex-class';
-import { AuthActions, AuthGetters } from './store/auth/keys';
-import { authNamespace } from './store/auth';
-import Logout from './components/Logout/Logout.vue';
+import { AuthActions, AuthGetters } from '@/store/auth/keys';
+import { authNamespace } from '@/store/auth';
+import Logout from '@/components/Logout.vue';
 
 @Component({
   components: {

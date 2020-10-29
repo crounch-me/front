@@ -19,7 +19,7 @@ import { Action } from 'vuex-class';
 import { validateEmail } from '@/utils/form-validation';
 import { AuthActions } from '@/store/auth/keys';
 import { authNamespace } from '@/store/auth';
-import { FetchError } from '../../utils/error';
+import { FetchError } from '@/utils/error';
 
 @Component
 export default class Signup extends Vue {

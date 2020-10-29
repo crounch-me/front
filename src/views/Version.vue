@@ -15,7 +15,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { health } from '@/api/health';
-import { getVersion } from '../../utils/environment';
+import { getVersion } from '@/utils/environment';
 
 @Component
 export default class Version extends Vue {
