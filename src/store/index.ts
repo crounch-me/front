@@ -6,14 +6,10 @@ import { product } from './product'
 
 Vue.use(Vuex);
 
-export interface RootState {
-  dummy: string;
-}
+export interface RootState { }
 
 const store: StoreOptions<RootState> = {
-  state: {
-    dummy: '',
-  },
+  state: {},
   modules: {
     auth,
     ListModule,
