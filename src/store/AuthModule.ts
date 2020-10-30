@@ -28,17 +28,18 @@ export class AuthModule extends VuexModule {
   }
 
   @Action({ commit: 'login' })
-  public async loginAction({ email, password }: AuthPayload) {
+  public async loginAction({ email, password }: AuthPayload): Promise<string> {
     let token = ''
+
     try {
       const res = await login(email, password)
       token = res.accessToken
-      localStorage.setItem(TOKEN_STORAGE_KEY, token)
     } catch (err) {
       localStorage.removeItem(TOKEN_STORAGE_KEY)
       throw err
     }
 
+    localStorage.setItem(TOKEN_STORAGE_KEY, token)
     return token
   }
 
