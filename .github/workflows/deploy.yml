@@ -13,16 +13,23 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v1.4.2
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: ${{ secrets.NODE_VERSION }}
+
+
+      - name: Update npm
+        run: |
+          npm update -g
+          npm --version
 
       - name: Cache Node.js modules
         uses: actions/cache@v1
         with:
           path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ secrets.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-            ${{ runner.os }}-
+            ${{ runner.os }}-node-${{ secrets.NODE_VERSION }}
 
       - name: Install dependencies
         run: npm ci
@@ -33,8 +40,9 @@ jobs:
       - name: Unit tests
         run: npm run test:ci
 
-      - name: Build image
+      - name: Build app and image
         run: |
+          npm run build
           docker build -f containers/Dockerfile -t crounch .
 
       - name: Docker login

@@ -1,10 +1,8 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link v-if="!isAuthenticated" to="/">Home|</router-link>
-      <router-link v-if="isAuthenticated" to="/lists">Listes |</router-link>
-      <router-link to="/version">Version</router-link>
-      <Logout v-if="isAuthenticated" />
+    <div id="nav" v-if="authModule.isAuthenticated">
+      <router-link to="/lists">Listes</router-link>
+      <Logout />
     </div>
     <router-view />
   </div>
@@ -15,10 +13,9 @@ import Vue from 'vue';
 import 'vue-router';
 
 import Component from 'vue-class-component';
-import { Action, Getter } from 'vuex-class';
-import { AuthActions, AuthGetters } from './store/auth/keys';
-import { authNamespace } from './store/auth';
-import Logout from './components/Logout/Logout.vue';
+import Logout from '@/components/Logout.vue';
+import { AuthModule } from './store/AuthModule';
+import { getModule } from 'vuex-module-decorators';
 
 @Component({
   components: {
@@ -26,8 +23,7 @@ import Logout from './components/Logout/Logout.vue';
   }
 })
 export default class App extends Vue {
-  @Action(AuthActions.LOGOUT, authNamespace) logout: any;
-  @Getter(AuthGetters.IS_AUTHENTICATED, authNamespace) isAuthenticated!: boolean;
+  public authModule: AuthModule = getModule(AuthModule)
 }
 </script>
 
