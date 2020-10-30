@@ -15,14 +15,15 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2-beta
         with:
-          node-version: 'v10.15.3'
+          node-version: ${{ secrets.NODE_VERSION }}
 
       - name: Cache Node.js modules
         uses: actions/cache@v1
         with:
           path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ secrets.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
+            ${{ runner.os }}-node-${{ secrets.NODE_VERSION }}
             ${{ runner.os }}-node-
             ${{ runner.os }}-
 
