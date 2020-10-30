@@ -40,9 +40,11 @@ jobs:
       - name: Unit tests
         run: npm run test:ci
 
+      - name: Build app
+        run: npm run build
+
       - name: Build image
-        run: |
-          docker build -f containers/Dockerfile -t crounch .
+        run: docker build -f containers/Dockerfile -t crounch .
 
       - name: Docker login
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
