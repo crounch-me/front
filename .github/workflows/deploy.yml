@@ -19,6 +19,7 @@ jobs:
 
       - name: Print versions
         run: |
+          npm i npm
           node --version
           npm --version
 
