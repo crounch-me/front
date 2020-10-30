@@ -17,10 +17,10 @@ jobs:
         with:
           node-version: ${{ secrets.NODE_VERSION }}
 
-      - name: Print versions
+
+      - name: Update npm
         run: |
-          npm i npm
-          node --version
+          npm update -g
           npm --version
 
       - name: Cache Node.js modules
