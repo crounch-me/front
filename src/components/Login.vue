@@ -15,17 +15,16 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
-import { Action } from 'vuex-class';
+import { getModule } from 'vuex-module-decorators';
 
 import { login } from '@/api/user';
-import { TOKEN_STORAGE_KEY } from '@/utils/constants';
 import { validateEmail } from '@/utils/form-validation';
-import { AuthActions } from '@/store/auth/keys';
-import { authNamespace } from '@/store/auth';
+import { AuthModule } from '@/store/AuthModule';
 
 @Component
 export default class Login extends Vue {
-  @Action(AuthActions.LOGIN, authNamespace) doLogin: any;
+  public authModule: AuthModule = getModule(AuthModule)
+
   email: string = '';
   password: string = '';
   loginSuccess: boolean = false;
@@ -34,9 +33,10 @@ export default class Login extends Vue {
     if (!this.isEmailValid || !this.isPasswordValid) {
       return;
     }
+
     const { email, password } = this;
 
-    this.doLogin({ email, password }).then(() => {
+    this.authModule.loginAction({email, password}).then(() => {
       this.$router.replace('/lists');
     });
   }

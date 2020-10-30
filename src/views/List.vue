@@ -17,7 +17,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator';
-import { Getter, Action } from 'vuex-class';
 
 import CreateProduct from '@/components/CreateProduct.vue'
 import SearchProduct from '@/components/SearchProduct.vue'

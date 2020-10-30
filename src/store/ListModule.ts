@@ -1,8 +1,9 @@
+import store from '.'
 import { createList, deleteList, getOwnerLists } from '@/api/list';
 import { List } from '@/models/list'
 import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 
-@Module({ name: 'list' })
+@Module({ dynamic: true, store, name: 'list' })
 export class ListModule extends VuexModule {
   lists: List[] = []
 

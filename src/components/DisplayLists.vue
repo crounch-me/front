@@ -19,7 +19,7 @@ import { getModule } from 'vuex-module-decorators';
 
 @Component
 export default class DisplayLists extends Vue {
-  public listModule: ListModule = getModule(ListModule, this.$store)
+  public listModule: ListModule = getModule(ListModule)
 
   async created() {
      this.listModule.getOwners()

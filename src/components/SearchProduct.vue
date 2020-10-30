@@ -23,10 +23,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component, Emit, Prop } from 'vue-property-decorator';
-import { Action, Mutation } from 'vuex-class';
 
-import { AuthActions } from '@/store/auth/keys';
-import { authNamespace } from '@/store/auth';
 import { searchProduct } from '@/api/product';
 import { Product } from '@/models/product';
 import { Events } from '@/utils/events';

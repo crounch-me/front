@@ -8,15 +8,14 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Getter, Action, Mutation } from 'vuex-class';
+import { getModule } from 'vuex-module-decorators';
 
 import HelloWorld from '@/components/HelloWorld.vue';
 import Signup from '@/components/Signup.vue';
 import Login from '@/components/Login.vue';
 import CreateList from '@/components/CreateList.vue';
-import { authNamespace } from '@/store/auth';
-import { AuthActions, AuthGetters } from '@/store/auth/keys';
 import { ListModule } from '@/store/ListModule';
+import { AuthModule } from '@/store/AuthModule';
 
 @Component({
   components: {
@@ -26,10 +25,10 @@ import { ListModule } from '@/store/ListModule';
   },
 })
 export default class Home extends Vue {
-  @Getter(AuthGetters.IS_AUTHENTICATED, authNamespace) isAuthenticated!: boolean;
+  public authModule: AuthModule = getModule(AuthModule)
 
   mounted() {
-    if (this.isAuthenticated) {
+    if (this.authModule.isAuthenticated) {
       this.$router.push('/lists');
     }
   }

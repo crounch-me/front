@@ -3,7 +3,7 @@ import Version from '@/views/Version.vue';
 import NotFound from '@/views/NotFound.vue';
 import Lists from '@/views/Lists.vue';
 import List from '@/views/List.vue';
-import router from './index';
+import router from './router';
 
 describe('router', () => {
   describe('Home', () => {

@@ -18,7 +18,7 @@ import { ListModule } from '@/store/ListModule';
 
 @Component
 export default class CreateList extends Vue {
-  public listModule: ListModule = getModule(ListModule, this.$store)
+  public listModule: ListModule = getModule(ListModule)
   name: string = '';
   result: string = '';
 

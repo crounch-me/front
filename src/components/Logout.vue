@@ -5,22 +5,21 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
-import { Action, Mutation } from 'vuex-class';
-
-import { AuthActions } from '@/store/auth/keys';
-import { authNamespace } from '@/store/auth';
-import { ListModule } from '@/store/ListModule';
 import { getModule } from 'vuex-module-decorators';
+
+import { ListModule } from '@/store/ListModule';
+import { AuthModule } from '@/store/AuthModule';
 
 @Component
 export default class Logout extends Vue {
-  public listModule: ListModule = getModule(ListModule, this.$store)
-  @Action(AuthActions.LOGOUT, authNamespace) doLogout: any;
+  public authModule: AuthModule = getModule(AuthModule)
+  public listModule: ListModule = getModule(ListModule)
 
   logout() {
     this.listModule.reset()
-    this.doLogout();
-    this.$router.push('/');
+    this.authModule.logoutAction().then(() => {
+      this.$router.push('/');
+    })
   }
 }
 </script>

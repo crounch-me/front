@@ -9,7 +9,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator';
-import { Getter } from 'vuex-class';
 
 import CreateList from '@/components/CreateList.vue';
 import DisplayLists from '@/components/DisplayLists.vue';
