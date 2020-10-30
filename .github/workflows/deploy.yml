@@ -16,6 +16,8 @@ jobs:
         uses: actions/setup-node@v2-beta
         with:
           node-version: ${{ secrets.NODE_VERSION }}
+
+      - name: Print versions
         run: |
           node --version
           npm --version
