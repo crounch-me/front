@@ -1,4 +1,4 @@
-import { getAPIURL, getVersion } from './environment';
+import { getAPIURL } from './environment';
 
 describe('Environment', () => {
   describe('getAPIURL', () => {
@@ -16,13 +16,6 @@ describe('Environment', () => {
       const devUrl = 'http://dev.fr';
       process.env.VUE_APP_API_URL = devUrl;
       expect(getAPIURL()).toBe(devUrl);
-    });
-  });
-
-  describe('getVersion', () => {
-    it('Should return the version in the package json file.', () => {
-      expect(getVersion()).not.toBe(undefined);
-      expect(getVersion().match(/^[0-9]+\.[0-9]+\.[0-9]+$/)).toBeTruthy();
     });
   });
 });

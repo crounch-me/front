@@ -3,7 +3,6 @@
     <div id="nav">
       <router-link v-if="!authModule.isAuthenticated" to="/">Home|</router-link>
       <router-link v-if="authModule.isAuthenticated" to="/lists">Listes |</router-link>
-      <router-link to="/version">Version</router-link>
       <Logout v-if="authModule.isAuthenticated" />
     </div>
     <router-view />

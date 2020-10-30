@@ -1,5 +1,4 @@
 import Home from '@/views/Home.vue';
-import Version from '@/views/Version.vue';
 import NotFound from '@/views/NotFound.vue';
 import Lists from '@/views/Lists.vue';
 import List from '@/views/List.vue';
@@ -18,21 +17,6 @@ describe('router', () => {
       router.push({ name: 'home' });
 
       expect(router.getMatchedComponents()[0]).toEqual(Home);
-    });
-  });
-
-  describe('Version', () => {
-    it('Should return Version component on path "/version".', () => {
-      router.push('/version');
-
-      expect(router.getMatchedComponents()[0]).toEqual(Version);
-    });
-
-    it('Should return Version component on name "version".', () => {
-      router.push('/');
-      router.push({ name: 'version' });
-
-      expect(router.getMatchedComponents()[0]).toEqual(Version);
     });
   });
 
