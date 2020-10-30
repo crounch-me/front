@@ -20,6 +20,3 @@ jobs:
 
       - name: Mutation tests
         run: npm run test:mutation
-
-      - name: Acceptance tests
-        run: make acceptance-test

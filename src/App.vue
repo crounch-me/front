@@ -1,9 +1,8 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link v-if="!authModule.isAuthenticated" to="/">Home|</router-link>
-      <router-link v-if="authModule.isAuthenticated" to="/lists">Listes |</router-link>
-      <Logout v-if="authModule.isAuthenticated" />
+    <div id="nav" v-if="authModule.isAuthenticated">
+      <router-link to="/lists">Listes</router-link>
+      <Logout />
     </div>
     <router-view />
   </div>
