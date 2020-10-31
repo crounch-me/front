@@ -1,6 +1,9 @@
 import { getAPIURL } from '@/utils/environment';
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
 import { FetchError } from '@/utils/error';
+import { AuthModule } from '@/store/AuthModule';
+import { getModule } from 'vuex-module-decorators';
+import router from '@/router/router';
 
 export interface FetchOptions {
   url: string;
@@ -17,6 +20,13 @@ export function doFetch<T>(options: FetchOptions): Promise<T> {
       if (res.status === 204) {
         return
       }
+      if (res.status === 401) {
+        const authModule = getModule(AuthModule)
+        authModule.logoutAction().then(() => {
+          router.push({ name: 'home' })
+        })
+      }
+
       return res.json()
         .then(body => { throw new FetchError('Erreur lors de la requête', res.status, body) })
         .catch()
