@@ -1,14 +1,14 @@
-import { ProductInGetListResponse } from './product'
+import { ProductInSelectedList } from './product'
 
 interface Category {
   id: string
   name: string
 }
 
-interface CategoryInGetListResponse {
+interface CategoryInSelectedList {
   id: string
   name: string
-  products: ProductInGetListResponse
+  products: ProductInSelectedList[]
 }
 
-export { Category, CategoryInGetListResponse }
+export { Category, CategoryInSelectedList }

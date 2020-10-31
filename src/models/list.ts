@@ -1,5 +1,5 @@
 import { Product } from './product';
-import { CategoryInGetListResponse } from './category';
+import { CategoryInSelectedList } from './category';
 
 interface List {
   id: string
@@ -7,11 +7,11 @@ interface List {
   products: Product[]
 }
 
-interface GetListResponse {
+interface SelectedList {
   id: string
   name: string
   creationDate: string
-  categories: CategoryInGetListResponse[]
+  categories: CategoryInSelectedList[]
 }
 
-export { List, GetListResponse }
+export { List, SelectedList }

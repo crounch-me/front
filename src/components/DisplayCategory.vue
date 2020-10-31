@@ -12,7 +12,7 @@ import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator';
 
 import DisplayProducts from '@/components/DisplayProducts.vue'
-import { CategoryInGetListResponse } from '@/models/category';
+import { CategoryInSelectedList } from '@/models/category';
 
 @Component({
   components: {
@@ -23,7 +23,7 @@ export default class ListPage extends Vue {
   @Prop(String) readonly id!: string;
 
   @Prop()
-  public category!: CategoryInGetListResponse;
+  public category!: CategoryInSelectedList;
 
   // deleteProduct(productId: string) {
   //   deleteProductInList(productId, this.list!.id)

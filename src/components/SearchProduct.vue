@@ -27,11 +27,12 @@ import { Component, Emit, Prop } from 'vue-property-decorator';
 import { searchProduct } from '@/api/product';
 import { Product } from '@/models/product';
 import { Events } from '@/utils/events';
+import { ListModule } from '@/store/ListModule';
+import { getModule } from 'vuex-module-decorators';
 
 @Component
 export default class SearchProduct extends Vue {
-  @Prop()
-  public productsInList!: Product[]
+  public listModule: ListModule = getModule(ListModule)
 
   public name: string = ""
   public error: string = ""
@@ -47,13 +48,12 @@ export default class SearchProduct extends Vue {
       .catch(err => this.error = err.error)
   }
 
-  @Emit(Events.ADD_PRODUCT)
   addProduct(product: Product) {
-    return product
+    this.listModule.addProductAction(product)
   }
 
   public isProductInList(id: string): boolean {
-    return !!this.productsInList.find(productInList => productInList.id === id)
+    return !!this.listModule.productsInSelectedList.find(productInList => productInList.id === id)
   }
 }
 </script>

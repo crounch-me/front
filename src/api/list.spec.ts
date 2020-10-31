@@ -121,7 +121,7 @@ describe('List API', () => {
     it('Should call add product to list with the right parameters', done => {
       readList(listID).then(resultList => {
         expect(doFetch).toHaveBeenCalledWith(expectedReadListOptions)
-        expect(resultList).toBe(list)
+        expect(resultList).toEqual(list)
         done()
       })
     })

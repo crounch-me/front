@@ -1,15 +1,16 @@
 import { Category } from './category';
 
 interface Product {
-  id: string;
-  name: string;
+  id: string
+  name: string
   category?: Category
 }
 
-interface ProductInGetListResponse {
+interface ProductInSelectedList {
   id: string
   name: string
+  category?: Category
   buyed: boolean
 }
 
-export { Product, ProductInGetListResponse }
+export { Product, ProductInSelectedList }

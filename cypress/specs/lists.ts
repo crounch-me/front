@@ -48,9 +48,6 @@ describe('Lists', () => {
     waitForElement(cy, '#list')
 
     cy.contains(name)
-
-    cy
-      .contains('Aucun produits dans cette liste');
   })
 
   it('Should add a product to a shopping list.', () => {

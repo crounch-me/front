@@ -136,7 +136,7 @@ describe('AuthModule', () => {
           await authModule.loginAction({ email, password })
           throw new Error("login request didn't fail")
         } catch (err) {
-          expect(err).toBe(fetchError)
+          expect(err).toEqual(fetchError)
         }
       })
     })
@@ -166,7 +166,7 @@ describe('AuthModule', () => {
         await authModule.signup({ email, password })
         throw new Error("singup request didn't fail")
       } catch (err) {
-        expect(err).toBe(fetchError)
+        expect(err).toEqual(fetchError)
       }
     })
   })
