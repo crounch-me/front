@@ -1,5 +1,5 @@
 import store from '.'
-import { login, signup } from '@/api/user';
+import { login, logout, signup } from '@/api/user';
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
 import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 
@@ -52,6 +52,7 @@ export class AuthModule extends VuexModule {
 
   @Action({ commit: 'logout' })
   public async logoutAction() {
+    await logout()
     localStorage.removeItem(TOKEN_STORAGE_KEY)
     return
   }

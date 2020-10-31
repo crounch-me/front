@@ -30,3 +30,10 @@ export function login(email: string, password: string): Promise<LoginResponse> {
     },
   })
 }
+
+export function logout(): Promise<void> {
+  return doFetch({
+    url: 'logout',
+    method: 'POST'
+  })
+}
