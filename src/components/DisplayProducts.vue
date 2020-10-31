@@ -1,32 +1,32 @@
 <template>
-  <div>
-    <h3>Produits</h3>
-    <ul v-if="products.length" id="list-products">
-      <li v-for="product in products" :key="product.id">
-        {{ product.name }}
-        <button class="delete" @click="deleteProduct(product.id)">
-          Supprimer
-        </button>
-      </li>
-    </ul>
-    <p v-else>Aucun produits dans cette liste</p>
-  </div>
+  <ul v-if="products.length" id="list-products">
+    <li v-for="product in products" :key="product.id">
+      {{ product.name }}
+      <button class="delete" @click="deleteProduct(product)">
+        Supprimer
+      </button>
+    </li>
+  </ul>
 </template>
 
 <script lang="ts">
-import { Events } from '@/utils/events';
 import Vue from 'vue'
 import { Component, Emit, Prop } from 'vue-property-decorator';
-import { Product } from '@/models/product';
+import { getModule } from 'vuex-module-decorators';
+
+import { Events } from '@/utils/events';
+import { ProductInSelectedList } from '@/models/product';
+import { ListModule } from '@/store/ListModule';
 
 @Component
 export default class DisplayProducts extends Vue {
-  @Prop()
-  public products!: Product[]
+  public listModule: ListModule = getModule(ListModule)
 
-  @Emit(Events.DELETE_PRODUCT)
-  private deleteProduct(id: string) {
-    return id
+  @Prop()
+  public products!: ProductInSelectedList[];
+
+  deleteProduct(product: ProductInSelectedList) {
+    this.listModule.deleteProductAction(product)
   }
 }
 </script>

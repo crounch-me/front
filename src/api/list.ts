@@ -1,5 +1,5 @@
 import { doFetch } from './api';
-import { List } from '@/models/list';
+import { SelectedList, List } from '@/models/list';
 
 export function createList(name: string): Promise<List> {
   return doFetch({
@@ -37,7 +37,7 @@ export function deleteProductInList(productID: string, listID: string): Promise<
   })
 }
 
-export function readList(listID: string): Promise<List> {
+export function readList(listID: string): Promise<SelectedList> {
   return doFetch({
     url: `lists/${listID}`,
     method: 'GET'
