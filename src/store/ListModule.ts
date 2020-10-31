@@ -130,6 +130,10 @@ export class ListModule extends VuexModule {
 
   @Action({ commit: 'addProduct' })
   async addProductAction(product: Product) {
+    if (!this.selectedList) {
+      return
+    }
+
     await addProductToList(product.id, this.selectedList!.id)
 
     const productInSelectedList: ProductInSelectedList = {
@@ -142,6 +146,10 @@ export class ListModule extends VuexModule {
 
   @Action({ commit: 'deleteProduct' })
   async deleteProductAction(product: ProductInSelectedList) {
+    if (!this.selectedList) {
+      return
+    }
+
     await deleteProductInList(product.id, this.selectedList!.id)
     return product
   }
@@ -149,7 +157,6 @@ export class ListModule extends VuexModule {
   @MutationAction
   async selectList(id: string) {
     const selectedList = await readList(id)
-    selectedList.categories = selectedList.categories || []
     return { selectedList }
   }
 }

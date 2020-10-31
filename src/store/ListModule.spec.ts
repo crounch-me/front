@@ -3,6 +3,9 @@ import { SelectedList, List } from '@/models/list'
 import { Product, ProductInSelectedList } from '@/models/product';
 import { Category, CategoryInSelectedList } from '@/models/category';
 import { DEFAULT_CATEGORY_ID, DEFAULT_CATEGORY_NAME } from '@/utils/constants';
+import { addProductToList, createList, deleteList, deleteProductInList, getOwnerLists, readList } from '@/api/list';
+
+jest.mock('@/api/list')
 
 describe('ListModule', () => {
   const unknownId = 'unknown-id'
@@ -22,6 +25,8 @@ describe('ListModule', () => {
     name: name2,
     products: []
   }
+
+  const newName = 'new-name'
 
   const selectedListId = 'selected-list-id'
   const selectedListName = 'selected-list-name'
@@ -341,6 +346,138 @@ describe('ListModule', () => {
         expect(listModule.selectedList!.categories[0].products[0]).toEqual(productWithCategoryInSelectedList)
         expect(listModule.selectedList!.categories[1].products).toHaveLength(0)
 
+      })
+    })
+  })
+
+  describe('Action', () => {
+    describe('create', () => {
+      const newList: List = {
+        id: 'new-id',
+        name: newName,
+        products: []
+      };
+
+      (createList as jest.Mock).mockResolvedValue(newList)
+
+      it('should call api to create a new list', async () => {
+        await listModule.create(newName)
+
+        expect(createList).toHaveBeenCalledTimes(1)
+        expect(createList).toHaveBeenCalledWith(newName)
+      })
+
+      it('should return created list', async () => {
+        const result = await listModule.create(newName)
+
+        expect(result).toEqual(newList)
+      })
+    })
+
+    describe('getOwners', () => {
+      (getOwnerLists as jest.Mock).mockResolvedValue([list1, list2])
+
+      it('should call api to get owners lists', async () => {
+        await listModule.getOwners()
+
+        expect(getOwnerLists).toHaveBeenCalledTimes(1)
+      })
+
+      it('should return owners lists', async () => {
+        const result = await listModule.getOwners()
+
+        expect(result).toEqual([list1, list2])
+      })
+    })
+
+    describe('deleteAction', () => {
+      (deleteList as jest.Mock).mockResolvedValue({})
+
+      it('should call api to delete list', async () => {
+        await listModule.deleteAction(id1)
+
+        expect(deleteList).toHaveBeenCalledTimes(1)
+      })
+
+      it('should return list id', async () => {
+        const result = await listModule.deleteAction(id1)
+
+        expect(result).toBe(id1)
+      })
+    })
+
+    describe('addProductAction', () => {
+      (addProductToList as jest.Mock).mockResolvedValue(undefined)
+
+      it('should do nothing when no list has been selected', async () => {
+        await listModule.addProductAction(product)
+
+        expect(addProductToList).not.toHaveBeenCalled()
+      })
+
+      it('should call api to add product in list', async () => {
+        listModule.selectedList = selectedList
+
+        await listModule.addProductAction(product)
+
+        expect(addProductToList).toHaveBeenCalledTimes(1)
+        expect(addProductToList).toHaveBeenCalledWith(product.id, selectedList.id)
+      })
+
+      it('should return new product in selected list', async () => {
+        listModule.selectedList = selectedList
+
+        const result = await listModule.addProductAction(product)
+
+        const expectedProductInList: ProductInSelectedList = {
+          ...product,
+          buyed: false
+        }
+        expect(result).toEqual(expectedProductInList)
+      })
+    })
+
+    describe('deleteProductAction', () => {
+      (deleteProductInList as jest.Mock).mockResolvedValue({})
+
+      it('should do nothing when no list has been selected', async () => {
+        await listModule.deleteProductAction(productWithCategoryInSelectedList)
+
+        expect(deleteProductInList).not.toHaveBeenCalled()
+      })
+
+      it('should call api to delete product in list', async () => {
+        listModule.selectedList = selectedList
+
+        await listModule.deleteProductAction(productWithCategoryInSelectedList)
+
+        expect(deleteProductInList).toHaveBeenCalledTimes(1)
+        expect(deleteProductInList).toHaveBeenCalledWith(productWithCategoryInSelectedList.id, selectedList.id)
+      })
+
+      it('should return the deleted product', async () => {
+        listModule.selectedList = selectedList
+
+        const result = await listModule.deleteProductAction(productWithCategoryInSelectedList)
+
+        expect(result).toEqual(productWithCategoryInSelectedList)
+      })
+    })
+
+    describe('selectList', () => {
+      (readList as jest.Mock).mockResolvedValue(selectedList)
+
+      it('should call api to retrieve the wanted list with their categories and products', async () => {
+        await listModule.selectList(id1)
+
+        expect(readList).toHaveBeenCalledTimes(1)
+        expect(readList).toHaveBeenCalledWith(id1)
+      })
+
+      it('should return the selected list wrapped in an object', async () => {
+        const result = await listModule.selectList(id1)
+
+        expect(result).toEqual({ selectedList })
       })
     })
   })
