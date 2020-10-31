@@ -1,5 +1,5 @@
 import { doFetch } from './api';
-import { signup, login } from './user';
+import { signup, login, logout } from './user';
 
 jest.mock('./api');
 
@@ -35,6 +35,17 @@ describe('User API', () => {
         url: 'users/login',
         method: 'POST',
         data: { email, password }
+      });
+    });
+  });
+
+  describe('logout', () => {
+    it('Should call logout endpoint.', () => {
+      logout();
+
+      expect(doFetch).toHaveBeenCalledWith({
+        url: 'logout',
+        method: 'POST',
       });
     });
   });

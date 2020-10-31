@@ -1,4 +1,4 @@
-import { login, LoginResponse, signup, SignupResponse } from '@/api/user';
+import { login, LoginResponse, logout, signup, SignupResponse } from '@/api/user';
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
 import { FetchError, ErrorBody } from '@/utils/error';
 import { AuthModule } from './AuthModule'
@@ -172,8 +172,16 @@ describe('AuthModule', () => {
   })
 
   describe('logoutAction', () => {
-    it('should remove token from local storage', () => {
-      authModule.logoutAction()
+    (logout as jest.Mock).mockResolvedValue({})
+
+    it('should call api to logout', async () => {
+      await authModule.logoutAction()
+
+      expect(logout).toHaveBeenCalledTimes(1)
+    })
+
+    it('should remove token from local storage', async () => {
+      await authModule.logoutAction()
 
       expect(removeItemMock).toHaveBeenCalledTimes(1)
       expect(removeItemMock).toHaveBeenCalledWith(TOKEN_STORAGE_KEY)
