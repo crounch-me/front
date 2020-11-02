@@ -1,5 +1,5 @@
 import { doFetch, FetchOptions } from './api';
-import { createList, getOwnerLists, deleteList, addProductToList, readList, deleteProductInList } from './list';
+import { createList, getOwnerLists, deleteList, addProductToList, readList, deleteProductInList, setBuyedProductInList } from './list';
 import { List } from '@/models/list';
 import { when } from 'jest-when';
 
@@ -15,6 +15,8 @@ describe('List API', () => {
     products: []
   };
   const lists: List[] = [list];
+  const buyed = true
+
   const expectedCreateOptions: FetchOptions = {
     url: 'lists',
     method: 'POST',
@@ -43,6 +45,14 @@ describe('List API', () => {
     method: 'POST'
   }
 
+  const expectedSetBuyedProductOptions: FetchOptions = {
+    url: `lists/${listID}/products/${productID}`,
+    method: 'PATCH',
+    data: {
+      buyed
+    }
+  }
+
   const expectedReadListOptions: FetchOptions = {
     url: `lists/${listID}`,
     method: 'GET'
@@ -56,6 +66,7 @@ describe('List API', () => {
     when(doFetch as jest.Mock).calledWith(expectedAddProductToListOptions).mockResolvedValue({})
     when(doFetch as jest.Mock).calledWith(expectedReadListOptions).mockResolvedValue(list)
     when(doFetch as jest.Mock).calledWith(expectedDeleteProductFromListOptions).mockResolvedValue({})
+    when(doFetch as jest.Mock).calledWith(expectedSetBuyedProductOptions).mockResolvedValue({})
   });
 
   describe('createList', () => {
@@ -116,6 +127,15 @@ describe('List API', () => {
       });
     });
   });
+
+  describe('setBuyedProductInList', () => {
+    it('Should call set buyed product in list with the right parameters', done => {
+      setBuyedProductInList(productID, listID, buyed).then(() => {
+        expect(doFetch).toHaveBeenCalledWith(expectedSetBuyedProductOptions)
+        done()
+      })
+    })
+  })
 
   describe('readList', () => {
     it('Should call add product to list with the right parameters', done => {
