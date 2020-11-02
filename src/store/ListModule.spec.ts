@@ -3,7 +3,7 @@ import { SelectedList, List } from '@/models/list'
 import { Product, ProductInSelectedList } from '@/models/product';
 import { Category, CategoryInSelectedList } from '@/models/category';
 import { DEFAULT_CATEGORY_ID, DEFAULT_CATEGORY_NAME } from '@/utils/constants';
-import { addProductToList, createList, deleteList, deleteProductInList, getOwnerLists, readList } from '@/api/list';
+import { addProductToList, createList, deleteList, deleteProductInList, getOwnerLists, setBuyedProductInList, readList } from '@/api/list';
 
 jest.mock('@/api/list')
 
@@ -25,6 +25,8 @@ describe('ListModule', () => {
     name: name2,
     products: []
   }
+
+  const buyed = true
 
   const newName = 'new-name'
 
@@ -58,6 +60,7 @@ describe('ListModule', () => {
 
   const productWithoutCategoryInSelectedList: ProductInSelectedList = {
     ...product,
+    category: defaultCategory,
     buyed: false,
   }
 
@@ -431,6 +434,10 @@ describe('ListModule', () => {
 
         const expectedProductInList: ProductInSelectedList = {
           ...product,
+          category: {
+            id: DEFAULT_CATEGORY_ID,
+            name: DEFAULT_CATEGORY_NAME,
+          },
           buyed: false
         }
         expect(result).toEqual(expectedProductInList)
@@ -478,6 +485,46 @@ describe('ListModule', () => {
         const result = await listModule.selectList(id1)
 
         expect(result).toEqual({ selectedList })
+      })
+    })
+
+    describe('setBuyedProductAction', () => {
+      beforeEach(() => {
+        (setBuyedProductInList as jest.Mock).mockClear()
+      })
+
+      it('should do nothing if no list is selected', async () => {
+        await listModule.setBuyedProductAction({
+          product: productWithCategoryInSelectedList,
+          buyed,
+        })
+
+        expect(setBuyedProductInList).toHaveBeenCalledTimes(0)
+      })
+
+      it('should call api to set buyed product with right parameters', async () => {
+        listModule.selectedList = selectedList
+
+        await listModule.setBuyedProductAction({
+          product: productWithCategoryInSelectedList,
+          buyed,
+        })
+
+        expect(setBuyedProductInList).toHaveBeenCalledTimes(1)
+        expect(setBuyedProductInList).toHaveBeenCalledWith(product.id, selectedList.id, buyed)
+      })
+
+      it('should return payload when request succeed', async () => {
+        listModule.selectedList = selectedList
+
+        const payload = {
+          product: productWithCategoryInSelectedList,
+          buyed,
+        }
+
+        const result = await listModule.setBuyedProductAction(payload)
+
+        expect(result).toEqual(payload)
       })
     })
   })

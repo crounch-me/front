@@ -37,6 +37,16 @@ export function deleteProductInList(productID: string, listID: string): Promise<
   })
 }
 
+export function setBuyedProductInList(productID: string, listID: string, buyed: boolean): Promise<void> {
+  return doFetch({
+    url: `lists/${listID}/products/${productID}`,
+    method: 'PATCH',
+    data: {
+      buyed
+    }
+  })
+}
+
 export function readList(listID: string): Promise<SelectedList> {
   return doFetch({
     url: `lists/${listID}`,

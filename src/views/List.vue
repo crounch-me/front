@@ -26,6 +26,8 @@ import { Product } from '@/models/product';
 import { SelectedList, List } from '@/models/list';
 import { ListModule } from '@/store/ListModule';
 import { getModule } from 'vuex-module-decorators';
+import { CategoryInSelectedList } from '@/models/category';
+import { DEFAULT_CATEGORY_ID } from '@/utils/constants';
 
 @Component({
   components: {
@@ -40,6 +42,22 @@ export default class ListPage extends Vue {
 
   get list() {
     return this.listModule.selectedList
+  }
+
+  get sortedCategories(): CategoryInSelectedList[] {
+    if (!this.list) {
+      return []
+    }
+    const defaultCategoryIndex = this.list!.categories.findIndex(category => category.id === DEFAULT_CATEGORY_ID)
+    const categories = [...this.list!.categories]
+
+    if (defaultCategoryIndex !== -1) {
+      const defaultCategory = categories[defaultCategoryIndex]
+      categories.splice(defaultCategoryIndex, 1)
+      categories.push(defaultCategory)
+    }
+
+    return categories
   }
 
   private error = ''

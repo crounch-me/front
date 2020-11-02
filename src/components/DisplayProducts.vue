@@ -5,6 +5,7 @@
       <button class="delete" @click="deleteProduct(product)">
         Supprimer
       </button>
+      <input type="checkbox" @click.prevent="toggleBuyedProduct(product)" v-model="product.buyed">
     </li>
   </ul>
 </template>
@@ -16,7 +17,7 @@ import { getModule } from 'vuex-module-decorators';
 
 import { Events } from '@/utils/events';
 import { ProductInSelectedList } from '@/models/product';
-import { ListModule } from '@/store/ListModule';
+import { ListModule, SetBuyedProductActionPayload } from '@/store/ListModule';
 
 @Component
 export default class DisplayProducts extends Vue {
@@ -27,6 +28,14 @@ export default class DisplayProducts extends Vue {
 
   deleteProduct(product: ProductInSelectedList) {
     this.listModule.deleteProductAction(product)
+  }
+
+  toggleBuyedProduct(product: ProductInSelectedList) {
+    const setBuyedProductActionPayload: SetBuyedProductActionPayload=  {
+      product,
+      buyed: !product.buyed,
+    }
+    this.listModule.setBuyedProductAction(setBuyedProductActionPayload)
   }
 }
 </script>
