@@ -1,5 +1,5 @@
 import { doFetch, FetchOptions } from './api';
-import { createList, getOwnerLists, deleteList, addProductToList, readList, deleteProductInList } from './list';
+import { createList, getUsersLists, deleteList, addProductToList, readList, deleteProductInList } from './list';
 import { List } from '@/models/list';
 import { when } from 'jest-when';
 
@@ -74,16 +74,16 @@ describe('List API', () => {
     });
   });
 
-  describe('getOwnerLists', () => {
+  describe('getUsersLists', () => {
     it('Should call get lists endpoint with right parameters.', done => {
-      getOwnerLists().then(() => {
+      getUsersLists().then(() => {
         expect(doFetch).toHaveBeenCalledWith(expectedGetOptions);
         done();
       });
     });
 
     it('Should return lists from the endpoint.', done => {
-      getOwnerLists().then(res => {
+      getUsersLists().then(res => {
         expect(res).toEqual(lists);
         done();
       });

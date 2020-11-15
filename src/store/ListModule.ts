@@ -1,5 +1,5 @@
 import store from '.'
-import { addProductToList, createList, deleteList, deleteProductInList, getOwnerLists, readList } from '@/api/list';
+import { addProductToList, createList, deleteList, deleteProductInList, getUsersLists, readList } from '@/api/list';
 import { SelectedList, List } from '@/models/list'
 import { Action, Module, Mutation, MutationAction, VuexModule } from 'vuex-module-decorators'
 import { Product, ProductInSelectedList } from '@/models/product';
@@ -118,8 +118,8 @@ export class ListModule extends VuexModule {
   }
 
   @Action({ commit: 'set' })
-  async getOwners() {
-    return getOwnerLists()
+  async getUsers() {
+    return getUsersLists()
   }
 
   @Action({ commit: 'delete' })

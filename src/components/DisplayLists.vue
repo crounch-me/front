@@ -22,7 +22,7 @@ export default class DisplayLists extends Vue {
   public listModule: ListModule = getModule(ListModule)
 
   async created() {
-     this.listModule.getOwners()
+     this.listModule.getUsers()
   }
 
   get lists () {

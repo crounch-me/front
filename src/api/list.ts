@@ -9,7 +9,7 @@ export function createList(name: string): Promise<List> {
   });
 }
 
-export function getOwnerLists(): Promise<Array<List>> {
+export function getUsersLists(): Promise<Array<List>> {
   return doFetch({
     url: 'lists',
     method: 'GET',

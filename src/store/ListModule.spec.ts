@@ -3,7 +3,7 @@ import { SelectedList, List } from '@/models/list'
 import { Product, ProductInSelectedList } from '@/models/product';
 import { Category, CategoryInSelectedList } from '@/models/category';
 import { DEFAULT_CATEGORY_ID, DEFAULT_CATEGORY_NAME } from '@/utils/constants';
-import { addProductToList, createList, deleteList, deleteProductInList, getOwnerLists, readList } from '@/api/list';
+import { addProductToList, createList, deleteList, deleteProductInList, getUsersLists, readList } from '@/api/list';
 
 jest.mock('@/api/list')
 
@@ -374,17 +374,17 @@ describe('ListModule', () => {
       })
     })
 
-    describe('getOwners', () => {
-      (getOwnerLists as jest.Mock).mockResolvedValue([list1, list2])
+    describe('getUsers', () => {
+      (getUsersLists as jest.Mock).mockResolvedValue([list1, list2])
 
-      it('should call api to get owners lists', async () => {
-        await listModule.getOwners()
+      it('should call api to get user\'s lists', async () => {
+        await listModule.getUsers()
 
-        expect(getOwnerLists).toHaveBeenCalledTimes(1)
+        expect(getUsersLists).toHaveBeenCalledTimes(1)
       })
 
-      it('should return owners lists', async () => {
-        const result = await listModule.getOwners()
+      it('should return user\'s lists', async () => {
+        const result = await listModule.getUsers()
 
         expect(result).toEqual([list1, list2])
       })
