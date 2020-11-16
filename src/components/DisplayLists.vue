@@ -4,8 +4,8 @@
     <ul>
       <li v-for="list in lists" :key="list.id" :id="list.id" class="list">
         <span @click="goToList(list.id)" crounch-role="go-to-list">{{ list.name }}</span>
-        <span v-if="list.archivationDate"> Archivée le {{ list.archivationDate }}</span>
-        <button v-if="!list.archivationDate" @click="archiveList(list.id)">Archiver</button>
+        <span v-if="list.archivationDate" crounch-role="archivation-date"> Archivée le {{ list.archivationDate }}</span>
+        <button v-if="!list.archivationDate" @click="archiveList(list.id)" crounch-role="archive-list">Archiver</button>
         <button @click="deleteList(list.id)" crounch-role="delete-list">Supprimer</button>
       </li>
     </ul>
