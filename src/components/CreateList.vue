@@ -14,7 +14,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { getModule } from 'vuex-module-decorators';
 
-import { ListModule } from '@/store/ListModule';
+import { ListModule } from '@/store/list/ListModule';
 
 @Component
 export default class CreateList extends Vue {

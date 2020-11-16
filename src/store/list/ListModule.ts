@@ -1,17 +1,14 @@
-import store from '.'
-import { addProductToList, createList, deleteList, deleteProductInList, getOwnerLists, readList, setBuyedProductInList } from '@/api/list';
+import Vue from 'vue'
+import store from '..'
+import { addProductToList, archiveList, createList, deleteList, deleteProductInList, getUsersLists, readList, setBuyedProductInList } from '@/api/list';
 import { SelectedList, List } from '@/models/list'
 import { Action, Module, Mutation, MutationAction, VuexModule } from 'vuex-module-decorators'
 import { Product, ProductInSelectedList } from '@/models/product';
 import { CategoryInSelectedList } from '@/models/category';
 import { DEFAULT_CATEGORY_ID, DEFAULT_CATEGORY_NAME } from '@/utils/constants';
+import { SetArchivationDatePayload, SetBuyedProductActionPayload } from './payloads';
 
-export interface SetBuyedProductActionPayload {
-  product: ProductInSelectedList
-  buyed: boolean
-}
-
-@Module({ dynamic: true, store, name: 'list' })
+@Module({ dynamic: true, store, name: 'list', namespaced: true })
 export class ListModule extends VuexModule {
   lists: List[] = []
   selectedList: SelectedList | null = null
@@ -26,6 +23,13 @@ export class ListModule extends VuexModule {
 
   get selected() {
     return this.selectedList
+  }
+
+  get isSelectedListArchived() {
+    if (this.selectedList) {
+      return !!this.selectedList.archivationDate
+    }
+    return false
   }
 
   get productsInSelectedList() {
@@ -54,6 +58,26 @@ export class ListModule extends VuexModule {
   }
 
   @Mutation
+  setArchivationDate({ listID, archivationDate }: SetArchivationDatePayload) {
+    const listIndex = this.lists.findIndex(l => l.id === listID)
+    if (listIndex !== -1) {
+      const newList = {
+        ...this.lists[listIndex],
+        archivationDate
+      }
+
+      Vue.set(this.lists, listIndex, newList)
+    }
+  }
+
+  @Mutation
+  setSelectedListArchivationDate(archivationDate: string) {
+    if (this.selectedList) {
+      this.selectedList.archivationDate = archivationDate
+    }
+  }
+
+  @Mutation
   delete(id: string) {
     this.lists = this.lists.filter(list => list.id !== id)
   }
@@ -61,6 +85,7 @@ export class ListModule extends VuexModule {
   @Mutation
   reset() {
     this.lists = []
+    this.selectedList = null
   }
 
   @Mutation
@@ -83,19 +108,21 @@ export class ListModule extends VuexModule {
 
   @Mutation
   deleteProduct(product: ProductInSelectedList) {
-    const newCategories = [...this.selectedList!.categories]
-    let category: CategoryInSelectedList | undefined
+    const categoryIndex = this.selectedList!.categories.findIndex(category => category.id === product.category.id)
 
-    category = newCategories.find(category => category.id === product.category.id)
-
-    if (!category) {
+    if (categoryIndex === -1) {
       return
     }
 
-    const productIndex = category.products.findIndex(productInCategory => productInCategory.id === product.id)
-    category.products.splice(productIndex, 1)
+    const newCategory = {
+      ...this.selectedList!.categories[categoryIndex],
+    }
 
-    this.selectedList!.categories = newCategories
+    const productIndex = newCategory.products.findIndex(productInCategory => productInCategory.id === product.id)
+
+    newCategory.products.splice(productIndex, 1)
+
+    Vue.set(this.selectedList!.categories, categoryIndex, newCategory)
   }
 
   @Mutation
@@ -142,8 +169,8 @@ export class ListModule extends VuexModule {
   }
 
   @Action({ commit: 'set' })
-  async getOwners() {
-    return getOwnerLists()
+  async getUsers() {
+    return getUsersLists()
   }
 
   @Action({ commit: 'delete' })
@@ -182,6 +209,23 @@ export class ListModule extends VuexModule {
 
     await deleteProductInList(product.id, this.selectedList!.id)
     return product
+  }
+
+  @Action
+  async archiveList(listID: string) {
+    const list = this.one(listID)
+    if (!list) {
+      return
+    }
+
+    const { archivationDate } = await archiveList(listID)
+    if (archivationDate) {
+      if (this.selectedList?.id === listID) {
+        this.setSelectedListArchivationDate(archivationDate)
+      }
+
+      this.setArchivationDate({ listID, archivationDate })
+    }
   }
 
   @MutationAction

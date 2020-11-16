@@ -43,7 +43,7 @@ describe('Lists', () => {
     cy.visit('/lists')
     waitForElement(cy, '.list')
 
-    cy.get('.list').click()
+    cy.get('.list [crounch-role="go-to-list"]').click()
 
     waitForElement(cy, '#list')
 
@@ -55,7 +55,7 @@ describe('Lists', () => {
     cy.visit('/lists')
     waitForElement(cy, '.list')
 
-    cy.get('.list').click()
+    cy.get('.list [crounch-role="go-to-list"]').click()
     waitForElement(cy, '#list')
 
     cy
@@ -76,7 +76,7 @@ describe('Lists', () => {
     cy.visit('/lists')
     waitForElement(cy, '.list')
 
-    cy.get('.list').click()
+    cy.get('.list [crounch-role="go-to-list"]').click()
     waitForElement(cy, '#list')
 
     cy
@@ -97,7 +97,7 @@ describe('Lists', () => {
     cy.visit('/lists')
     waitForElement(cy, '.list')
 
-    cy.get('.list').click()
+    cy.get('.list [crounch-role="go-to-list"]').click()
     waitForElement(cy, '#list')
 
     cy
@@ -126,7 +126,7 @@ describe('Lists', () => {
 
     waitForElement(cy, '.list')
 
-    cy.get('.list:first-child button').click()
+    cy.get('.list:first-child button[crounch-role="delete-list"]').click()
 
     cy
       .get('body')
@@ -134,12 +134,32 @@ describe('Lists', () => {
       .should('have.length', 0)
   })
 
+  it('Should archive a list.', () => {
+    cy.createList(name)
+
+    cy.visit('/lists')
+
+    waitForElement(cy, '.list')
+
+    cy.get('.list:first-child button[crounch-role="archive-list"]').click()
+
+    cy
+      .get('body')
+      .find('[crounch-role="archive-list"]')
+      .should('not.exist')
+
+    cy
+      .get('body')
+      .find('[crounch-role="archivation-date"]')
+      .contains('Archivée le ')
+  })
+
   it('Should mark product as buyed', () => {
     cy.createList(name);
     cy.visit('/lists')
     waitForElement(cy, '.list')
 
-    cy.get('.list').click()
+    cy.get('.list [crounch-role="go-to-list"]').click()
     waitForElement(cy, '#list')
 
     cy

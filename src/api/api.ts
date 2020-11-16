@@ -1,7 +1,7 @@
 import { getAPIURL } from '@/utils/environment';
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
 import { FetchError } from '@/utils/error';
-import { AuthModule } from '@/store/AuthModule';
+import { AuthModule } from '@/store/auth/AuthModule';
 import { getModule } from 'vuex-module-decorators';
 import router from '@/router/router';
 

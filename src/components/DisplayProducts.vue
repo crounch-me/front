@@ -2,7 +2,11 @@
   <ul v-if="products.length" id="list-products">
     <li v-for="product in products" :key="product.id">
       {{ product.name }}
-      <button class="delete" @click="deleteProduct(product)">
+      <button
+        v-if="!isSelectedListArchived"
+        class="delete"
+        @click="deleteProduct(product)"
+      >
         Supprimer
       </button>
       <input type="checkbox" @click.prevent="toggleBuyedProduct(product)" v-model="product.buyed">
@@ -17,7 +21,8 @@ import { getModule } from 'vuex-module-decorators';
 
 import { Events } from '@/utils/events';
 import { ProductInSelectedList } from '@/models/product';
-import { ListModule, SetBuyedProductActionPayload } from '@/store/ListModule';
+import { ListModule } from '@/store/list/ListModule';
+import { SetBuyedProductActionPayload } from '@/store/list/payloads'
 
 @Component
 export default class DisplayProducts extends Vue {
@@ -26,12 +31,16 @@ export default class DisplayProducts extends Vue {
   @Prop()
   public products!: ProductInSelectedList[];
 
+  get isSelectedListArchived() {
+    return this.listModule.isSelectedListArchived
+  }
+
   deleteProduct(product: ProductInSelectedList) {
     this.listModule.deleteProductAction(product)
   }
 
   toggleBuyedProduct(product: ProductInSelectedList) {
-    const setBuyedProductActionPayload: SetBuyedProductActionPayload=  {
+    const setBuyedProductActionPayload: SetBuyedProductActionPayload = {
       product,
       buyed: !product.buyed,
     }

@@ -3,8 +3,10 @@
     <h2>Listes</h2>
     <ul>
       <li v-for="list in lists" :key="list.id" :id="list.id" class="list">
-        <span @click="goToList(list.id)">{{ list.name }}</span>
-        <button @click="deleteList(list.id)">Supprimer</button>
+        <span @click="goToList(list.id)" crounch-role="go-to-list">{{ list.name }}</span>
+        <span v-if="list.archivationDate" crounch-role="archivation-date"> Archivée le {{ list.archivationDate }}</span>
+        <button v-if="!list.archivationDate" @click="archiveList(list.id)" crounch-role="archive-list">Archiver</button>
+        <button @click="deleteList(list.id)" crounch-role="delete-list">Supprimer</button>
       </li>
     </ul>
   </div>
@@ -12,17 +14,18 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import { getModule } from 'vuex-module-decorators';
 
 import { List } from '@/models/list';
-import { ListModule } from '@/store/ListModule';
-import { getModule } from 'vuex-module-decorators';
+import { ListModule } from '@/store/list/ListModule';
 
 @Component
 export default class DisplayLists extends Vue {
   public listModule: ListModule = getModule(ListModule)
 
-  async created() {
-     this.listModule.getOwners()
+  created() {
+    this.listModule.reset()
+    this.listModule.getUsers()
   }
 
   get lists () {
@@ -35,6 +38,10 @@ export default class DisplayLists extends Vue {
 
   async deleteList(id: string) {
    await this.listModule.deleteAction(id)
+  }
+
+  async archiveList(id: string) {
+    await this.listModule.archiveList(id)
   }
 };
 </script>

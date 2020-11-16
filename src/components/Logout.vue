@@ -7,8 +7,8 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import { getModule } from 'vuex-module-decorators';
 
-import { ListModule } from '@/store/ListModule';
-import { AuthModule } from '@/store/AuthModule';
+import { ListModule } from '@/store/list/ListModule';
+import { AuthModule } from '@/store/auth/AuthModule';
 
 @Component
 export default class Logout extends Vue {

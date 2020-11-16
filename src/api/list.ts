@@ -9,7 +9,7 @@ export function createList(name: string): Promise<List> {
   });
 }
 
-export function getOwnerLists(): Promise<Array<List>> {
+export function getUsersLists(): Promise<Array<List>> {
   return doFetch({
     url: 'lists',
     method: 'GET',
@@ -34,6 +34,13 @@ export function deleteProductInList(productID: string, listID: string): Promise<
   return doFetch({
     url: `lists/${listID}/products/${productID}`,
     method: 'DELETE'
+  })
+}
+
+export function archiveList(listID: string): Promise<SelectedList> {
+  return doFetch({
+    url: `lists/${listID}/archive`,
+    method: 'POST'
   })
 }
 
