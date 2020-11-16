@@ -3,6 +3,7 @@ import { login, logout, signup } from '@/api/user';
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
 import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import { AuthPayload } from './payloads';
+import { FetchError } from '@/utils/error';
 
 @Module({ dynamic: true, store, name: 'auth', namespaced: true })
 export class AuthModule extends VuexModule {
@@ -48,7 +49,15 @@ export class AuthModule extends VuexModule {
 
   @Action({ commit: 'logout' })
   public async logoutAction() {
-    await logout()
+    try {
+      await logout()
+    } catch(err) {
+      const fetchError = err as FetchError
+      if (fetchError.status != 404) {
+        throw err
+      }
+    }
+
     localStorage.removeItem(TOKEN_STORAGE_KEY)
     return
   }

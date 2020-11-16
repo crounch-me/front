@@ -173,12 +173,52 @@ describe('AuthModule', () => {
   })
 
   describe('logoutAction', () => {
-    (logout as jest.Mock).mockResolvedValue({})
+    beforeEach(() => {
+      (logout as jest.Mock).mockResolvedValue({})
+    })
 
     it('should call api to logout', async () => {
       await authModule.logoutAction()
 
       expect(logout).toHaveBeenCalledTimes(1)
+    })
+
+    it('should not throw fetch error when status of error is 404', async () => {
+      const code = 'not-found'
+      const description = 'user not found'
+      const errorBody: ErrorBody = {
+        code,
+        description
+      }
+      const fetchError = new FetchError('Not found', 404, errorBody);
+
+      (logout as jest.Mock).mockRejectedValue(fetchError)
+
+      try {
+        await authModule.logoutAction()
+      }catch(err) {
+        throw new Error('AuthModule should not throw an error')
+      }
+    })
+
+    it('should throw an error when status of error is different from 404', async () => {
+      const code = 'internal-server-error'
+      const description = 'Something went terribly wrong'
+      const errorBody: ErrorBody = {
+        code,
+        description
+      };
+
+      const fetchError = new FetchError('Internal server error', 500, errorBody);
+
+      (logout as jest.Mock).mockRejectedValue(fetchError)
+
+      try {
+        await authModule.logoutAction()
+        throw new Error('Auth module should have thrown an error')
+      } catch(err) {
+        expect(err).toEqual(fetchError)
+      }
     })
 
     it('should remove token from local storage', async () => {
