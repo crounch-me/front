@@ -3,7 +3,7 @@ import { SelectedList, List } from '@/models/list'
 import { Product, ProductInSelectedList } from '@/models/product';
 import { Category, CategoryInSelectedList } from '@/models/category';
 import { DEFAULT_CATEGORY_ID, DEFAULT_CATEGORY_NAME } from '@/utils/constants';
-import { addProductToList, archiveList, createList, deleteList, deleteProductInList, getUsersLists, readList } from '@/api/list';
+import { addProductToList, archiveList, createList, deleteList, deleteProductInList, getUsersLists, readList, setBuyedProductInList } from '@/api/list';
 
 jest.mock('@/api/list')
 
@@ -29,6 +29,7 @@ describe('ListModule', () => {
   }
 
   const archivationDate = 'archivation-date'
+  const buyed = true
 
   const newName = 'new-name'
 
@@ -62,6 +63,7 @@ describe('ListModule', () => {
 
   const productWithoutCategoryInSelectedList: ProductInSelectedList = {
     ...product,
+    category: defaultCategory,
     buyed: false,
   }
 
@@ -292,6 +294,14 @@ describe('ListModule', () => {
 
         expect(listModule.lists).toEqual([])
       })
+
+      it('should reset the selected list state to null', () => {
+        listModule.selectedList = selectedList
+
+        listModule.reset()
+
+        expect(listModule.selectedList).toBeNull()
+      })
     })
 
     describe('addProduct', () => {
@@ -516,6 +526,10 @@ describe('ListModule', () => {
 
         const expectedProductInList: ProductInSelectedList = {
           ...product,
+          category: {
+            id: DEFAULT_CATEGORY_ID,
+            name: DEFAULT_CATEGORY_NAME,
+          },
           buyed: false
         }
         expect(result).toEqual(expectedProductInList)
@@ -610,6 +624,46 @@ describe('ListModule', () => {
         await listModule.archiveList(id1)
 
         expect(listModule.setArchivationDate).toHaveBeenCalledWith({ listID: id1, archivationDate})
+      })
+    })
+
+    describe('setBuyedProductAction', () => {
+      beforeEach(() => {
+        (setBuyedProductInList as jest.Mock).mockClear()
+      })
+
+      it('should do nothing if no list is selected', async () => {
+        await listModule.setBuyedProductAction({
+          product: productWithCategoryInSelectedList,
+          buyed,
+        })
+
+        expect(setBuyedProductInList).toHaveBeenCalledTimes(0)
+      })
+
+      it('should call api to set buyed product with right parameters', async () => {
+        listModule.selectedList = selectedList
+
+        await listModule.setBuyedProductAction({
+          product: productWithCategoryInSelectedList,
+          buyed,
+        })
+
+        expect(setBuyedProductInList).toHaveBeenCalledTimes(1)
+        expect(setBuyedProductInList).toHaveBeenCalledWith(product.id, selectedList.id, buyed)
+      })
+
+      it('should return payload when request succeed', async () => {
+        listModule.selectedList = selectedList
+
+        const payload = {
+          product: productWithCategoryInSelectedList,
+          buyed,
+        }
+
+        const result = await listModule.setBuyedProductAction(payload)
+
+        expect(result).toEqual(payload)
       })
     })
   })

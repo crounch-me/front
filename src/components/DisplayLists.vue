@@ -3,10 +3,10 @@
     <h2>Listes</h2>
     <ul>
       <li v-for="list in lists" :key="list.id" :id="list.id" class="list">
-        <span @click="goToList(list.id)">{{ list.name }}</span>
+        <span @click="goToList(list.id)" crounch-role="go-to-list">{{ list.name }}</span>
         <span v-if="list.archivationDate"> Archivée le {{ list.archivationDate }}</span>
         <button v-if="!list.archivationDate" @click="archiveList(list.id)">Archiver</button>
-        <button @click="deleteList(list.id)">Supprimer</button>
+        <button @click="deleteList(list.id)" crounch-role="delete-list">Supprimer</button>
       </li>
     </ul>
   </div>
@@ -23,8 +23,9 @@ import { ListModule } from '@/store/list/ListModule';
 export default class DisplayLists extends Vue {
   public listModule: ListModule = getModule(ListModule)
 
-  async created() {
-     this.listModule.getUsers()
+  created() {
+    this.listModule.reset()
+    this.listModule.getUsers()
   }
 
   get lists () {

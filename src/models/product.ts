@@ -9,7 +9,7 @@ interface Product {
 interface ProductInSelectedList {
   id: string
   name: string
-  category?: Category
+  category: Category
   buyed: boolean
 }
 

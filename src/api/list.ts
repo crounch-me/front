@@ -44,6 +44,16 @@ export function archiveList(listID: string): Promise<SelectedList> {
   })
 }
 
+export function setBuyedProductInList(productID: string, listID: string, buyed: boolean): Promise<void> {
+  return doFetch({
+    url: `lists/${listID}/products/${productID}`,
+    method: 'PATCH',
+    data: {
+      buyed
+    }
+  })
+}
+
 export function readList(listID: string): Promise<SelectedList> {
   return doFetch({
     url: `lists/${listID}`,

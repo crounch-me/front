@@ -43,7 +43,7 @@ describe('Lists', () => {
     cy.visit('/lists')
     waitForElement(cy, '.list')
 
-    cy.get('.list').click()
+    cy.get('.list [crounch-role="go-to-list"]').click()
 
     waitForElement(cy, '#list')
 
@@ -55,7 +55,7 @@ describe('Lists', () => {
     cy.visit('/lists')
     waitForElement(cy, '.list')
 
-    cy.get('.list').click()
+    cy.get('.list [crounch-role="go-to-list"]').click()
     waitForElement(cy, '#list')
 
     cy
@@ -76,7 +76,7 @@ describe('Lists', () => {
     cy.visit('/lists')
     waitForElement(cy, '.list')
 
-    cy.get('.list').click()
+    cy.get('.list [crounch-role="go-to-list"]').click()
     waitForElement(cy, '#list')
 
     cy
@@ -97,7 +97,7 @@ describe('Lists', () => {
     cy.visit('/lists')
     waitForElement(cy, '.list')
 
-    cy.get('.list').click()
+    cy.get('.list [crounch-role="go-to-list"]').click()
     waitForElement(cy, '#list')
 
     cy
@@ -126,11 +126,50 @@ describe('Lists', () => {
 
     waitForElement(cy, '.list')
 
-    cy.get('.list:first-child button').click()
+    cy.get('.list:first-child button[crounch-role="delete-list"]').click()
 
     cy
       .get('body')
       .find('.list')
       .should('have.length', 0)
+  })
+
+  it('Should mark product as buyed', () => {
+    cy.createList(name);
+    cy.visit('/lists')
+    waitForElement(cy, '.list')
+
+    cy.get('.list [crounch-role="go-to-list"]').click()
+    waitForElement(cy, '#list')
+
+    cy
+      .get('#product-search')
+      .type('Sau');
+
+    cy
+      .get('.product')
+      .first()
+      .find('button')
+      .click()
+
+    cy
+      .get('#list-products li')
+      .find('input[type="checkbox"]')
+      .click()
+
+    cy
+      .get('#list-products li')
+      .find('input[type="checkbox"]')
+      .should('be.checked')
+
+    cy
+      .get('#list-products li')
+      .find('input[type="checkbox"]')
+      .click()
+
+    cy
+      .get('#list-products li')
+      .find('input[type="checkbox"]')
+      .should('not.be.checked')
   })
 });

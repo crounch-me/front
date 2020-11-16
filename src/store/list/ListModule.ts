@@ -1,11 +1,12 @@
+import Vue from 'vue'
 import store from '..'
-import { addProductToList, archiveList, createList, deleteList, deleteProductInList, getUsersLists, readList } from '@/api/list';
+import { addProductToList, archiveList, createList, deleteList, deleteProductInList, getUsersLists, readList, setBuyedProductInList } from '@/api/list';
 import { SelectedList, List } from '@/models/list'
 import { Action, Module, Mutation, MutationAction, VuexModule } from 'vuex-module-decorators'
 import { Product, ProductInSelectedList } from '@/models/product';
 import { CategoryInSelectedList } from '@/models/category';
 import { DEFAULT_CATEGORY_ID, DEFAULT_CATEGORY_NAME } from '@/utils/constants';
-import { SetArchivationDatePayload } from './payloads';
+import { SetArchivationDatePayload, SetBuyedProductActionPayload } from './payloads';
 
 @Module({ dynamic: true, store, name: 'list', namespaced: true })
 export class ListModule extends VuexModule {
@@ -58,9 +59,14 @@ export class ListModule extends VuexModule {
 
   @Mutation
   setArchivationDate({ listID, archivationDate }: SetArchivationDatePayload) {
-    const list = this.lists.find(l => l.id === listID)
-    if (list) {
-      list.archivationDate = archivationDate
+    const listIndex = this.lists.findIndex(l => l.id === listID)
+    if (listIndex !== -1) {
+      const newList = {
+        ...this.lists[listIndex],
+        archivationDate
+      }
+
+      Vue.set(this.lists, listIndex, newList)
     }
   }
 
@@ -79,34 +85,20 @@ export class ListModule extends VuexModule {
   @Mutation
   reset() {
     this.lists = []
+    this.selectedList = null
   }
 
   @Mutation
   addProduct(product: ProductInSelectedList) {
     const newCategories = [...this.selectedList!.categories]
-    const categoryIndex = newCategories.findIndex(category => category.id === product.category?.id)
+    const categoryIndex = newCategories.findIndex(category => category.id === product.category.id)
 
     if (categoryIndex === -1) {
-      if (product.category) {
-        const newCategory: CategoryInSelectedList = {
-          ...product.category!,
-          products: [product]
-        }
-        newCategories.unshift(newCategory)
-      } else {
-        const lastIndex = newCategories.length - 1
-        if (newCategories.length && newCategories[lastIndex].id === DEFAULT_CATEGORY_ID) {
-          newCategories[lastIndex].products.push(product)
-        } else {
-          const newDefaultCategory: CategoryInSelectedList = {
-            id: DEFAULT_CATEGORY_ID,
-            name: DEFAULT_CATEGORY_NAME,
-            products: [product]
-          }
-
-          newCategories.push(newDefaultCategory)
-        }
+      const newCategory: CategoryInSelectedList = {
+        ...product.category,
+        products: [product]
       }
+      newCategories.unshift(newCategory)
     } else {
       newCategories[categoryIndex].products.push(product)
     }
@@ -116,23 +108,59 @@ export class ListModule extends VuexModule {
 
   @Mutation
   deleteProduct(product: ProductInSelectedList) {
-    const newCategories = [...this.selectedList!.categories]
+    const categoryIndex = this.selectedList!.categories.findIndex(category => category.id === product.category.id)
+
+    if (categoryIndex === -1) {
+      return
+    }
+
+    const newCategory = {
+      ...this.selectedList!.categories[categoryIndex],
+    }
+
+    const productIndex = newCategory.products.findIndex(productInCategory => productInCategory.id === product.id)
+
+    newCategory.products.splice(productIndex, 1)
+
+    Vue.set(this.selectedList!.categories, categoryIndex, newCategory)
+  }
+
+  @Mutation
+  async setBuyedProduct({ product, buyed }: SetBuyedProductActionPayload) {
+    if (!this.selectedList) {
+      return
+    }
+
+    const newCategories = [...this.selectedList.categories]
+
     let category: CategoryInSelectedList | undefined
 
-    if (!product.category) {
-      category = newCategories.find(category => category.id === DEFAULT_CATEGORY_ID)
-    } else {
-      category = newCategories.find(category => category.id === product.category!.id)
-    }
+    category = newCategories.find(categoryInList => categoryInList.id === product.category.id)
 
     if (!category) {
       return
     }
 
-    const productIndex = category.products.findIndex(productInCategory => productInCategory.id === product.id)
-    category.products.splice(productIndex, 1)
+    const foundProduct = category.products.find(productInCategory => productInCategory.id === product.id)
+    if (!foundProduct) {
+      return
+    }
 
-    this.selectedList!.categories = newCategories
+    foundProduct.buyed = buyed
+    this.selectedList.categories = newCategories
+  }
+
+  @Action({ commit: 'setBuyedProduct' })
+  async setBuyedProductAction(setBuyedProductAction: SetBuyedProductActionPayload) {
+    if (!this.selectedList) {
+      return
+    }
+
+    const { product, buyed } = setBuyedProductAction
+
+    await setBuyedProductInList(product.id, this.selectedList.id, buyed)
+
+    return setBuyedProductAction
   }
 
   @Action({ commit: 'add' })
@@ -159,8 +187,14 @@ export class ListModule extends VuexModule {
 
     await addProductToList(product.id, this.selectedList!.id)
 
+    const category = product.category ? product.category : {
+      id: DEFAULT_CATEGORY_ID,
+      name: DEFAULT_CATEGORY_NAME
+    }
+
     const productInSelectedList: ProductInSelectedList = {
       ...product,
+      category,
       buyed: false,
     }
 
