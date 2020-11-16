@@ -37,6 +37,13 @@ export function deleteProductInList(productID: string, listID: string): Promise<
   })
 }
 
+export function archiveList(listID: string): Promise<SelectedList> {
+  return doFetch({
+    url: `lists/${listID}/archive`,
+    method: 'POST'
+  })
+}
+
 export function readList(listID: string): Promise<SelectedList> {
   return doFetch({
     url: `lists/${listID}`,

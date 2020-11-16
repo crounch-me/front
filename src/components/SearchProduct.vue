@@ -11,7 +11,11 @@
     />
     <ul id="product-search-results">
       <template v-for="product in products">
-        <li class="product" :key="product.id" v-if="!isProductInList(product.id)">
+        <li
+          class="product"
+          :key="product.id"
+          v-if="!isProductInList(product.id)"
+        >
           {{ product.name }}
           <button @click="addProduct(product)">Ajouter à la liste</button>
         </li>
@@ -27,7 +31,7 @@ import { Component, Emit, Prop } from 'vue-property-decorator';
 import { searchProduct } from '@/api/product';
 import { Product } from '@/models/product';
 import { Events } from '@/utils/events';
-import { ListModule } from '@/store/ListModule';
+import { ListModule } from '@/store/list/ListModule';
 import { getModule } from 'vuex-module-decorators';
 
 @Component

@@ -14,7 +14,7 @@ import HelloWorld from '@/components/HelloWorld.vue';
 import Signup from '@/components/Signup.vue';
 import Login from '@/components/Login.vue';
 import CreateList from '@/components/CreateList.vue';
-import { ListModule } from '@/store/ListModule';
+import { ListModule } from '@/store/list/ListModule';
 import { AuthModule } from '@/store/AuthModule';
 
 @Component({

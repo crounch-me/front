@@ -1,12 +1,13 @@
-import store from '.'
-import { addProductToList, createList, deleteList, deleteProductInList, getUsersLists, readList } from '@/api/list';
+import store from '..'
+import { addProductToList, archiveList, createList, deleteList, deleteProductInList, getUsersLists, readList } from '@/api/list';
 import { SelectedList, List } from '@/models/list'
 import { Action, Module, Mutation, MutationAction, VuexModule } from 'vuex-module-decorators'
 import { Product, ProductInSelectedList } from '@/models/product';
 import { CategoryInSelectedList } from '@/models/category';
 import { DEFAULT_CATEGORY_ID, DEFAULT_CATEGORY_NAME } from '@/utils/constants';
+import { SetArchivationDatePayload } from './payloads';
 
-@Module({ dynamic: true, store, name: 'list' })
+@Module({ dynamic: true, store, name: 'list', namespaced: true })
 export class ListModule extends VuexModule {
   lists: List[] = []
   selectedList: SelectedList | null = null
@@ -21,6 +22,13 @@ export class ListModule extends VuexModule {
 
   get selected() {
     return this.selectedList
+  }
+
+  get isSelectedListArchived() {
+    if (this.selectedList) {
+      return !!this.selectedList.archivationDate
+    }
+    return false
   }
 
   get productsInSelectedList() {
@@ -46,6 +54,21 @@ export class ListModule extends VuexModule {
   @Mutation
   setSelectedList(selectedList: SelectedList) {
     this.selectedList = selectedList
+  }
+
+  @Mutation
+  setArchivationDate({ listID, archivationDate }: SetArchivationDatePayload) {
+    const list = this.lists.find(l => l.id === listID)
+    if (list) {
+      list.archivationDate = archivationDate
+    }
+  }
+
+  @Mutation
+  setSelectedListArchivationDate(archivationDate: string) {
+    if (this.selectedList) {
+      this.selectedList.archivationDate = archivationDate
+    }
   }
 
   @Mutation
@@ -152,6 +175,23 @@ export class ListModule extends VuexModule {
 
     await deleteProductInList(product.id, this.selectedList!.id)
     return product
+  }
+
+  @Action
+  async archiveList(listID: string) {
+    const list = this.one(listID)
+    if (!list) {
+      return
+    }
+
+    const { archivationDate } = await archiveList(listID)
+    if (archivationDate) {
+      if (this.selectedList?.id === listID) {
+        this.setSelectedListArchivationDate(archivationDate)
+      }
+
+      this.setArchivationDate({ listID, archivationDate })
+    }
   }
 
   @MutationAction

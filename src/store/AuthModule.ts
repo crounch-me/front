@@ -8,7 +8,7 @@ interface AuthPayload {
   password: string
 }
 
-@Module({ dynamic: true, store, name: 'auth' })
+@Module({ dynamic: true, store, name: 'auth', namespaced: true })
 export class AuthModule extends VuexModule {
   public token = localStorage.getItem(TOKEN_STORAGE_KEY) || ''
   public status = ''

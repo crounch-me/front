@@ -3,7 +3,7 @@ import { SelectedList, List } from '@/models/list'
 import { Product, ProductInSelectedList } from '@/models/product';
 import { Category, CategoryInSelectedList } from '@/models/category';
 import { DEFAULT_CATEGORY_ID, DEFAULT_CATEGORY_NAME } from '@/utils/constants';
-import { addProductToList, createList, deleteList, deleteProductInList, getUsersLists, readList } from '@/api/list';
+import { addProductToList, archiveList, createList, deleteList, deleteProductInList, getUsersLists, readList } from '@/api/list';
 
 jest.mock('@/api/list')
 
@@ -12,19 +12,23 @@ describe('ListModule', () => {
 
   const id1 = 'list-id1'
   const name1 = 'list-name1'
+  const creationDate1 = 'creation-date1'
   const list1: List = {
     id: id1,
     name: name1,
-    products: []
+    creationDate: creationDate1
   }
 
   const id2 = 'list-id2'
   const name2 = 'list-name2'
+  const creationDate2 = 'creation-date2'
   const list2: List = {
     id: id2,
     name: name2,
-    products: []
+    creationDate: creationDate2
   }
+
+  const archivationDate = 'archivation-date'
 
   const newName = 'new-name'
 
@@ -133,6 +137,35 @@ describe('ListModule', () => {
       })
     })
 
+    describe('isSelectedListArchived', () => {
+      it('should return false if there is no selected list', () => {
+        const result = listModule.isSelectedListArchived
+
+        expect(result).toBeFalsy()
+      })
+
+      it('should return false if the selected list does not have an archivation date', () => {
+        listModule.selectedList = selectedList
+
+        const result = listModule.isSelectedListArchived
+
+        expect(result).toBeFalsy()
+      })
+
+      it('should return true if the selected list have an archivation date', () => {
+        const listWithArchivationDate = {
+          ...selectedList,
+          archivationDate
+        }
+
+        listModule.selectedList = listWithArchivationDate
+
+        const result = listModule.isSelectedListArchived
+
+        expect(result).toBeTruthy()
+      })
+    })
+
     describe('productsInSelectedList', () => {
       it('should return all the products of the selected list when list is defined', () => {
         listModule.selectedList = selectedList
@@ -174,6 +207,57 @@ describe('ListModule', () => {
         expect(listModule.lists).toHaveLength(2)
         expect(listModule.lists[0]).toEqual(list1)
         expect(listModule.lists[1]).toEqual(list2)
+      })
+    })
+
+    describe('setSelectedList', () => {
+      it('should set the selected list in state', () => {
+        listModule.setSelectedList(selectedList)
+
+        expect(listModule.selectedList).toEqual(selectedList)
+      })
+    })
+
+    describe('setArchivationDate', () => {
+      const archivationPayload = {
+        listID: id1,
+        archivationDate
+      }
+
+      it('should not throw an error when list is not found', () => {
+        try {
+          listModule.setArchivationDate(archivationPayload)
+        } catch(err) {
+          throw new Error("List module shoult not throw an error")
+        }
+      })
+
+      it('should replace archivation date in the found list when the list is found', () => {
+        listModule.lists = [list2, list1]
+
+        listModule.setArchivationDate(archivationPayload)
+
+        expect(listModule.lists).toHaveLength(2)
+        expect(listModule.lists[0].archivationDate).toBeUndefined()
+        expect(listModule.lists[1].archivationDate).toEqual(archivationDate)
+      })
+    })
+
+    describe('setSelectedListArchivationDate', () => {
+      it('should not throw an error when there is no selected list', () => {
+        try {
+          listModule.setSelectedListArchivationDate(archivationDate)
+        } catch(err) {
+          throw new Error('List module should not throw an error')
+        }
+      })
+
+      it('should set archivation date into selected list', ( ) => {
+        listModule.selectedList = selectedList
+
+        listModule.setSelectedListArchivationDate(archivationDate)
+
+        expect(listModule.selectedList.archivationDate).toEqual(archivationDate)
       })
     })
 
@@ -352,10 +436,11 @@ describe('ListModule', () => {
 
   describe('Action', () => {
     describe('create', () => {
+      const newCreationDate = 'new-creation-date'
       const newList: List = {
         id: 'new-id',
         name: newName,
-        products: []
+        creationDate: newCreationDate
       };
 
       (createList as jest.Mock).mockResolvedValue(newList)
@@ -478,6 +563,53 @@ describe('ListModule', () => {
         const result = await listModule.selectList(id1)
 
         expect(result).toEqual({ selectedList })
+      })
+    })
+
+    describe('archiveList', () => {
+      const archivedList: List = {
+        ...selectedList,
+        archivationDate
+      };
+      (archiveList as jest.Mock).mockResolvedValue(archivedList)
+
+      it('should do nothing when list is not found in state', async () => {
+        await listModule.archiveList(id1)
+
+        expect(archiveList).not.toHaveBeenCalled()
+      })
+
+      it('should call api to archive the list', async () => {
+        listModule.lists = [list2, list1]
+
+        await listModule.archiveList(id1)
+
+        expect(archiveList).toHaveReturnedTimes(1)
+        expect(archiveList).toHaveBeenCalledWith(id1)
+      })
+
+      it('should set the archivation date in the selected list when there is a selected list and it has the same id', async () => {
+        listModule.lists = [list2, list1]
+        const selectedListWithSameId = {
+          ...selectedList,
+          id: id1
+        }
+        listModule.selectedList = selectedListWithSameId
+        listModule.setSelectedListArchivationDate = jest.fn()
+
+        await listModule.archiveList(id1)
+
+        expect(listModule.setSelectedListArchivationDate).toHaveBeenCalledWith(archivationDate)
+      })
+
+      it('should set the archivation date in the lists', async () => {
+        listModule.lists = [list2, list1]
+
+        listModule.setArchivationDate = jest.fn()
+
+        await listModule.archiveList(id1)
+
+        expect(listModule.setArchivationDate).toHaveBeenCalledWith({ listID: id1, archivationDate})
       })
     })
   })

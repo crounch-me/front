@@ -1,16 +1,17 @@
-import { Product } from './product';
 import { CategoryInSelectedList } from './category';
 
 interface List {
   id: string
   name: string
-  products: Product[]
+  creationDate: string
+  archivationDate?: string
 }
 
 interface SelectedList {
   id: string
   name: string
   creationDate: string
+  archivationDate?: string
   categories: CategoryInSelectedList[]
 }
 

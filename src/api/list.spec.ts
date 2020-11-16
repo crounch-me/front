@@ -1,5 +1,5 @@
 import { doFetch, FetchOptions } from './api';
-import { createList, getUsersLists, deleteList, addProductToList, readList, deleteProductInList } from './list';
+import { createList, getUsersLists, deleteList, addProductToList, readList, deleteProductInList, archiveList } from './list';
 import { List } from '@/models/list';
 import { when } from 'jest-when';
 
@@ -9,10 +9,11 @@ describe('List API', () => {
   const name = 'shopping';
   const listID = 'list id';
   const productID = 'product ID'
+  const creationDate = 'creation-date'
   const list: List = {
     id: listID,
     name,
-    products: []
+    creationDate
   };
   const lists: List[] = [list];
   const expectedCreateOptions: FetchOptions = {
@@ -48,6 +49,11 @@ describe('List API', () => {
     method: 'GET'
   }
 
+  const expectedArchiveListOptions: FetchOptions = {
+    url: `lists/${listID}/archive`,
+    method: 'POST'
+  }
+
   beforeEach(() => {
     (doFetch as jest.Mock).mockClear();
     when(doFetch as jest.Mock).calledWith(expectedCreateOptions).mockResolvedValue(list);
@@ -56,6 +62,7 @@ describe('List API', () => {
     when(doFetch as jest.Mock).calledWith(expectedAddProductToListOptions).mockResolvedValue({})
     when(doFetch as jest.Mock).calledWith(expectedReadListOptions).mockResolvedValue(list)
     when(doFetch as jest.Mock).calledWith(expectedDeleteProductFromListOptions).mockResolvedValue({})
+    when(doFetch as jest.Mock).calledWith(expectedArchiveListOptions).mockResolvedValue(list)
   });
 
   describe('createList', () => {
@@ -111,11 +118,11 @@ describe('List API', () => {
   describe('deleteProductInList', () => {
     it('Should call delete product from list endpoint with right parameters.', done => {
       deleteProductInList(productID, listID).then(() => {
-        expect(doFetch).toHaveBeenCalledWith(expectedDeleteProductFromListOptions);
-        done();
-      });
-    });
-  });
+        expect(doFetch).toHaveBeenCalledWith(expectedDeleteProductFromListOptions)
+        done()
+      })
+    })
+  })
 
   describe('readList', () => {
     it('Should call add product to list with the right parameters', done => {
@@ -126,4 +133,14 @@ describe('List API', () => {
       })
     })
   })
-});
+
+  describe('archiveList', () => {
+    it('Should call archive list endpoint with the right parameters', done => {
+      archiveList(listID).then(resultList => {
+        expect(doFetch).toHaveBeenCalledWith(expectedArchiveListOptions)
+        expect(resultList).toEqual(list)
+        done()
+      })
+    })
+  })
+})
