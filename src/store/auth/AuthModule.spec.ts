@@ -29,6 +29,7 @@ describe('AuthModule', () => {
     setItemMock = jest.spyOn(Storage.prototype, 'setItem')
     removeItemMock = jest.spyOn(Storage.prototype, 'removeItem')
 
+    getItemMock.mockClear()
     setItemMock.mockClear()
     removeItemMock.mockClear()
   })

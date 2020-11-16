@@ -3,8 +3,12 @@
     <h2>Inscription</h2>
     <div v-if="displayErrorMessage" id="signup-error">{{ error }}</div>
     <form @submit.prevent="signup">
-      <div v-if="!isEmailValid" class="error" id="email-error">Please enter a valid email.</div>
-      <div v-if="!isPasswordValid" class="error" id="password-error">Please enter a password.</div>
+      <div v-if="!isEmailValid" class="error" id="email-error">
+        Please enter a valid email.
+      </div>
+      <div v-if="!isPasswordValid" class="error" id="password-error">
+        Please enter a password.
+      </div>
       <input type="text" placeholder="Email" v-model="email" />
       <input type="password" placeholder="Password" v-model="password" />
       <input type="submit" value="S'inscrire" />
@@ -18,7 +22,7 @@ import { getModule } from 'vuex-module-decorators';
 
 import { validateEmail } from '@/utils/form-validation';
 import { FetchError } from '@/utils/error';
-import { AuthModule } from '@/store/AuthModule';
+import { AuthModule } from '@/store/auth/AuthModule';
 
 @Component
 export default class Signup extends Vue {

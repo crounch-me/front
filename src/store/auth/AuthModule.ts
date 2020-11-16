@@ -1,12 +1,8 @@
-import store from '.'
+import store from '..'
 import { login, logout, signup } from '@/api/user';
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
 import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
-
-interface AuthPayload {
-  email: string
-  password: string
-}
+import { AuthPayload } from './payloads';
 
 @Module({ dynamic: true, store, name: 'auth', namespaced: true })
 export class AuthModule extends VuexModule {

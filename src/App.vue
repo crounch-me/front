@@ -14,7 +14,7 @@ import 'vue-router';
 
 import Component from 'vue-class-component';
 import Logout from '@/components/Logout.vue';
-import { AuthModule } from './store/AuthModule';
+import { AuthModule } from './store/auth/AuthModule';
 import { getModule } from 'vuex-module-decorators';
 
 @Component({

@@ -1,4 +1,4 @@
-import { AuthModule } from '@/store/AuthModule';
+import { AuthModule } from '@/store/auth/AuthModule';
 import { NavigationGuardNext, Route } from 'vue-router';
 import { getModule } from 'vuex-module-decorators';
 
