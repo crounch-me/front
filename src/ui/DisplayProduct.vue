@@ -1,19 +1,13 @@
 <template>
-  <li :class="getBoughtClass">
+  <li :class="getBoughtClass" @click.prevent="toggleBoughtProduct">
     {{ product.name }}
-    <template v-if="displayProductActions">
-      <button
-        class="delete"
-        @click="deleteProduct"
-      >
-        Supprimer
-      </button>
-      <input
-        type="checkbox"
-        @click.prevent="toggleBoughtProduct"
-        v-model="product.bought"
-      >
-    </template>
+    <button
+      class="delete"
+      @click="deleteProduct"
+      v-if="!isSelectedListArchived"
+    >
+      Supprimer
+    </button>
   </li>
 </template>
 
@@ -35,10 +29,6 @@ export default class DisplayProducts extends Vue {
     return this.product.bought ? 'bought' : ''
   }
 
-  get displayProductActions() {
-    return !this.isSelectedListArchived
-  }
-
   @Emit()
   public deleteProduct() {
     return this.product
@@ -46,6 +36,9 @@ export default class DisplayProducts extends Vue {
 
   @Emit()
   public toggleBoughtProduct() {
+    if (this.isSelectedListArchived) {
+      return
+    }
     return this.product
   }
 }

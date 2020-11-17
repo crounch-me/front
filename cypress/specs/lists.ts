@@ -173,23 +173,23 @@ describe('Lists', () => {
       .click()
 
     cy
-      .get('#list-products li')
-      .find('input[type="checkbox"]')
+      .get('#list-products')
+      .find('li')
       .click()
 
     cy
-      .get('#list-products li')
-      .find('input[type="checkbox"]')
-      .should('be.checked')
+      .get('#list-products')
+      .find('li')
+      .should('have.class', 'bought')
 
     cy
-      .get('#list-products li')
-      .find('input[type="checkbox"]')
+      .get('#list-products')
+      .find('li')
       .click()
 
     cy
-      .get('#list-products li')
-      .find('input[type="checkbox"]')
-      .should('not.be.checked')
+      .get('#list-products')
+      .find('li')
+      .should('not.have.class', 'bought')
   })
 });
