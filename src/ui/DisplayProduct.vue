@@ -1,7 +1,7 @@
 <template>
   <li :class="getBoughtClass">
     {{ product.name }}
-    <template v-if="isSelectedListArchived">
+    <template v-if="displayProductActions">
       <button
         class="delete"
         @click="deleteProduct"
@@ -33,6 +33,10 @@ export default class DisplayProducts extends Vue {
 
   get getBoughtClass() {
     return this.product.bought ? 'bought' : ''
+  }
+
+  get displayProductActions() {
+    return !this.isSelectedListArchived
   }
 
   @Emit()
