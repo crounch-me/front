@@ -1,9 +1,7 @@
 <template>
   <div>
     <h3>{{ category.name }}</h3>
-    <DisplayProducts
-      :products="category.products"
-    />
+    <DisplayProducts :products="category.products" />
   </div>
 </template>
 
@@ -24,21 +22,5 @@ export default class ListPage extends Vue {
 
   @Prop()
   public category!: CategoryInSelectedList;
-
-  // deleteProduct(productId: string) {
-  //   deleteProductInList(productId, this.list!.id)
-  //     .then(() => {
-  //       const productIndex = this.list!.products.findIndex(product => product.id === productId)
-  //       this.list!.products.splice(productIndex, 1)
-  //     })
-  // }
-
-  // addProduct(product: Product) {
-  //   addProductToList(product.id, this.id)
-  //     .then(() => this.list!.products.push(product))
-  //     .catch(err => {
-  //       this.error = err.error
-  //     })
-  // }
 }
 </script>

@@ -1,5 +1,5 @@
 import { doFetch, FetchOptions } from './api';
-import { createList, getUsersLists, deleteList, addProductToList, readList, deleteProductInList, archiveList, setBuyedProductInList } from './list';
+import { createList, getUsersLists, deleteList, addProductToList, readList, deleteProductInList, archiveList, setBoughtProductInList } from './list';
 import { List } from '@/models/list';
 import { when } from 'jest-when';
 
@@ -16,7 +16,7 @@ describe('List API', () => {
     creationDate
   };
   const lists: List[] = [list];
-  const buyed = true
+  const bought = true
 
   const expectedCreateOptions: FetchOptions = {
     url: 'lists',
@@ -46,11 +46,11 @@ describe('List API', () => {
     method: 'POST'
   }
 
-  const expectedSetBuyedProductOptions: FetchOptions = {
+  const expectedSetBoughtProductOptions: FetchOptions = {
     url: `lists/${listID}/products/${productID}`,
     method: 'PATCH',
     data: {
-      buyed
+      bought
     }
   }
 
@@ -73,7 +73,7 @@ describe('List API', () => {
     when(doFetch as jest.Mock).calledWith(expectedReadListOptions).mockResolvedValue(list)
     when(doFetch as jest.Mock).calledWith(expectedDeleteProductFromListOptions).mockResolvedValue({})
     when(doFetch as jest.Mock).calledWith(expectedArchiveListOptions).mockResolvedValue(list)
-    when(doFetch as jest.Mock).calledWith(expectedSetBuyedProductOptions).mockResolvedValue({})
+    when(doFetch as jest.Mock).calledWith(expectedSetBoughtProductOptions).mockResolvedValue({})
   });
 
   describe('createList', () => {
@@ -135,10 +135,10 @@ describe('List API', () => {
     })
   })
 
-  describe('setBuyedProductInList', () => {
-    it('Should call set buyed product in list with the right parameters', done => {
-      setBuyedProductInList(productID, listID, buyed).then(() => {
-        expect(doFetch).toHaveBeenCalledWith(expectedSetBuyedProductOptions)
+  describe('setBoughtProductInList', () => {
+    it('Should call set bought product in list with the right parameters', done => {
+      setBoughtProductInList(productID, listID, bought).then(() => {
+        expect(doFetch).toHaveBeenCalledWith(expectedSetBoughtProductOptions)
         done()
       })
     })

@@ -5,7 +5,7 @@ export interface SetArchivationDatePayload {
   archivationDate: string
 }
 
-export interface SetBuyedProductActionPayload {
+export interface SetBoughtProductActionPayload {
   product: ProductInSelectedList
-  buyed: boolean
+  bought: boolean
 }
