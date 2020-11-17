@@ -3,7 +3,7 @@ import { SelectedList, List } from '@/models/list'
 import { Product, ProductInSelectedList } from '@/models/product';
 import { Category, CategoryInSelectedList } from '@/models/category';
 import { DEFAULT_CATEGORY_ID, DEFAULT_CATEGORY_NAME } from '@/utils/constants';
-import { addProductToList, archiveList, createList, deleteList, deleteProductInList, getUsersLists, readList, setBuyedProductInList } from '@/api/list';
+import { addProductToList, archiveList, createList, deleteList, deleteProductInList, getUsersLists, readList, setBoughtProductInList } from '@/api/list';
 
 jest.mock('@/api/list')
 
@@ -29,7 +29,7 @@ describe('ListModule', () => {
   }
 
   const archivationDate = 'archivation-date'
-  const buyed = true
+  const bought = true
 
   const newName = 'new-name'
 
@@ -64,7 +64,7 @@ describe('ListModule', () => {
   const productWithoutCategoryInSelectedList: ProductInSelectedList = {
     ...product,
     category: defaultCategory,
-    buyed: false,
+    bought: false,
   }
 
   const productWithCategoryInSelectedList: ProductInSelectedList = {
@@ -229,7 +229,7 @@ describe('ListModule', () => {
       it('should not throw an error when list is not found', () => {
         try {
           listModule.setArchivationDate(archivationPayload)
-        } catch(err) {
+        } catch (err) {
           throw new Error("List module shoult not throw an error")
         }
       })
@@ -249,12 +249,12 @@ describe('ListModule', () => {
       it('should not throw an error when there is no selected list', () => {
         try {
           listModule.setSelectedListArchivationDate(archivationDate)
-        } catch(err) {
+        } catch (err) {
           throw new Error('List module should not throw an error')
         }
       })
 
-      it('should set archivation date into selected list', ( ) => {
+      it('should set archivation date into selected list', () => {
         listModule.selectedList = selectedList
 
         listModule.setSelectedListArchivationDate(archivationDate)
@@ -530,7 +530,7 @@ describe('ListModule', () => {
             id: DEFAULT_CATEGORY_ID,
             name: DEFAULT_CATEGORY_NAME,
           },
-          buyed: false
+          bought: false
         }
         expect(result).toEqual(expectedProductInList)
       })
@@ -623,34 +623,34 @@ describe('ListModule', () => {
 
         await listModule.archiveList(id1)
 
-        expect(listModule.setArchivationDate).toHaveBeenCalledWith({ listID: id1, archivationDate})
+        expect(listModule.setArchivationDate).toHaveBeenCalledWith({ listID: id1, archivationDate })
       })
     })
 
-    describe('setBuyedProductAction', () => {
+    describe('setBoughtProductAction', () => {
       beforeEach(() => {
-        (setBuyedProductInList as jest.Mock).mockClear()
+        (setBoughtProductInList as jest.Mock).mockClear()
       })
 
       it('should do nothing if no list is selected', async () => {
-        await listModule.setBuyedProductAction({
+        await listModule.setBoughtProductAction({
           product: productWithCategoryInSelectedList,
-          buyed,
+          bought,
         })
 
-        expect(setBuyedProductInList).toHaveBeenCalledTimes(0)
+        expect(setBoughtProductInList).toHaveBeenCalledTimes(0)
       })
 
-      it('should call api to set buyed product with right parameters', async () => {
+      it('should call api to set bought product with right parameters', async () => {
         listModule.selectedList = selectedList
 
-        await listModule.setBuyedProductAction({
+        await listModule.setBoughtProductAction({
           product: productWithCategoryInSelectedList,
-          buyed,
+          bought,
         })
 
-        expect(setBuyedProductInList).toHaveBeenCalledTimes(1)
-        expect(setBuyedProductInList).toHaveBeenCalledWith(product.id, selectedList.id, buyed)
+        expect(setBoughtProductInList).toHaveBeenCalledTimes(1)
+        expect(setBoughtProductInList).toHaveBeenCalledWith(product.id, selectedList.id, bought)
       })
 
       it('should return payload when request succeed', async () => {
@@ -658,10 +658,10 @@ describe('ListModule', () => {
 
         const payload = {
           product: productWithCategoryInSelectedList,
-          buyed,
+          bought,
         }
 
-        const result = await listModule.setBuyedProductAction(payload)
+        const result = await listModule.setBoughtProductAction(payload)
 
         expect(result).toEqual(payload)
       })

@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import store from '..'
-import { addProductToList, archiveList, createList, deleteList, deleteProductInList, getUsersLists, readList, setBuyedProductInList } from '@/api/list';
+import { addProductToList, archiveList, createList, deleteList, deleteProductInList, getUsersLists, readList, setBoughtProductInList } from '@/api/list';
 import { SelectedList, List } from '@/models/list'
 import { Action, Module, Mutation, MutationAction, VuexModule } from 'vuex-module-decorators'
 import { Product, ProductInSelectedList } from '@/models/product';
 import { CategoryInSelectedList } from '@/models/category';
 import { DEFAULT_CATEGORY_ID, DEFAULT_CATEGORY_NAME } from '@/utils/constants';
-import { SetArchivationDatePayload, SetBuyedProductActionPayload } from './payloads';
+import { SetArchivationDatePayload, SetBoughtProductActionPayload } from './payloads';
 
 @Module({ dynamic: true, store, name: 'list', namespaced: true })
 export class ListModule extends VuexModule {
@@ -126,7 +126,7 @@ export class ListModule extends VuexModule {
   }
 
   @Mutation
-  async setBuyedProduct({ product, buyed }: SetBuyedProductActionPayload) {
+  async setBoughtProduct({ product, bought }: SetBoughtProductActionPayload) {
     if (!this.selectedList) {
       return
     }
@@ -146,21 +146,21 @@ export class ListModule extends VuexModule {
       return
     }
 
-    foundProduct.buyed = buyed
+    foundProduct.bought = bought
     this.selectedList.categories = newCategories
   }
 
-  @Action({ commit: 'setBuyedProduct' })
-  async setBuyedProductAction(setBuyedProductAction: SetBuyedProductActionPayload) {
+  @Action({ commit: 'setBoughtProduct' })
+  async setBoughtProductAction(setBoughtProductAction: SetBoughtProductActionPayload) {
     if (!this.selectedList) {
       return
     }
 
-    const { product, buyed } = setBuyedProductAction
+    const { product, bought } = setBoughtProductAction
 
-    await setBuyedProductInList(product.id, this.selectedList.id, buyed)
+    await setBoughtProductInList(product.id, this.selectedList.id, bought)
 
-    return setBuyedProductAction
+    return setBoughtProductAction
   }
 
   @Action({ commit: 'add' })
@@ -195,7 +195,7 @@ export class ListModule extends VuexModule {
     const productInSelectedList: ProductInSelectedList = {
       ...product,
       category,
-      buyed: false,
+      bought: false,
     }
 
     return productInSelectedList

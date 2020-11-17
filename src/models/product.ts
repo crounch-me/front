@@ -10,7 +10,7 @@ interface ProductInSelectedList {
   id: string
   name: string
   category: Category
-  buyed: boolean
+  bought: boolean
 }
 
 export { Product, ProductInSelectedList }

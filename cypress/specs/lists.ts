@@ -154,7 +154,7 @@ describe('Lists', () => {
       .contains('Archivée le ')
   })
 
-  it('Should mark product as buyed', () => {
+  it('Should mark product as bought', () => {
     cy.createList(name);
     cy.visit('/lists')
     waitForElement(cy, '.list')
