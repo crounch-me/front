@@ -1,6 +1,6 @@
 import { mock } from 'jest-mock-extended'
 
-import { doFetch } from './api';
+import { doFetch } from './doFetch';
 import { getAPIURL } from '@/utils/environment';
 import { FetchError } from '@/utils/error';
 
@@ -19,7 +19,7 @@ describe('API', () => {
   beforeEach(() => {
     const responseMock: Response = mock<Response>({
       status: 200,
-      json: jest.fn().mockResolvedValue('body')
+      json: jest.fn().mockResolvedValue({ data: "body" })
     })
 
     getItemMock = jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(token);

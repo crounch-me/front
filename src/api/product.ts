@@ -1,4 +1,4 @@
-import { doFetch } from './api';
+import { doFetch } from './doFetch';
 import { Product } from '@/models/product';
 
 export function createProduct(name: string): Promise<Product> {

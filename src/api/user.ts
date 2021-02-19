@@ -1,4 +1,4 @@
-import { doFetch } from './api';
+import { doFetch } from './doFetch';
 
 export interface SignupResponse {
   id: string;

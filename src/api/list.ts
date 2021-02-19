@@ -1,4 +1,4 @@
-import { doFetch } from './api';
+import { doFetch } from './doFetch';
 import { SelectedList, List } from '@/models/list';
 
 export function createList(name: string): Promise<List> {

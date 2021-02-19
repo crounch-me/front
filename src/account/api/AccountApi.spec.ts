@@ -1,23 +1,27 @@
-import { doFetch } from './doFetch';
-import { signup, login, logout } from './user';
+import { doFetch } from '@/api/doFetch';
+import { AccountApi } from './AccountApi';
 
-jest.mock('./doFetch');
+jest.mock('@/api/doFetch');
 
-describe('User API', () => {
-  const email = 'hello';
-  const password = 'world';
+describe('AccountApi', () => {
+  const email = 'email';
+  const password = 'password';
+
+  let accountApi: AccountApi
 
   beforeEach(() => {
     (doFetch as jest.Mock).mockClear();
     (doFetch as jest.Mock).mockResolvedValue({});
+
+    accountApi = new AccountApi()
   });
 
   describe('signup', () => {
     it('Should call signup endpoint with right parameters.', () => {
-      signup(email, password);
+      accountApi.signup(email, password);
 
       expect(doFetch).toHaveBeenCalledWith({
-        url: 'users',
+        url: 'account/signup',
         method: 'POST',
         data: {
           email,
@@ -29,10 +33,10 @@ describe('User API', () => {
 
   describe('login', () => {
     it('Should call login endpoint with right parameters.', () => {
-      login(email, password);
+      accountApi.login(email, password);
 
       expect(doFetch).toHaveBeenCalledWith({
-        url: 'users/login',
+        url: 'account/login',
         method: 'POST',
         data: { email, password }
       });
@@ -41,10 +45,10 @@ describe('User API', () => {
 
   describe('logout', () => {
     it('Should call logout endpoint.', () => {
-      logout();
+      accountApi.logout();
 
       expect(doFetch).toHaveBeenCalledWith({
-        url: 'logout',
+        url: 'account/logout',
         method: 'POST',
       });
     });

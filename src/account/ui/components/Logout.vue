@@ -8,16 +8,16 @@ import { Component } from 'vue-property-decorator';
 import { getModule } from 'vuex-module-decorators';
 
 import { ListModule } from '@/store/list/ListModule';
-import { AuthModule } from '@/store/auth/AuthModule';
+import { AccountModule } from '@/account/store/AccountModule';
 
 @Component
 export default class Logout extends Vue {
-  public authModule: AuthModule = getModule(AuthModule)
+  public accountModule: AccountModule = getModule(AccountModule)
   public listModule: ListModule = getModule(ListModule)
 
   logout() {
     this.listModule.reset()
-    this.authModule.logoutAction().then(() => {
+    this.accountModule.logoutAction().then(() => {
       this.$router.push('/');
     })
   }

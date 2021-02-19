@@ -13,8 +13,8 @@ import Vue from 'vue';
 import 'vue-router';
 
 import Component from 'vue-class-component';
-import Logout from '@/components/Logout.vue';
-import { AuthModule } from './store/auth/AuthModule';
+import Logout from '@/account/ui/components/Logout.vue';
+import { AccountModule } from '@/account/store/AccountModule';
 import { getModule } from 'vuex-module-decorators';
 
 @Component({
@@ -23,7 +23,7 @@ import { getModule } from 'vuex-module-decorators';
   }
 })
 export default class App extends Vue {
-  public authModule: AuthModule = getModule(AuthModule)
+  public authModule: AccountModule = getModule(AccountModule)
 }
 </script>
 

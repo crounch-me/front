@@ -1,12 +1,16 @@
-import store from '..'
-import { login, logout, signup } from '@/api/user';
+import store from '@/store'
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
 import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import { AuthPayload } from './payloads';
 import { FetchError } from '@/utils/error';
+import { AccountApi } from '@/account/api/AccountApi'
 
-@Module({ dynamic: true, store, name: 'auth', namespaced: true })
-export class AuthModule extends VuexModule {
+const MODULE_NAME = 'account'
+
+@Module({ dynamic: true, store, name: MODULE_NAME, namespaced: true })
+export class AccountModule extends VuexModule {
+  private accountApi: AccountApi = new AccountApi()
+
   public token = localStorage.getItem(TOKEN_STORAGE_KEY) || ''
   public status = ''
 
@@ -29,8 +33,8 @@ export class AuthModule extends VuexModule {
     let token = ''
 
     try {
-      const res = await login(email, password)
-      token = res.accessToken
+      const res = await this.accountApi.login(email, password)
+      token = res.token
     } catch (err) {
       localStorage.removeItem(TOKEN_STORAGE_KEY)
       throw err
@@ -43,14 +47,14 @@ export class AuthModule extends VuexModule {
   @Action
   public async signup(authPayload: AuthPayload) {
     const { email, password } = authPayload
-    await signup(email, password)
+    await this.accountApi.signup(email, password)
     return this.loginAction(authPayload)
   }
 
   @Action({ commit: 'logout' })
   public async logoutAction() {
     try {
-      await logout()
+      await this.accountApi.logout()
     } catch(err) {
       const fetchError = err as FetchError
       if (fetchError.status != 404) {

@@ -7,15 +7,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { getModule } from 'vuex-module-decorators';
+import { Component, Vue } from 'vue-property-decorator'
+import { getModule } from 'vuex-module-decorators'
 
-import HelloWorld from '@/components/HelloWorld.vue';
-import Signup from '@/components/Signup.vue';
-import Login from '@/components/Login.vue';
-import CreateList from '@/components/CreateList.vue';
-import { ListModule } from '@/store/list/ListModule';
-import { AuthModule } from '@/store/auth/AuthModule';
+import HelloWorld from '@/components/HelloWorld.vue'
+import Signup from '@/account/ui/components/Signup.vue'
+import Login from '@/account/ui/components/Login.vue'
+import { AccountModule } from '@/account/store/AccountModule'
 
 @Component({
   components: {
@@ -25,10 +23,10 @@ import { AuthModule } from '@/store/auth/AuthModule';
   },
 })
 export default class Home extends Vue {
-  public authModule: AuthModule = getModule(AuthModule)
+  public accountModule: AccountModule = getModule(AccountModule)
 
   mounted() {
-    if (this.authModule.isAuthenticated) {
+    if (this.accountModule.isAuthenticated) {
       this.$router.push('/lists');
     }
   }

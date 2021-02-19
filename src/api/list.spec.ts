@@ -1,9 +1,9 @@
-import { doFetch, FetchOptions } from './api';
+import { doFetch, FetchOptions } from './doFetch';
 import { createList, getUsersLists, deleteList, addProductToList, readList, deleteProductInList, archiveList, setBoughtProductInList } from './list';
 import { List } from '@/models/list';
 import { when } from 'jest-when';
 
-jest.mock('./api');
+jest.mock('./doFetch');
 
 describe('List API', () => {
   const name = 'shopping';
