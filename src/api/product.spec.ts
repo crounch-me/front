@@ -1,9 +1,9 @@
 import { when } from 'jest-when';
-import { doFetch, FetchOptions } from './api';
+import { doFetch, FetchOptions } from './doFetch';
 import { createProduct, searchProduct } from './product';
 import { Product } from '@/models/product';
 
-jest.mock('./api');
+jest.mock('./doFetch');
 
 describe('Product API', () => {
   const name = 'cassoulet';

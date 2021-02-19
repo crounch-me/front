@@ -1,12 +1,20 @@
-import { login, LoginResponse, logout, signup, SignupResponse } from '@/api/user';
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
 import { FetchError, ErrorBody } from '@/utils/error';
-import { AuthModule } from './AuthModule'
+import { LoginResponse, SignupResponse } from '@/account/api/repsonses'
+import { AccountModule } from './AccountModule'
 
-jest.mock('@/api/user')
+const signup = jest.fn()
+const login = jest.fn()
+const logout = jest.fn()
 
-describe('AuthModule', () => {
-  let authModule: AuthModule
+jest.mock('@/account/api/AccountApi', () => ({
+  AccountApi: jest
+    .fn()
+    .mockImplementation(() => ({ signup, login, logout })),
+}))
+
+describe('AccountModule', () => {
+  let accountModule: AccountModule
   let getItemMock: jest.SpyInstance
   let setItemMock: jest.SpyInstance
   let removeItemMock: jest.SpyInstance
@@ -23,7 +31,7 @@ describe('AuthModule', () => {
   const fetchError = new FetchError(message, status, body)
 
   beforeEach(() => {
-    authModule = new AuthModule(AuthModule)
+    accountModule = new AccountModule(AccountModule)
 
     getItemMock = jest.spyOn(Storage.prototype, 'getItem')
     setItemMock = jest.spyOn(Storage.prototype, 'setItem')
@@ -38,37 +46,37 @@ describe('AuthModule', () => {
     it('should initialize token in state to the token from local storage when it is found', () => {
       getItemMock.mockReturnValue(token)
 
-      authModule = new AuthModule(AuthModule)
+      accountModule = new AccountModule(AccountModule)
 
-      expect(authModule.token).toBe(token)
+      expect(accountModule.token).toBe(token)
     })
 
     it('should initialize token in state to an empty string when it is found', () => {
       getItemMock.mockReset()
 
-      authModule = new AuthModule(AuthModule)
+      accountModule = new AccountModule(AccountModule)
 
-      expect(authModule.token).toBe('')
+      expect(accountModule.token).toBe('')
     })
 
     it('should initialize status in state to empty string', () => {
-      expect(authModule.status).toBe('')
+      expect(accountModule.status).toBe('')
     })
   })
 
   describe('isAuthenticated', () => {
     it('should return true when token is defined in state', () => {
-      authModule.token = token
+      accountModule.token = token
 
-      const result = authModule.isAuthenticated
+      const result = accountModule.isAuthenticated
 
       expect(result).toBeTruthy()
     })
 
     it('should return false when token is not defined in state', () => {
-      authModule.token = ''
+      accountModule.token = ''
 
-      const result = authModule.isAuthenticated
+      const result = accountModule.isAuthenticated
 
       expect(result).toBeFalsy()
     })
@@ -76,42 +84,43 @@ describe('AuthModule', () => {
 
   describe('login', () => {
     it('should set token in state', () => {
-      authModule.token = ''
+      accountModule.token = ''
 
-      authModule.login(token)
+      accountModule.login(token)
 
-      expect(authModule.token).toBe(token)
+      expect(accountModule.token).toBe(token)
     })
   })
 
   describe('logout', () => {
     it('should set token in state to an empty string', () => {
-      authModule.token = token
+      accountModule.token = token
 
-      authModule.logout()
+      accountModule.logout()
 
-      expect(authModule.token).toBe('')
+      expect(accountModule.token).toBe('')
     })
   })
 
   describe('loginAction', () => {
     beforeEach(() => {
       const loginResponse: LoginResponse = {
-        accessToken: token
+        token
       };
-      (login as jest.Mock).mockResolvedValue(loginResponse)
+
+      login.mockResolvedValue(loginResponse)
     })
 
     describe('success', () => {
       it('should store the token in local storage when the login request is successful', async () => {
-        await authModule.loginAction({ email, password })
+        await accountModule.loginAction({ email, password })
 
         expect(setItemMock).toHaveBeenCalledTimes(1)
         expect(setItemMock).toHaveBeenCalledWith(TOKEN_STORAGE_KEY, token)
       })
 
       it('should return token when the login request is successful', async () => {
-        const result = await authModule.loginAction({ email, password })
+        const result = await accountModule.loginAction({ email, password })
 
         expect(result).toBe(token)
       })
@@ -124,7 +133,7 @@ describe('AuthModule', () => {
 
       it('should remove token from local storage when the login request fails', async () => {
         try {
-          await authModule.loginAction({ email, password })
+          await accountModule.loginAction({ email, password })
           throw new Error("login request didn't fail")
         } catch (err) {
           expect(removeItemMock).toHaveBeenCalledTimes(1)
@@ -134,7 +143,7 @@ describe('AuthModule', () => {
 
       it('should throw error when the login request fails', async () => {
         try {
-          await authModule.loginAction({ email, password })
+          await accountModule.loginAction({ email, password })
           throw new Error("login request didn't fail")
         } catch (err) {
           expect(err).toEqual(fetchError)
@@ -152,19 +161,19 @@ describe('AuthModule', () => {
 
       (signup as jest.Mock).mockResolvedValue(signupResponse)
 
-      authModule.loginAction = jest.fn()
+      accountModule.loginAction = jest.fn()
 
-      await authModule.signup({ email, password })
+      await accountModule.signup({ email, password })
 
-      expect(authModule.loginAction).toHaveBeenCalledTimes(1)
-      expect(authModule.loginAction).toHaveBeenCalledWith({ email, password })
+      expect(accountModule.loginAction).toHaveBeenCalledTimes(1)
+      expect(accountModule.loginAction).toHaveBeenCalledWith({ email, password })
     })
 
     it('should throw error when login request fails', async () => {
       (signup as jest.Mock).mockRejectedValue(fetchError)
 
       try {
-        await authModule.signup({ email, password })
+        await accountModule.signup({ email, password })
         throw new Error("singup request didn't fail")
       } catch (err) {
         expect(err).toEqual(fetchError)
@@ -178,7 +187,7 @@ describe('AuthModule', () => {
     })
 
     it('should call api to logout', async () => {
-      await authModule.logoutAction()
+      await accountModule.logoutAction()
 
       expect(logout).toHaveBeenCalledTimes(1)
     })
@@ -195,9 +204,9 @@ describe('AuthModule', () => {
       (logout as jest.Mock).mockRejectedValue(fetchError)
 
       try {
-        await authModule.logoutAction()
+        await accountModule.logoutAction()
       }catch(err) {
-        throw new Error('AuthModule should not throw an error')
+        throw new Error('AccountModule should not throw an error')
       }
     })
 
@@ -214,7 +223,7 @@ describe('AuthModule', () => {
       (logout as jest.Mock).mockRejectedValue(fetchError)
 
       try {
-        await authModule.logoutAction()
+        await accountModule.logoutAction()
         throw new Error('Auth module should have thrown an error')
       } catch(err) {
         expect(err).toEqual(fetchError)
@@ -222,7 +231,7 @@ describe('AuthModule', () => {
     })
 
     it('should remove token from local storage', async () => {
-      await authModule.logoutAction()
+      await accountModule.logoutAction()
 
       expect(removeItemMock).toHaveBeenCalledTimes(1)
       expect(removeItemMock).toHaveBeenCalledWith(TOKEN_STORAGE_KEY)

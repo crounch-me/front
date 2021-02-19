@@ -1,9 +1,10 @@
-import { getAPIURL } from '@/utils/environment';
-import { TOKEN_STORAGE_KEY } from '@/utils/constants';
-import { FetchError } from '@/utils/error';
-import { AuthModule } from '@/store/auth/AuthModule';
-import { getModule } from 'vuex-module-decorators';
-import router from '@/router/router';
+import { getModule } from 'vuex-module-decorators'
+import router from '../router/router'
+import { AccountModule } from '@/account/store/AccountModule'
+import { TOKEN_STORAGE_KEY } from '../utils/constants'
+import { getAPIURL } from '../utils/environment'
+import { FetchError } from '../utils/error'
+
 
 export interface FetchOptions {
   url: string;
@@ -15,14 +16,14 @@ export function doFetch<T>(options: FetchOptions): Promise<T> {
   return fetch(getUrl(options.url), getFetchOptions(options))
     .then(res => {
       if (res.status >= 200 && res.status <= 299 && res.status !== 204) {
-        return res.json()
+        return res.json().then(data => data.data)
       }
       if (res.status === 204) {
         return
       }
       if (res.status === 401) {
-        const authModule = getModule(AuthModule)
-        authModule.logoutAction().then(() => {
+        const accountModule = getModule(AccountModule)
+        accountModule.logoutAction().then(() => {
           router.push({ name: 'home' })
         })
       }

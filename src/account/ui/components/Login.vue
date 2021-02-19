@@ -23,13 +23,12 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import { getModule } from 'vuex-module-decorators';
 
-import { login } from '@/api/user';
 import { validateEmail } from '@/utils/form-validation';
-import { AuthModule } from '@/store/auth/AuthModule';
+import { AccountModule } from '@/account/store/AccountModule';
 
 @Component
 export default class Login extends Vue {
-  public authModule: AuthModule = getModule(AuthModule)
+  public accountModule: AccountModule = getModule(AccountModule)
 
   email: string = '';
   password: string = '';
@@ -42,7 +41,7 @@ export default class Login extends Vue {
 
     const { email, password } = this;
 
-    this.authModule.loginAction({ email, password }).then(() => {
+    this.accountModule.loginAction({ email, password }).then(() => {
       this.$router.replace('/lists');
     });
   }

@@ -22,11 +22,11 @@ import { getModule } from 'vuex-module-decorators';
 
 import { validateEmail } from '@/utils/form-validation';
 import { FetchError } from '@/utils/error';
-import { AuthModule } from '@/store/auth/AuthModule';
+import { AccountModule } from '@/account/store/AccountModule';
 
 @Component
 export default class Signup extends Vue {
-  public authModule: AuthModule = getModule(AuthModule)
+  public accountModule: AccountModule = getModule(AccountModule)
 
   email: string = '';
   password: string = '';
@@ -37,7 +37,7 @@ export default class Signup extends Vue {
       return;
     }
     const { email, password } = this;
-    this.authModule.signup({ email, password })
+    this.accountModule.signup({ email, password })
       .then(() => this.$router.replace('/lists'))
       .catch((err: FetchError) => this.handleSignupError(err));
   }
