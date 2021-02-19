@@ -1,7 +1,7 @@
-import { doFetch } from '../../api/doFetch';
+import { doFetch } from '@/api/doFetch';
 import { AccountApi } from './AccountApi';
 
-jest.mock('../../api/doFetch');
+jest.mock('@/api/doFetch');
 
 describe('AccountApi', () => {
   const email = 'email';
