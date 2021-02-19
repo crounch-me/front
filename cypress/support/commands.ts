@@ -1,5 +1,5 @@
 export function signup(email: string, password: string): Cypress.Chainable<Cypress.Response> {
-  return cy.request('POST', 'http://localhost:3000/users', {
+  return cy.request('POST', 'http://localhost:3000/account/signup', {
     email,
     password
   });
@@ -7,13 +7,13 @@ export function signup(email: string, password: string): Cypress.Chainable<Cypre
 
 export function signupAndLogin(email: string, password: string): Cypress.Chainable<void> {
   return cy
-    .request('POST', 'http://localhost:3000/users', {
+    .request('POST', 'http://localhost:3000/account/signup', {
       email,
       password,
     })
     .then(() => {
       return cy
-        .request('POST', 'http://localhost:3000/users/login', {
+        .request('POST', 'http://localhost:3000/account/login', {
           email,
           password,
         })

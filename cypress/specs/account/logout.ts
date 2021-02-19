@@ -1,4 +1,4 @@
-import { generateStringOfLength } from '../support/utils/generate';
+import { generateStringOfLength } from '../../support/utils/generate';
 
 describe('Logout', () => {
   const email = `${generateStringOfLength(10)}@crounch.me`;
