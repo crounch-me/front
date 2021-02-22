@@ -6,9 +6,9 @@ export class AccountApi extends Api {
   protected BASE_URL = 'account'
 
   public signup(email: string, password: string): Promise<SignupResponse> {
-    const url = this.computeUrl('signup')
+    const path = this.computePath('signup')
     return doFetch({
-      path: url,
+      path,
       method: 'POST',
       data: {
         email,
@@ -18,10 +18,10 @@ export class AccountApi extends Api {
   }
 
   public login(email: string, password: string): Promise<LoginResponse> {
-    const url = this.computeUrl('login')
+    const path = this.computePath('login')
 
     return doFetch({
-      path: url,
+      path,
       method: 'POST',
       data: {
         email,
@@ -31,7 +31,7 @@ export class AccountApi extends Api {
   }
 
   public logout(): Promise<void> {
-    const url = this.computeUrl('logout')
+    const url = this.computePath('logout')
 
     return doFetch({
       path: url,

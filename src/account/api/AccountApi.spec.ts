@@ -1,8 +1,6 @@
 import { doFetch } from '@/api/doFetch'
 import { AccountApi } from './AccountApi'
-import { AccountModule } from '@/account/store/AccountModule'
 
-jest.mock('@/account/store/AccountModule')
 jest.mock('@/api/doFetch')
 
 describe('AccountApi', () => {
@@ -23,7 +21,7 @@ describe('AccountApi', () => {
       accountApi.signup(email, password)
 
       expect(doFetch).toHaveBeenCalledWith({
-        url: 'account/signup',
+        path: 'account/signup',
         method: 'POST',
         data: {
           email,
@@ -38,7 +36,7 @@ describe('AccountApi', () => {
       accountApi.login(email, password)
 
       expect(doFetch).toHaveBeenCalledWith({
-        url: 'account/login',
+        path: 'account/login',
         method: 'POST',
         data: { email, password }
       })
@@ -50,7 +48,7 @@ describe('AccountApi', () => {
       accountApi.logout()
 
       expect(doFetch).toHaveBeenCalledWith({
-        url: 'account/logout',
+        path: 'account/logout',
         method: 'POST',
       })
     })
