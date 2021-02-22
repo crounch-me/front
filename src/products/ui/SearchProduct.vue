@@ -25,35 +25,38 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { Component, Emit, Prop } from 'vue-property-decorator';
+import Vue from 'vue'
+import { getModule } from 'vuex-module-decorators'
+import { Component } from 'vue-property-decorator'
 
-import { searchProduct } from '@/api/product';
-import { Product } from '@/models/product';
-import { Events } from '@/utils/events';
-import { ListModule } from '@/store/list/ListModule';
-import { getModule } from 'vuex-module-decorators';
+import { ListModule } from '@/store/list/ListModule'
+import { ProductApi } from '@/products/api/ProductApi'
+import { ProductSearchResponse } from '@/products/api/responses'
 
 @Component
 export default class SearchProduct extends Vue {
   public listModule: ListModule = getModule(ListModule)
+  public productApi = new ProductApi()
 
   public name: string = ""
   public error: string = ""
-  public products: Product[] = []
+  public products: ProductSearchResponse[] = []
 
-  search() {
+  async search() {
     if (this.name.length < 3) {
       this.products = []
       return
     }
-    searchProduct(this.name)
-      .then(products => this.products = products)
-      .catch(err => this.error = err.error)
+
+    try {
+      this.products = await this.productApi.searchProduct(this.name)
+    } catch (err) {
+      this.error = err.error
+    }
   }
 
-  addProduct(product: Product) {
-    this.listModule.addProductAction(product)
+  addProduct(product: ProductSearchResponse) {
+    this.$emit('add-product', product)
   }
 
   public isProductInList(id: string): boolean {

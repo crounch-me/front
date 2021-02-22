@@ -1,6 +1,6 @@
 import { TOKEN_STORAGE_KEY } from '@/utils/constants';
 import { FetchError, ErrorBody } from '@/utils/error';
-import { LoginResponse, SignupResponse } from '@/account/api/repsonses'
+import { LoginResponse, SignupResponse } from '@/account/api/responses'
 import { AccountModule } from './AccountModule'
 
 const signup = jest.fn()

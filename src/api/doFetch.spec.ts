@@ -37,7 +37,7 @@ describe('API', () => {
   describe('doFetch', () => {
     it('Should do fetch with right parameters, without body.', () => {
       doFetch({
-        url,
+        path: url,
         method: 'GET',
         data: {
           name: 'test'
@@ -55,7 +55,7 @@ describe('API', () => {
         name: 'user',
       };
       doFetch({
-        url: 'hello',
+        path: 'hello',
         method: 'POST',
         data,
       });
@@ -69,7 +69,7 @@ describe('API', () => {
 
     it('Should return response body when status code is between 200 and 299 but not 204.', done => {
       doFetch({
-        url,
+        path: url,
         method: 'GET'
       }).then(body => {
         expect(body).toBe('body');
@@ -84,7 +84,7 @@ describe('API', () => {
       (global as any).fetch = jest.fn(() => Promise.resolve(noContentMock));
 
       doFetch({
-        url,
+        path: url,
         method: 'DELETE'
       }).then(body => {
         expect(body).toBeUndefined()
@@ -106,7 +106,7 @@ describe('API', () => {
       (global as any).fetch = jest.fn(() => Promise.resolve(errorResponseMock));
 
       doFetch({
-        url: 'hello',
+        path: 'hello',
         method: 'GET'
       })
         .then(() => expect(true).toBe(false))
@@ -131,7 +131,7 @@ describe('API', () => {
       (global as any).fetch = jest.fn(() => Promise.resolve(errorResponseMock));
 
       doFetch({
-        url: 'hello',
+        path: 'hello',
         method: 'GET'
       })
         .then(() => expect(true).toBe(false))

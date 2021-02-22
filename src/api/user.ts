@@ -11,7 +11,7 @@ export interface LoginResponse {
 
 export function signup(email: string, password: string): Promise<SignupResponse> {
   return doFetch({
-    url: 'users',
+    path: 'users',
     method: 'POST',
     data: {
       email,
@@ -22,7 +22,7 @@ export function signup(email: string, password: string): Promise<SignupResponse>
 
 export function login(email: string, password: string): Promise<LoginResponse> {
   return doFetch({
-    url: 'users/login',
+    path: 'users/login',
     method: 'POST',
     data: {
       email,
@@ -33,7 +33,7 @@ export function login(email: string, password: string): Promise<LoginResponse> {
 
 export function logout(): Promise<void> {
   return doFetch({
-    url: 'logout',
+    path: 'logout',
     method: 'POST'
   })
 }

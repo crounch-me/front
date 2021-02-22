@@ -17,7 +17,7 @@ describe('User API', () => {
       signup(email, password);
 
       expect(doFetch).toHaveBeenCalledWith({
-        url: 'users',
+        path: 'users',
         method: 'POST',
         data: {
           email,
@@ -32,7 +32,7 @@ describe('User API', () => {
       login(email, password);
 
       expect(doFetch).toHaveBeenCalledWith({
-        url: 'users/login',
+        path: 'users/login',
         method: 'POST',
         data: { email, password }
       });
@@ -44,7 +44,7 @@ describe('User API', () => {
       logout();
 
       expect(doFetch).toHaveBeenCalledWith({
-        url: 'logout',
+        path: 'logout',
         method: 'POST',
       });
     });

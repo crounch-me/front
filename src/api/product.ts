@@ -3,7 +3,7 @@ import { Product } from '@/models/product';
 
 export function createProduct(name: string): Promise<Product> {
   return doFetch({
-    url: 'products',
+    path: 'products',
     method: 'POST',
     data: { name }
   });
@@ -11,7 +11,7 @@ export function createProduct(name: string): Promise<Product> {
 
 export function searchProduct(name: string): Promise<Array<Product>> {
   return doFetch({
-    url: 'products/search',
+    path: 'products/search',
     method: 'POST',
     data: { name }
   })
