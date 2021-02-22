@@ -1,6 +1,6 @@
 import { Api } from '@/common/api/Api'
 import { doFetch } from '@/api/doFetch'
-import { LoginResponse, SignupResponse } from './repsonses'
+import { LoginResponse, SignupResponse } from './responses'
 
 export class AccountApi extends Api {
   protected BASE_URL = 'account'
@@ -8,7 +8,7 @@ export class AccountApi extends Api {
   public signup(email: string, password: string): Promise<SignupResponse> {
     const url = this.computeUrl('signup')
     return doFetch({
-      url: url,
+      path: url,
       method: 'POST',
       data: {
         email,
@@ -21,7 +21,7 @@ export class AccountApi extends Api {
     const url = this.computeUrl('login')
 
     return doFetch({
-      url,
+      path: url,
       method: 'POST',
       data: {
         email,
@@ -34,7 +34,7 @@ export class AccountApi extends Api {
     const url = this.computeUrl('logout')
 
     return doFetch({
-      url,
+      path: url,
       method: 'POST'
     })
   }

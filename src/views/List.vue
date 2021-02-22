@@ -17,13 +17,9 @@
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator';
 
-import { readList, addProductToList, deleteProductInList } from '@/api/list';
 import CreateProduct from '@/components/CreateProduct.vue'
-import DisplayProducts from '@/components/DisplayProducts.vue'
-import SearchProduct from '@/components/SearchProduct.vue'
+import SearchProduct from '@/products/ui/SearchProduct.vue'
 import DisplayCategory from '@/components/DisplayCategory.vue'
-import { Product } from '@/models/product';
-import { SelectedList, List } from '@/models/list';
 import { ListModule } from '@/store/list/ListModule';
 import { getModule } from 'vuex-module-decorators';
 import { CategoryInSelectedList } from '@/models/category';

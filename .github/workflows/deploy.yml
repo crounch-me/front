@@ -17,7 +17,6 @@ jobs:
         with:
           node-version: ${{ secrets.NODE_VERSION }}
 
-
       - name: Update npm
         run: |
           npm update -g

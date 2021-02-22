@@ -19,7 +19,7 @@ describe('List API', () => {
   const bought = true
 
   const expectedCreateOptions: FetchOptions = {
-    url: 'lists',
+    path: 'lists',
     method: 'POST',
     data: {
       name
@@ -27,27 +27,27 @@ describe('List API', () => {
   };
 
   const expectedGetOptions: FetchOptions = {
-    url: 'lists',
+    path: 'lists',
     method: 'GET'
   };
 
   const expectedDeleteListOptions: FetchOptions = {
-    url: `lists/${listID}`,
+    path: `lists/${listID}`,
     method: 'DELETE',
   }
 
   const expectedDeleteProductFromListOptions: FetchOptions = {
-    url: `lists/${listID}/products/${productID}`,
+    path: `lists/${listID}/products/${productID}`,
     method: 'DELETE',
   }
 
   const expectedAddProductToListOptions: FetchOptions = {
-    url: `lists/${listID}/products/${productID}`,
+    path: `lists/${listID}/products/${productID}`,
     method: 'POST'
   }
 
   const expectedSetBoughtProductOptions: FetchOptions = {
-    url: `lists/${listID}/products/${productID}`,
+    path: `lists/${listID}/products/${productID}`,
     method: 'PATCH',
     data: {
       bought
@@ -55,12 +55,12 @@ describe('List API', () => {
   }
 
   const expectedReadListOptions: FetchOptions = {
-    url: `lists/${listID}`,
+    path: `lists/${listID}`,
     method: 'GET'
   }
 
   const expectedArchiveListOptions: FetchOptions = {
-    url: `lists/${listID}/archive`,
+    path: `lists/${listID}/archive`,
     method: 'POST'
   }
 

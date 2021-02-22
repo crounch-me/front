@@ -3,7 +3,7 @@ import { SelectedList, List } from '@/models/list';
 
 export function createList(name: string): Promise<List> {
   return doFetch({
-    url: 'lists',
+    path: 'lists',
     method: 'POST',
     data: { name }
   });
@@ -11,42 +11,42 @@ export function createList(name: string): Promise<List> {
 
 export function getUsersLists(): Promise<Array<List>> {
   return doFetch({
-    url: 'lists',
+    path: 'lists',
     method: 'GET',
   });
 }
 
 export function deleteList(id: string): Promise<void> {
   return doFetch({
-    url: `lists/${id}`,
+    path: `lists/${id}`,
     method: 'DELETE',
   });
 }
 
 export function addProductToList(productID: string, listID: string): Promise<void> {
   return doFetch({
-    url: `lists/${listID}/products/${productID}`,
+    path: `lists/${listID}/products/${productID}`,
     method: 'POST'
   })
 }
 
 export function deleteProductInList(productID: string, listID: string): Promise<void> {
   return doFetch({
-    url: `lists/${listID}/products/${productID}`,
+    path: `lists/${listID}/products/${productID}`,
     method: 'DELETE'
   })
 }
 
 export function archiveList(listID: string): Promise<SelectedList> {
   return doFetch({
-    url: `lists/${listID}/archive`,
+    path: `lists/${listID}/archive`,
     method: 'POST'
   })
 }
 
 export function setBoughtProductInList(productID: string, listID: string, bought: boolean): Promise<void> {
   return doFetch({
-    url: `lists/${listID}/products/${productID}`,
+    path: `lists/${listID}/products/${productID}`,
     method: 'PATCH',
     data: {
       bought
@@ -56,7 +56,7 @@ export function setBoughtProductInList(productID: string, listID: string, bought
 
 export function readList(listID: string): Promise<SelectedList> {
   return doFetch({
-    url: `lists/${listID}`,
+    path: `lists/${listID}`,
     method: 'GET'
   })
 }

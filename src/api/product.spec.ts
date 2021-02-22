@@ -18,7 +18,7 @@ describe('Product API', () => {
 
   describe('createProduct', () => {
     const expectedCreateOptions: FetchOptions = {
-      url: 'products',
+      path: 'products',
       method: 'POST',
       data: {
         name
@@ -46,7 +46,7 @@ describe('Product API', () => {
 
   describe('searchProduct', () => {
     const expectedSearchOptions: FetchOptions = {
-      url: 'products/search',
+      path: 'products/search',
       method: 'POST',
       data: {
         name

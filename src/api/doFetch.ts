@@ -1,19 +1,19 @@
 import { getModule } from 'vuex-module-decorators'
+
 import router from '@/router/router'
 import { AccountModule } from '@/account/store/AccountModule'
 import { TOKEN_STORAGE_KEY } from '@/utils/constants'
 import { getAPIURL } from '@/utils/environment'
 import { FetchError } from '@/utils/error'
 
-
 export interface FetchOptions {
-  url: string;
+  path: string;
   data?: object;
   method: string;
 }
 
 export function doFetch<T>(options: FetchOptions): Promise<T> {
-  return fetch(getUrl(options.url), getFetchOptions(options))
+  return fetch(getUrl(options.path), getFetchOptions(options))
     .then(res => {
       if (res.status >= 200 && res.status <= 299 && res.status !== 204) {
         return res.json().then(data => data.data)
