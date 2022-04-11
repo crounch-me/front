@@ -1,0 +1,12 @@
+{
+  "articles": [
+    {
+      "id": 1,
+      "label": "Courgette"
+    },
+    {
+      "id": 2,
+      "label": "Pomme de terre"
+    }
+  ]
+}
