@@ -39,11 +39,21 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
+      name: 'Crounch Me',
+      display: 'standalone',
+      orientation: 'portrait',
+      theme_color: '#F8F8F8',
+      background_color: '#000000',
       lang: 'en'
     }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  server: {
+    port: 8000,
+    host: '0.0.0.0'
   }
 }
