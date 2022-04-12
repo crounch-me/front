@@ -1,7 +1,7 @@
-import { Article } from '@/internal/article'
+import { StoreArticle } from '@/internal/article/entity'
 
 export interface State {
-  articles: Article[]
+  articles: StoreArticle[]
 }
 
 const initialState: State = {
