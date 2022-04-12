@@ -7,6 +7,30 @@
     {
       "id": 2,
       "label": "Pomme de terre"
+    },
+    {
+      "id": 3,
+      "label": "Riz"
+    },
+    {
+      "id": 4,
+      "label": "Tomate"
+    },
+    {
+      "id": 5,
+      "label": "Oignon"
+    },
+    {
+      "id": 6,
+      "label": "Huile d'olive"
+    },
+    {
+      "id": 7,
+      "label": "Echalote"
+    },
+    {
+      "id": 8,
+      "label": "Pignon de pin"
     }
   ]
 }
