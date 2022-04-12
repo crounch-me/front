@@ -18,6 +18,9 @@
       <ul>
         <li v-for="article of basket.articles" :key="article.id">
           {{ article.label }}
+          <button @click="deleteFromBasket(article)">
+            Supprimer de la liste
+          </button>
         </li>
       </ul>
     </section>
@@ -58,6 +61,11 @@ export default Vue.extend({
       const basketStore = StoreBasketRepository.getInstance(this.$store)
 
       BasketHandler.addArticle(basketStore, this.basket, article)
+    },
+    deleteFromBasket (article: StoreArticle) {
+      const basketStore = StoreBasketRepository.getInstance(this.$store)
+
+      BasketHandler.removeArticle(basketStore, this.basket, article)
     }
   }
 })

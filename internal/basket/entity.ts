@@ -15,6 +15,16 @@ export class Basket {
     this.articles.push(article)
   }
 
+  public removeArticle (article: Article): void {
+    const newArticles = this.articles.filter(a => a.id !== article.id)
+
+    if (newArticles.length === this.articles.length) {
+      throw new Error('article not found in basket')
+    }
+
+    this.articles = newArticles
+  }
+
   private containsArticle (article: Article): boolean {
     return this.articles.some(a => a.id === article.id)
   }

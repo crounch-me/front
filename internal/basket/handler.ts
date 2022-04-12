@@ -10,4 +10,12 @@ export class BasketHandler {
 
     store.save(basket)
   }
+
+  public static removeArticle (store: StoreBasketRepository, storeBasket: StoreBasket, article: StoreArticle): void {
+    const basket = BasketBuilder.fromStoreBasket(storeBasket)
+
+    basket.removeArticle(article)
+
+    store.save(basket)
+  }
 }
