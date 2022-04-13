@@ -1,8 +1,3 @@
-export interface StoreArticle {
-  id: number
-  label: string
-}
-
 export class Article {
   public id: number
   public label: string

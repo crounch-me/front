@@ -1,12 +1,12 @@
 import { ArticleBuilder } from '@/internal/article/builder'
 import { Basket } from '@/internal/basket/entity'
-import { StoreBasket } from '@/internal/basket/adapters/store'
+import { BasketData } from '@/internal/basket/adapters/store'
 
 export class BasketBuilder {
-  public static fromStoreBasket (storeBasket: StoreBasket): Basket {
+  public static fromBasketData (basketData: BasketData): Basket {
     const basket = new Basket()
 
-    basket.articles = storeBasket.articles.map(ArticleBuilder.fromStoreArticle)
+    basket.articles = basketData.articles.map(ArticleBuilder.fromArticleData)
 
     return basket
   }

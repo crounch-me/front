@@ -1,11 +1,12 @@
 import { get } from '@/internal/api'
+import { ArticleStoreKeys } from '@/store/articles/keys'
 
 export default {
-  async init ({ commit }: any): Promise<void> {
+  async [ArticleStoreKeys.actions.init] ({ commit }: any): Promise<void> {
     const articles = await get('https://my-json-server.typicode.com/crounch-me/front/articles')
 
     if (articles) {
-      commit('initArticles', { articles })
+      commit(ArticleStoreKeys.mutations.init, { articles })
     }
   }
 }

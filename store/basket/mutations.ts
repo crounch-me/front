@@ -1,8 +1,8 @@
 import { State } from '@/store/basket/state'
-import { StoreBasket } from '@/internal/basket/adapters/store'
+import { BasketData } from '@/internal/basket/adapters/store'
 
 export default {
-  save (state: State, { basket }: { basket: StoreBasket }): void {
+  save (state: State, { basket }: { basket: BasketData }): void {
     state.basket = basket
   }
 }

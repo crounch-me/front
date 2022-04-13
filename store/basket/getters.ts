@@ -1,8 +1,8 @@
-import { StoreBasket } from '@/internal/basket/adapters/store'
+import { BasketData } from '@/internal/basket/adapters/store'
 import { State } from '@/store/basket/state'
 
 export default {
-  get: (state: State): StoreBasket => {
+  get: (state: State): BasketData => {
     return state.basket
   }
 }

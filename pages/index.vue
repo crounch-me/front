@@ -30,42 +30,49 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import { StoreBasket, StoreBasketRepository } from '@/internal/basket/adapters/store'
-import { StoreArticle } from '@/internal/article/entity'
+import { BasketData, BasketStoreRepository } from '@/internal/basket/adapters/store'
 import { BasketHandler } from '@/internal/basket/handler'
+import { BasketStoreKeys, formatBasketStoreKey } from '@/store/basket/keys'
+import { ArticleData } from '@/internal/article/data'
+import { ArticleStoreKeys, formatArticleStoreKey } from '@/store/articles/keys'
 
 export default Vue.extend({
   data: () => ({
-    label: 'e'
+    label: 'e',
+    basketStoreRepository: null as BasketStoreRepository | null,
+    basketHandler: null as BasketHandler | null
   }),
   async fetch () {
-    await this.$store.dispatch('articles/init')
+    await this.$store.dispatch(formatArticleStoreKey(ArticleStoreKeys.actions.init))
   },
   computed: {
-    articles (): StoreArticle[] {
-      return this.$store.getters['articles/all']
+    articles (): ArticleData[] {
+      return this.$store.getters[formatArticleStoreKey(ArticleStoreKeys.getters.all)]
     },
-    basket (): StoreBasket {
-      return this.$store.getters['basket/get']
+    basket (): BasketData {
+      return this.$store.getters[formatBasketStoreKey(BasketStoreKeys.getters.get)]
     },
-    filteredArticles (): StoreArticle[] {
+    filteredArticles (): ArticleData[] {
       if (!this.label) {
         return []
       }
 
-      return this.articles.filter(article => article.label.includes(this.label))
+      return (this.articles ?? []).filter(article =>
+        article.label.includes(this.label) &&
+        !this.basket.articles.some(a => a.id === article.id)
+      )
     }
   },
+  mounted () {
+    this.basketStoreRepository = BasketStoreRepository.getInstance(this.$store)
+    this.basketHandler = new BasketHandler(this.basketStoreRepository)
+  },
   methods: {
-    addToBasket (article: StoreArticle) {
-      const basketStore = StoreBasketRepository.getInstance(this.$store)
-
-      BasketHandler.addArticle(basketStore, this.basket, article)
+    addToBasket (article: ArticleData) {
+      this.basketHandler?.addArticle(this.basket, article)
     },
-    deleteFromBasket (article: StoreArticle) {
-      const basketStore = StoreBasketRepository.getInstance(this.$store)
-
-      BasketHandler.removeArticle(basketStore, this.basket, article)
+    deleteFromBasket (article: ArticleData) {
+      this.basketHandler?.removeArticle(this.basket, article)
     }
   }
 })

@@ -1,7 +1,8 @@
-import { StoreBasket } from '@/internal/basket/adapters/store'
+import { BasketData } from '@/internal/basket/adapters/store'
+import { BasketStoreKeys } from '@/store/basket/keys'
 
 export default {
-  save ({ commit }: any, { basket } : { basket: StoreBasket }): void {
-    commit('save', { basket })
+  save ({ commit }: any, { basket } : { basket: BasketData }): void {
+    commit(BasketStoreKeys.mutations.save, { basket })
   }
 }

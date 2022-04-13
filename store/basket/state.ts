@@ -1,7 +1,7 @@
-import { StoreBasket } from '@/internal/basket/adapters/store'
+import { BasketData } from '@/internal/basket/adapters/store'
 
 export interface State {
-  basket: StoreBasket
+  basket: BasketData
 }
 
 export default () => {

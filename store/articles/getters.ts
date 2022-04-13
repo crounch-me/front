@@ -1,8 +1,9 @@
-import { StoreArticle } from '@/internal/article/entity'
+import { ArticleData } from '@/internal/article/data'
+import { ArticleStoreKeys } from '@/store/articles/keys'
 import { State } from '@/store/articles/state'
 
 export default {
-  all: (state: State): StoreArticle[] => {
+  [ArticleStoreKeys.getters.all]: (state: State): ArticleData[] => {
     return state.articles
   }
 }

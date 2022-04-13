@@ -1,21 +1,30 @@
-import { StoreArticle } from '@/internal/article/entity'
 import { BasketBuilder } from '@/internal/basket/builder'
-import { StoreBasket, StoreBasketRepository } from '@/internal/basket/adapters/store'
+import { BasketData } from '@/internal/basket/adapters/store'
+import { BasketRepository } from '@/internal/basket/repository'
+import { ArticleData } from '@/internal/article/data'
 
 export class BasketHandler {
-  public static addArticle (store: StoreBasketRepository, storeBasket: StoreBasket, article: StoreArticle): void {
-    const basket = BasketBuilder.fromStoreBasket(storeBasket)
+  private basketRepository: BasketRepository
+
+  public constructor (
+    basketRepository: BasketRepository
+  ) {
+    this.basketRepository = basketRepository
+  }
+
+  public addArticle (basketData: BasketData, article: ArticleData): void {
+    const basket = BasketBuilder.fromBasketData(basketData)
 
     basket.addArticle(article)
 
-    store.save(basket)
+    this.basketRepository.save(basket)
   }
 
-  public static removeArticle (store: StoreBasketRepository, storeBasket: StoreBasket, article: StoreArticle): void {
-    const basket = BasketBuilder.fromStoreBasket(storeBasket)
+  public removeArticle (basketData: BasketData, article: ArticleData): void {
+    const basket = BasketBuilder.fromBasketData(basketData)
 
     basket.removeArticle(article)
 
-    store.save(basket)
+    this.basketRepository.save(basket)
   }
 }
