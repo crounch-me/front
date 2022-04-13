@@ -1,4 +1,4 @@
-export async function get (path: string): Promise<undefined | unknown> {
+export async function get<T> (path: string): Promise<undefined | T> {
   let response: Response
 
   try {
