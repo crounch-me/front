@@ -1,14 +1,15 @@
 <script lang="ts">
-  import { all_recipes } from "./data/all_recipes";
+  import { edible_products } from "./core/data";
   import IngredientList from "./ui/IngredientList.svelte";
+  import RecipeArticle from "./ui/RecipeArticle.svelte";
 
-  const recipe = all_recipes[0];
+  const [, product] = edible_products;
 </script>
 
 <main>
   <h1>Crounch App Reborn</h1>
-  <section>
-    <h2>{recipe.name}</h2>
-    <IngredientList ingredients={recipe.ingredients} />
-  </section>
+  <sections>
+    <h2>Mes recettes</h2>
+    <RecipeArticle {product} />
+  </sections>
 </main>

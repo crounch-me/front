@@ -1,11 +1,12 @@
 <script lang="ts">
-  import type { Ingredient } from "../domain/ingredient";
+  import type { Ingredient } from "../core/domain/ingredient";
+  import IngredientListItem from "./IngredientListItem.svelte";
 
   export let ingredients: Ingredient[];
 </script>
 
 <ul>
   {#each ingredients as ingredient}
-    <li>{ingredient.quantity} {ingredient.unit} {ingredient.name}</li>
+    <IngredientListItem {ingredient} />
   {/each}
 </ul>
