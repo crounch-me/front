@@ -1,4 +1,4 @@
-import type { Recipe } from "./recipe"
+import type { Recipe } from "@/core/domain/recipe"
 
 export interface Product {
   code: string

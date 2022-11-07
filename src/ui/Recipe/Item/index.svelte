@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { Product } from "../core/domain/product";
-  import IngredientList from "./IngredientList.svelte";
+  import type { Product } from "@/core/domain/product";
+  import IngredientList from "@/ui/Ingredient/List/index.svelte";
 
   export let product: Product;
   const { recipe } = product;

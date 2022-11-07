@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { Ingredient } from "../core/domain/ingredient";
-  import IngredientListItem from "./IngredientListItem.svelte";
+  import type { Ingredient } from "@/core/domain/ingredient";
+  import IngredientListItem from "@/ui/Ingredient/List/Item/index.svelte";
 
   export let ingredients: Ingredient[];
 </script>

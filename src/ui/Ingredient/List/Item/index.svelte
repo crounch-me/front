@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Ingredient } from "../core/domain/ingredient";
+  import type { Ingredient } from "@/core/domain/ingredient";
 
   export let ingredient: Ingredient;
 

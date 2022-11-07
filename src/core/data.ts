@@ -1,4 +1,4 @@
-import type { Product } from "./domain/product"
+import type { Product } from "@/core/domain/product"
 
 export const farine: Product = {
   code: 'farine',
