@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Ingredient } from "@/core/domain/ingredient";
+  import { Link } from "svelte-navigator";
 
   export let ingredient: Ingredient;
 
@@ -8,10 +9,10 @@
 
 <li>
   {#if ingredient.product.recipe}
-    <a href="/recipe/{ingredient.product.code}">
+    <Link to="/recipes/{ingredient.product.code}">
       {ingredient.quantity}{unit}
       {ingredient.product.label}
-    </a>
+    </Link>
   {:else}
     {ingredient.quantity}{unit}
     {ingredient.product.label}
