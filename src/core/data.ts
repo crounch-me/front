@@ -40,7 +40,8 @@ export const pate_brisee: Product = {
         quantity: 8,
         unit: "cl",
       }
-    ]
+    ],
+    steps: []
   },
 }
 
@@ -52,8 +53,9 @@ export const compote: Product = {
       {
         product: pomme,
         quantity: 3
-      }
-    ]
+      },
+    ],
+    steps: []
   },
 }
 
@@ -74,6 +76,10 @@ export const tarte_aux_pommes: Product = {
         product: pomme,
         quantity: 2
       }
+    ],
+    steps: [
+      { label: 'Etaler la pâte' },
+      { label: 'Faire des trous' }
     ]
   }
 }

@@ -11,13 +11,14 @@
     <h4>Ingrédients</h4>
     <IngredientList ingredients={recipe.ingredients} />
 
-    <!-- <h4>Etapes</h4>
-    <ol>
-      <li>Etaler la pâte</li>
-      <li>Faire des trous</li>
-      <li>Mettre la compote</li>
-      <li>Mettre les pommes</li>
-    </ol> -->
+    {#if recipe?.steps.length}
+      <h4>Etapes</h4>
+      <ol>
+        {#each recipe.steps as step}
+          <li>{step.label}</li>
+        {/each}
+      </ol>
+    {/if}
   {/if}
 </section>
 

@@ -10,6 +10,4 @@
 </script>
 
 <header>{product?.label}</header>
-<section>
-  <RecipeItem {product} />
-</section>
+<RecipeItem {product} />

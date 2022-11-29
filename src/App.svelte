@@ -7,7 +7,7 @@
 
 <Router>
   <main>
-    <Route path="/" />
+    <Route path="/">Crounch App Reborn</Route>
 
     <Route path="/recipes" component={Recipes} />
     <Route path="/recipes/:code" let:params>

@@ -14,6 +14,7 @@
     height: 40px;
     line-height: 40px;
     width: 100%;
-    background-color: white;
+    text-align: center;
+    background-color: rgb(66, 60, 60);
   }
 </style>
